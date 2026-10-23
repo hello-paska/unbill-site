@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Unbill Home Wireframe v3 231026</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: low-fidelity wireframe; one centred column of numbered grey blocks, annotations in mono, links as dashed boxes naming their target tab. Single deliberate light look. */
+:root{
+  --canvas:#d9d9d6;   /* page ground, like the Figma board */
+  --block:#f3f3f1;    /* section block */
+  --fill:#e2e2df;     /* inner grey boxes */
+  --fill-2:#cfcfcb;   /* placeholders: images, video */
+  --ink:#1b1b1a;
+  --ink-2:#4a4a47;
+  --line:#b5b5b0;
+  --note:#fff4c2;     /* open points only */
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:600;line-height:1.15}
+h1{font-size:clamp(30px,5vw,48px)}
+h2{font-size:clamp(24px,3.4vw,34px)}
+h3{font-size:18px}
+p{margin:0;max-width:65ch}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ink);color:#fff;margin-inline:-16px;padding:12px 16px}
+.nav-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap}
+.logo{font-weight:600;font-size:18px;margin-right:auto;display:flex;align-items:center;gap:8px}
+.logo span{width:22px;height:22px;border-radius:5px;background:#6f6f6b;display:inline-block}
+.nav a{color:#fff;text-decoration:none;font-size:14px}
+.nav a:hover,.nav a:focus-visible{text-decoration:underline}
+.nav .btn{background:#fff;color:var(--ink);padding:6px 12px;border-radius:6px;font-weight:500}
+.wf-head{padding-top:20px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;justify-content:space-between}
+.wf-head p{color:var(--ink-2);font-size:13px}
+
+/* section blocks */
+section{background:var(--block);border-radius:10px;padding:clamp(20px,4vw,40px);display:flex;flex-direction:column;gap:20px;position:relative}
+.tag{display:flex;gap:10px;align-items:center;color:var(--ink-2)}
+.tag b{background:var(--ink);color:#fff;border-radius:4px;padding:2px 7px;font-weight:500}
+.dark{background:#2b2b29;color:#f3f3f1}
+.dark .tag{color:#c9c9c4}
+.dark .tag b{background:#f3f3f1;color:var(--ink)}
+.dark .box{background:#3a3a37;color:#f3f3f1}
+.dark .sub,.dark .box .sub{color:#d6d6d1}
+.dark .link{border-color:#9a9a94;color:#f3f3f1}
+.sub{color:var(--ink-2)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.g-wide{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+@media (max-width:760px){.g-wide{grid-template-columns:1fr}}
+.box{background:var(--fill);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.ph{background:var(--fill-2);border-radius:8px;display:grid;place-items:center;color:var(--ink-2);min-height:120px;text-align:center;padding:12px}
+.big{font-size:clamp(28px,4vw,40px);font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.dark .eyebrow{color:#d6d6d1}
+.center{text-align:center;align-items:center}
+.center p{margin-inline:auto}
+
+/* link boxes */
+.link{display:inline-flex;flex-direction:column;gap:2px;border:1.5px dashed var(--ink-2);border-radius:8px;padding:9px 14px;text-decoration:none;color:var(--ink);align-self:flex-start;font-weight:500;font-size:14px}
+.link small{font-family:var(--mono);font-size:11px;font-weight:400;opacity:.8}
+.link:hover,.link:focus-visible{background:rgba(0,0,0,.06);outline:none}
+.link.solid{border-style:solid;background:var(--ink);color:#fff}
+.dark .link.solid{background:#f3f3f1;color:var(--ink)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* notes */
+.note{background:var(--note);color:var(--ink);border-radius:6px;padding:8px 12px;font-size:13px;max-width:none}
+.note::before{content:"Open point · ";font-family:var(--mono);font-size:11px;font-weight:500}
+
+/* comparison */
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid #55554f}
+th{font-weight:500;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.tbl{overflow-x:auto}
+
+/* features */
+.feat{display:flex;flex-direction:column;gap:4px}
+.feat .eyebrow{font-size:10px}
+.soon{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink-2);border-radius:20px;padding:1px 8px;align-self:flex-start}
+
+/* timeline */
+.tl{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));position:relative}
+.tl .box{border-top:4px solid var(--line)}
+.tl .now{border-top-color:var(--ink)}
+ul{margin:0;padding-left:18px}
+li{margin:2px 0}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;display:flex;gap:14px;align-items:baseline;list-style:none;font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary .mono{min-width:22px}
+summary::after{content:"+";margin-left:auto;font-family:var(--mono)}
+details[open] summary::after{content:"–"}
+details p{padding:8px 0 0 36px;color:var(--ink-2)}
+
+/* footer */
+footer{background:var(--ink);color:#f3f3f1;border-radius:10px;padding:clamp(20px,4vw,40px);display:flex;flex-direction:column;gap:24px}
+footer .cols{display:grid;gap:20px;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr))}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr}footer .cols>div:first-child{grid-column:1/-1}}
+footer a{color:#f3f3f1;display:block;text-decoration:none;font-size:14px;margin:3px 0}
+footer a:hover,footer a:focus-visible{text-decoration:underline}
+footer .eyebrow{color:#b9b9b4}
+footer .tag{color:#c9c9c4}
+footer .tag b{background:#f3f3f1;color:var(--ink)}
+.fine{font-size:12px;color:#c9c9c4;max-width:80ch}
+
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+[hidden]{display:none!important}
+.logo .wm{background:none;width:auto;height:auto;border-radius:0}
+</style>
+<style>
+/* v3 brand layer: one-pager visual direction (SF Pro, blue to cyan to green gradient headlines, blue fade = Unbill, red fade = problem, green = households, blue = businesses, yellow = VA). Wireframe annotations (block tags, open points) stay in mono. Single light theme by choice. */
+:root{
+  --canvas:#eef1f7; --block:#fbfcfe; --fill:#ffffff; --fill-2:#e4eafc;
+  --ink:#0b0d14; --ink-2:#3d4352; --line:#e3e7f0; --note:#fff4c2;
+  --blue:#073dd6; --cyan:#4ab8e0; --green:#27c446; --red:#e5383b; --yellow:#e0b100;
+  --blue-fade:#e4eafc; --red-fade:#fde8e8; --green-fade:#e2f8e7; --yellow-fade:#fbf3d9;
+  --grad:linear-gradient(90deg,#073dd6 0%,#4ab8e0 55%,#27c446 100%);
+  --sans:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+body{-webkit-font-smoothing:antialiased;line-height:1.45}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em}
+h1,h2{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+h1{font-size:clamp(34px,5.4vw,56px);line-height:1.04}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1}
+h2 span,h1 span{-webkit-text-fill-color:transparent}
+.box h2{font-size:clamp(22px,2.6vw,28px)}
+
+/* nav */
+.nav{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);color:var(--ink);border-bottom:1px solid var(--line)}
+.nav a{color:var(--ink)}
+.nav .logo{color:var(--ink)}
+.nav .mark path,.wf-logo .mark path{stroke:var(--ink)}
+.nav .btn{background:var(--blue);color:#fff;border-radius:999px;padding:7px 16px;font-weight:600}
+.nav .ext::after{content:" ↗";font-size:.85em}
+.logo .wm{font-weight:700;letter-spacing:-.02em}
+.mark{width:22px;height:22px}
+
+/* blocks */
+section{background:var(--block);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 40px -24px #0b0d1430}
+.tag b{background:var(--ink);font-family:var(--mono)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.05em;font-weight:600;color:var(--ink-2)}
+.box{background:var(--fill);border:1px solid var(--line);border-radius:16px}
+.ph{background:linear-gradient(160deg,var(--blue-fade),#fff 90%);border:1px dashed #b9c8f2;border-radius:14px;color:var(--ink-2)}
+.big,.price{font-weight:700;letter-spacing:-.03em;color:var(--blue)}
+.sub{color:var(--ink-2)}
+hr{border-top-color:var(--line)!important}
+
+/* fades replace the dark lo-fi blocks */
+section.fade{background:linear-gradient(160deg,var(--blue-fade),#fbfcfe 70%);border-color:#cfdaf7}
+section.fade.red{background:linear-gradient(160deg,var(--red-fade),#fbfcfe 70%);border-color:#f6d3d3}
+section.fade.red .big{color:var(--red)}
+section.deep{background:linear-gradient(150deg,#073dd6 0%,#2a7fdc 55%,#3fb8c9 100%);color:#fff;border:0}
+section.deep h2,section.deep h1{background:none;-webkit-text-fill-color:#fff;color:#fff}
+section.deep .sub,section.deep .eyebrow,section.deep .tag{color:#e8efff}
+section.deep .tag b{background:#fff;color:var(--blue)}
+section.deep .box{background:#fff;color:var(--ink);border:0}
+section.deep .box .sub,section.deep .box .eyebrow{color:var(--ink-2)}
+section.deep .box[style*="transparent"]{color:#fff}
+section.deep .box[style*="transparent"] .sub{color:#e8efff}
+section.deep .box[style*="transparent"] .link{border-color:#ffffffcc;color:#fff}
+section.deep .box[style*="transparent"] .link small{color:#e8efff}
+section.deep .link{border-color:#ffffffaa;color:#fff}
+section.deep .box .link{border-color:var(--blue);color:var(--blue)}
+section.deep th,section.deep td{border-bottom-color:var(--line)}
+.box.green{background:linear-gradient(160deg,var(--green-fade),#fff 80%);border-color:#bfe9c9}
+.box.blue{background:linear-gradient(160deg,var(--blue-fade),#fff 80%);border-color:#cfdaf7}
+.box.yellow{background:linear-gradient(160deg,var(--yellow-fade),#fff 80%);border-color:#f0e2b0}
+.box.red{background:linear-gradient(160deg,var(--red-fade),#fff 80%);border-color:#f6d3d3}
+
+/* links: dashed boxes stay (they are wireframe link markers), now in brand blue */
+.link{border:1.5px dashed var(--blue);color:var(--blue);border-radius:10px;font-weight:600}
+.link small{color:var(--ink-2)}
+.link.solid{border-style:solid;background:var(--blue);color:#fff;border-color:var(--blue)}
+.link.solid small{color:#e8efff}
+.link.ext small::after{content:" · opens in new tab ↗"}
+.center .link{align-self:center}
+
+.soon{font-family:var(--sans);font-weight:700;font-size:10px;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:2px 9px}
+.plus-badge{background:var(--blue)}
+ul.tick li::before{content:"✓ ";color:var(--green);font-family:var(--sans);font-weight:700}
+.chips a{background:#fff;border:1px solid #cfdaf7;color:var(--blue);font-weight:600}
+.bubble.me{background:var(--blue)}
+.bubble.ai{border:1px solid var(--line)}
+.verdict{border:1px solid var(--line)}
+
+/* segment colour code */
+.seg-d{color:#169a33}.seg-b{color:var(--blue)}.seg-v{color:#a37f00}
+
+/* principle callout (Home 06) */
+.principle{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:stretch}
+@media (max-width:760px){.principle{grid-template-columns:1fr}}
+.principle ul{display:flex;flex-direction:column;gap:8px;padding-left:0;list-style:none}
+.principle li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+.principle li i{font-style:normal;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:12px;display:grid;place-items:center}
+.offer{background:linear-gradient(160deg,var(--green-fade),#fff 80%)!important;border-color:#bfe9c9!important}
+.offer .big{color:#169a33}
+
+/* SOC 2 status label: plain status, no seal */
+.status{display:inline-flex;align-items:stretch;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden;font-weight:700;font-size:14px;align-self:flex-start}
+.status span{padding:6px 14px}
+.status span+span{background:#fff4c2;border-left:1.5px solid var(--ink);display:flex;align-items:center;gap:7px}
+.status span+span::before{content:"";width:8px;height:8px;border-radius:50%;background:#e0a100}
+.center .status{align-self:center}
+
+/* blog */
+.thread{display:flex;flex-direction:column;gap:8px}
+.thread .meta{font-size:12px;color:var(--ink-2);display:flex;gap:12px;flex-wrap:wrap}
+.filters button{font:inherit;font-size:13px;border:1px solid #cfdaf7;background:#fff;color:var(--blue);border-radius:999px;padding:5px 12px;font-weight:600}
+.filters button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field input,.field textarea,.field select{font:inherit;padding:9px 12px;border:1px solid #cfdaf7;border-radius:10px;background:#fff}
+
+/* footer */
+footer{background:var(--ink)}
+footer .mark path{stroke:#fff}
+footer a.ext::after{content:" ↗"}
+.wf-head .mono{color:var(--ink-2)}
+.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.grid.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.grid.g-wide{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+@media (max-width:760px){.grid.g-wide{grid-template-columns:1fr}}
+.nav .logo .wm,.wf-logo .wm{color:var(--ink)}
+footer .logo .wm{color:#fff}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-in">
+    <a class="logo" href="index.html" aria-label="Unbill home"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M17 6V56a33 33 0 0 0 66 0V50" fill="none" stroke="#FFFFFF" stroke-width="18"/><polygon points="74,6 92,6 92,26 74,44" fill="#0B3FD9"/></svg><span class="wm">Unbill</span></a>
+    <a href="households.html">Households</a>
+    <a href="businesses.html">Businesses</a>
+    <a href="membership.html">Membership</a>
+    <a href="about.html">About</a>
+    <a href="resources.html">Resources</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a class="ext" href="https://trust.unbill.ai" target="_blank" rel="noopener">Trust Center</a>
+    <a class="btn" href="add.html#b1">Add Unbill</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="wf-head">
+    <span class="mono">PAGE 1 · HOME / LANDING · WIREFRAME · v3 · 23 Oct 2026 · <a href="households.html" style="color:inherit">Households →</a> · <a href="businesses.html" style="color:inherit">Businesses →</a> · <a href="membership.html" style="color:inherit">Membership →</a> · <a href="about.html" style="color:inherit">About →</a> · <a href="resources.html" style="color:inherit">Resources →</a> · <a href="blog.html" style="color:inherit">Blog →</a> · <a href="contact.html" style="color:inherit">Contact →</a> · <a href="add.html#b1" style="color:inherit">Add Unbill →</a></span>
+    <p>Dashed boxes are links and name the tab they open. Yellow notes are open points to close before high-fi.</p>
+  </div>
+
+  <!-- 01 HERO -->
+  <section class="fade center" id="b1">
+    <div class="tag mono"><b>01</b> Hero and audience split</div>
+    <span class="logo wf-logo" style="font-size:28px;gap:12px"><svg class="mark" style="width:40px;height:40px" viewBox="0 0 100 100" aria-hidden="true"><path d="M17 6V56a33 33 0 0 0 66 0V50" fill="none" stroke="#FFFFFF" stroke-width="18"/><polygon points="74,6 92,6 92,26 74,44" fill="#0B3FD9"/></svg><span class="wm">Unbill</span></span>
+    <span class="eyebrow">AI healthcare advocate</span>
+    <h1>Your AI healthcare advocate.<br>Always on.</h1>
+    <p class="sub">Unbill steps in when healthcare leaves you alone with the paperwork, the deadlines and the fear of what you actually owe.</p>
+    <h3 style="margin-top:12px">Who are we helping today?</h3>
+    <div class="grid g2" style="width:100%;text-align:left">
+      <a class="box" href="households.html" style="text-decoration:none;color:inherit">
+        <h2>Households</h2>
+        <p class="sub">Your personal healthcare advocate. You get on with life; we handle the bills.</p>
+        <span class="link">Unbill for households<small>→ Households tab</small></span>
+      </a>
+      <a class="box" href="businesses.html" style="text-decoration:none;color:inherit">
+        <h2>Businesses<br><span style="font-weight:400;font-size:.7em">and benefits brokers</span></h2>
+        <p class="sub">For self-insured and fully insured employers, and the brokers who advise them. Billing support for your whole workforce.</p>
+        <span class="link">Unbill for businesses<small>→ Businesses tab</small></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 02 NO SUCCESS FEE -->
+  <section class="deep" id="b2">
+    <div class="tag mono"><b>02</b> Pricing thesis: keep 100%</div>
+    <h2>Get 100% of your billing errors back.</h2>
+    <div class="grid g-wide">
+      <div class="box" style="background:transparent;padding:0">
+        <p class="sub">One flat membership. No success fee. Every dollar we recover stays with you.</p>
+        <p class="sub">Unbill is AI native, so it watches your bills 24/7 at a fraction of the cost of a human negotiator. That is why we can charge a flat fee.</p>
+        <a class="link" href="about.html#b3">About our AI and pricing thesis<small>→ About · 03 and 04</small></a>
+      </div>
+      <div class="box">
+        <span class="eyebrow">Example case</span>
+        <h3>Stacey's $10,000 hospital bill</h3>
+        <p class="sub">Unbill checked her bill against her plan and her EOB, found $3,000 billed in error and supported her appeal. Resolved in 3 months.</p>
+        <div class="tbl">
+          <table>
+            <thead><tr><th></th><th>Fee</th><th>Stacey keeps</th></tr></thead>
+            <tbody>
+              <tr><td>Unbill membership</td><td>$45</td><td>$3,000</td></tr>
+              <tr><td>Typical bill negotiator (20% success fee)</td><td>$600</td><td>$2,400</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="note">$45 = 3 months of Core at $15/month, so the figure holds. Confirm Stacey is a real Phase 1 case or label her as illustrative.</p>
+  </section>
+
+  <!-- 03 STORY -->
+  <section class="fade red" id="b3">
+    <div class="tag mono"><b>03</b> The problem, through the founder story</div>
+    <h2>A diagnosis is hard enough.<br>Then comes the paperwork.</h2>
+    <p class="sub">Expert wording, codes nobody explains and bills you can't check. That is how a health problem becomes a money problem.</p>
+    <div class="grid g-wide" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
+      <div class="box">
+        <span class="eyebrow">A Friday call, a four-day weekend</span>
+        <p>My wife and I were driving home from Space Camp on a Friday afternoon, with a car full of kids, when we got the call: her breast biopsy was positive for cancer. We were told to call her doctor on Tuesday.</p>
+        <p>For four days we searched the internet for answers. We pieced together fragments of medical information, but nothing told us what the diagnosis would do to us financially.</p>
+        <p>The system holds the records, the codes, the rules and the leverage. Patients and families navigate the pressure in the dark. Unbill was built to shift that balance.</p>
+        <p class="sub mono">Brian Pearson, founder</p>
+      </div>
+      <div class="box" style="justify-content:space-between">
+        <div class="feat">
+          <span class="eyebrow">What families face</span>
+          <ul>
+            <li>Answers scattered across Reddit and forums</li>
+            <li>Expert jargon and billing codes</li>
+            <li>Deadlines nobody explains</li>
+          </ul>
+        </div>
+        <div class="feat">
+          <span class="eyebrow">Where it ends up</span>
+          <div class="big">~100M</div>
+          <p>Americans carry medical debt, often because nobody stood beside them from the diagnosis to the bill.</p>
+          <p class="sub mono">KFF, 2022; via KHN/NPR</p>
+        </div>
+        <a class="link" href="about.html#b2">Our story<small>→ About · 02</small></a>
+      </div>
+    </div>
+    <p class="note">The 100 million figure moved out of the headline: Brian's story is about facing a diagnosis without guidance, and debt is where that ends up. "100 million" is KHN/NPR's extrapolation from KFF's 2022 survey (about 41% of adults); the safer wording is "4 in 10 American adults carry medical debt". Pick one and cite it in the footnote. The "debt because nobody stood beside them" link is our framing, not Brian's words; confirm he is comfortable with it.</p>
+  </section>
+
+  <!-- 04 FINDINGS -->
+  <section class="fade red" id="b4">
+    <div class="tag mono"><b>04</b> Findings: what goes wrong, what we confirmed, what Unbill does</div>
+    <div>
+      <h2>Three things nobody helps you with.</h2>
+      <p class="sub">We tested each one with real households in Phase 1 and Phase 2. Here is what we confirmed, and what Unbill does about it.</p>
+    </div>
+    <div class="grid">
+      <div class="box">
+        <span class="eyebrow">1 · You can't see what your plan covers</span>
+        <div class="big">[x]%</div>
+        <p>[National figure: share of people who don't know what their plan covers.]</p>
+        <p class="sub mono">[Source to confirm]</p>
+        <hr style="border:0;border-top:1px solid #55554f;width:100%">
+        <span class="eyebrow">What we confirmed</span>
+        <p>[Phase 1 and 2 finding on coverage confusion.]</p>
+        <hr style="border:0;border-top:1px solid #55554f;width:100%">
+        <span class="eyebrow">We answer your question</span>
+        <p>Ask Unbill explains your plan and any term in plain words, and cites its source.</p>
+        <a class="link solid" href="membership.html#b2">Try Ask Unbill<small>→ Membership · household plans</small></a>
+      </div>
+      <div class="box">
+        <span class="eyebrow">2 · You can't tell if the bill has mistakes</span>
+        <div class="big">45%</div>
+        <p>of insured working-age adults were billed for care they thought was free or covered.</p>
+        <p class="sub mono">Commonwealth Fund, 2024</p>
+        <hr style="border:0;border-top:1px solid #55554f;width:100%">
+        <span class="eyebrow">What we confirmed · Phase 1</span>
+        <p>13 households, 49 documents, $49k in bills analyzed; 46% eligible to claim.</p>
+        <span class="eyebrow">Phase 2</span>
+        <p>[x] households, $[x] in bills analyzed.</p>
+        <hr style="border:0;border-top:1px solid #55554f;width:100%">
+        <span class="eyebrow">We analyze and find the mistakes</span>
+        <p>Unbill matches your bill against your plan and your EOB, and flags what doesn't add up.</p>
+        <a class="link" href="households.html#b4">Bill and denial review<small>→ Households · 04</small></a>
+      </div>
+      <div class="box">
+        <span class="eyebrow">3 · You don't push back</span>
+        <div class="big">&lt;1%</div>
+        <p>of denied in-network HealthCare.gov claims were appealed internally by consumers.</p>
+        <p class="sub mono">KFF analysis of ACA Marketplace claims data</p>
+        <hr style="border:0;border-top:1px solid #55554f;width:100%">
+        <span class="eyebrow">What we confirmed</span>
+        <p>Phase 2 tested appeals end to end: [x] appeals filed, $[x] recovered.</p>
+        <hr style="border:0;border-top:1px solid #55554f;width:100%">
+        <span class="eyebrow">We claim</span>
+        <p>Unbill drafts the appeal and tracks it from prepared to signed to sent.</p>
+        <a class="link" href="households.html#b6">Appeals<small>→ Households · 06</small></a>
+      </div>
+    </div>
+    <p class="note">The three columns follow the path ask, check, claim. The coverage column has no sourced national figure yet and no Phase 1 or 2 number; confirm what exists with Brian before publishing. The appeal figure is from KFF's analysis of HealthCare.gov claims; confirm the year and exact wording. The 45% measures people billed for care they believed was covered, not confirmed errors per bill, so the wording stays as written. Fill the Phase 2 results once they are final.</p>
+  </section>
+
+  <!-- 05 EMPLOYER BAND -->
+  <section class="fade" id="b5">
+    <div class="tag mono"><b>05</b> Employer bridge</div>
+    <div class="grid g-wide" style="grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:center">
+      <h2>Employer? See what Unbill does for you.</h2>
+      <div class="box">
+        <div class="big">67%</div>
+        <p>of covered US workers are in self-funded plans, where every billing error is paid from the employer's own funds.</p>
+        <p class="sub mono">KFF Employer Health Benefits Survey</p>
+        <a class="link" href="businesses.html">What your plan loses / Unbill for businesses<small>→ Businesses tab</small></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 PRODUCT -->
+  <section id="b6">
+    <div class="tag mono"><b>06</b> Product in brief</div>
+    <div class="row" style="justify-content:space-between;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:8px;flex:1 1 520px;min-width:0">
+        <h2>So we built Unbill: the AI that puts you in control of your healthcare.</h2>
+        <p class="sub" style="font-size:18px;color:var(--ink)"><b>Built around one principle: Unbill goes with you.</b> It is your advocate, not a perk of your current job.</p>
+      </div>
+      <a class="link" href="households.html#b2">See the full product demo<small>→ Households · 02</small></a>
+    </div>
+    <div class="principle">
+      <div class="box blue">
+        <span class="eyebrow">Why AI, and why it follows you</span>
+        <ul>
+          <li><i>1</i><div><b>Every claim, not just the big ones.</b> <span class="sub">Software reads every bill, EOB and denial, so nothing is skipped because it is too small to be worth a human's time.</span></div></li>
+          <li><i>2</i><div><b>Any time, anywhere.</b> <span class="sub">Ask a question at midnight or upload a letter from your phone; Unbill is on whenever the paperwork lands.</span></div></li>
+          <li><i>3</i><div><b>For as long as you need it.</b> <span class="sub">Your cases, documents and history stay yours. Change job, change plan, change state: Unbill keeps watching.</span></div></li>
+          <li><i>4</i><div><b>Not just this job's benefits package.</b> <span class="sub">Got Unbill through your employer? When you leave, your account comes with you and moves to a household plan.</span></div></li>
+        </ul>
+      </div>
+      <div class="box offer" style="justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span class="eyebrow">Between jobs</span>
+          <div class="big">60 days free</div>
+          <h3>Left a job where your employer paid for Unbill?</h3>
+          <p class="sub">Keep your full account free for 60 days while you land your next role. Your cases and appeals keep moving; nothing resets.</p>
+        </div>
+        <a class="link" href="businesses.html#b6">How it works for employers<small>→ Businesses · 06</small></a>
+      </div>
+    </div>
+    <span class="eyebrow">Live today</span>
+    <div class="grid">
+      <div class="box feat"><span class="eyebrow">Coverage</span><h3>Know your protection</h3><p class="sub">Balances, claims and deductible tracking in one view.</p><a class="link" href="households.html#b7">Coverage<small>→ Households · 07</small></a></div>
+      <div class="box feat"><span class="eyebrow">Cases and documents</span><h3>Know where you stand</h3><p class="sub">Matches the provider's bill against your EOB and separates what the records prove from what is still unverified.</p><a class="link" href="households.html#b3">Cases<small>→ Households · 03</small></a></div>
+      <div class="box feat"><span class="eyebrow">Ask Unbill</span><h3>Get plain answers</h3><p class="sub">Ask about your case or any term, like deductible versus coinsurance. Every answer cites its source.</p><a class="link" href="households.html#b5">Ask Unbill<small>→ Households · 05</small></a></div>
+      <div class="box feat"><span class="eyebrow">Appeals</span><h3>Fight the real problem</h3><p class="sub">Finds billing errors and denials, drafts the appeal, and tracks it from prepared to signed to sent.</p><a class="link" href="households.html#b6">Appeals<small>→ Households · 06</small></a></div>
+    </div>
+    <span class="eyebrow">Coming next</span>
+    <div class="grid">
+      <div class="box feat"><span class="soon">Soon</span><h3>Watch</h3><p class="sub">Always on: alerts when a provider, lab or vendor has an incident that could touch your records or bills.</p><a class="link" href="households.html#b8">Unbill Watch<small>→ Households · 08</small></a></div>
+      <div class="box feat"><span class="soon">Soon</span><h3>Plan Care</h3><p class="sub">Before care: compare likely costs and options before you book.</p><a class="link" href="households.html#b9">Plan Care<small>→ Households · 09</small></a></div>
+    </div>
+    <p class="note">"Goes with you" moved out of Coming next: it is the core principle and live today, per Brian. The 60 days free is Brian's idea ("60 to 90 days, not set on that"); 60 used as agreed with Thibaut. To confirm with Brian: who qualifies (any employee who leaves, or involuntary departures only), what happens on day 61 (prompt to Core or Plus, or account frozen), and whether the employer or Unbill carries the cost.</p>
+  </section>
+
+  <!-- 07 FEEDBACK -->
+  <section id="b7">
+    <div class="tag mono"><b>07</b> Feedback · no link</div>
+    <h2>Real people. Real results.</h2>
+    <div class="grid">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="box"><span class="mono">Name, State · ★★★★★</span><p class="sub">Short quote</p></div>
+        <div class="ph" style="min-height:260px">Video testimonial</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="ph" style="min-height:260px">Video testimonial</div>
+        <div class="box"><span class="mono">Name, State · ★★★★★</span><p class="sub">Short quote</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="box"><span class="mono">Name, State · ★★★★★</span><p class="sub">Short quote</p></div>
+        <div class="ph" style="min-height:260px">Video testimonial</div>
+      </div>
+    </div>
+    <p class="note">The reference layout is a competitor's (Granted). Needs Phase 1 households willing to record a video or give a named quote.</p>
+  </section>
+
+  <!-- 08 COMMUNITY -->
+  <section class="fade center" id="b8">
+    <div class="tag mono"><b>08</b> Community bridge</div>
+    <h2>Want to share your story with our community?</h2>
+    <p class="sub">One place where people facing the same bills, denials and collectors help each other: what worked, what to watch for, who to call.</p>
+    <a class="link solid" href="blog.html">Join the community blog<small>→ Blog tab</small></a>
+  </section>
+
+  <!-- 09 PRICING RECAP -->
+  <section id="b9">
+    <div class="tag mono"><b>09</b> Pricing recap</div>
+    <h2>One price. No cut of your savings.</h2>
+    <div class="grid" style="grid-template-columns:minmax(0,5fr) minmax(0,4fr) minmax(0,1fr);align-items:stretch">
+      <div class="box green">
+        <span class="eyebrow seg-d">Households</span>
+        <div class="grid g2" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h3>Core</h3>
+            <div class="big" style="color:#169a33">$15<span style="font-size:.45em;font-weight:500">/month</span></div>
+            <p class="sub">or $135/year</p>
+            <a class="link" href="households.html#b11">See what's in Core<small>→ Households · 11</small></a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h3>Plus</h3>
+            <div class="big" style="color:#169a33">$30<span style="font-size:.45em;font-weight:500">/month</span></div>
+            <p class="sub">or $270/year</p>
+            <a class="link" href="households.html#b11">See what's in Plus<small>→ Households · 11</small></a>
+          </div>
+        </div>
+      </div>
+      <div class="box blue">
+        <span class="eyebrow seg-b">Businesses</span>
+        <div class="big">$3 to $6</div>
+        <p class="sub">Per employee per month</p>
+        <a class="link" href="businesses.html#b6">What's in it<small>→ Businesses · 06</small></a>
+      </div>
+      <a class="box yellow" href="contact.html#government" style="text-decoration:none;color:inherit;justify-content:center;padding:12px">
+        <span class="eyebrow seg-v">Gov and VA</span>
+        <span class="sub" style="font-size:13px">Custom pricing</span>
+        <span class="link" style="font-size:12px;padding:6px 8px">Contact<small>→ Contact</small></span>
+      </a>
+    </div>
+    <p class="note">Simplified: prices only, no feature lists; each link teases the detail and lands on the pricing block of the Households or Businesses tab. The $3 to $6 PEPM range stays as is until Brian answers on public PEPM (range he is comfortable with, a ceiling such as "up to $10", or "a few dollars PEPM"). Gov and VA keeps its 10% column and its Contact route.</p>
+  </section>
+
+  <!-- 10 TOOLKIT -->
+  <section id="b10">
+    <div class="tag mono"><b>10</b> Patient defense toolkit</div>
+    <div class="row" style="justify-content:space-between">
+      <h2>Your patient defense toolkit</h2>
+      <a class="link" href="resources.html#b2">More resources<small>→ Resources · 02</small></a>
+    </div>
+    <div class="ph" style="min-height:70px">Animated preview: cards cycle through the tools below</div>
+    <div class="grid">
+      <div class="box feat"><span class="soon">Tool</span><h3>Charity Care Screener</h3><p class="sub">See if financial assistance may apply.</p></div>
+      <div class="box feat"><span class="soon">Tool</span><h3>Plan the Cost of Care</h3><p class="sub">Compare likely costs before you book.</p></div>
+      <div class="box feat"><span class="soon">Tool</span><h3>Prepare an Appeal</h3><p class="sub">Turn a denial into an evidence-based appeal draft.</p></div>
+      <div class="box feat"><span class="soon">Soon</span><h3>Audit a Medical Bill</h3><p class="sub">Check the charges, the codes and what you owe.</p></div>
+      <div class="box feat"><span class="soon">Soon</span><h3>Challenge a Surprise Bill</h3><p class="sub">Check if federal protections apply.</p></div>
+      <div class="box feat"><span class="soon">Soon</span><h3>Get VA Representation Help</h3><p class="sub">Find the right VA route to appoint an advocate.</p></div>
+      <div class="box feat"><span class="soon">Soon</span><h3>Itemized Bill Request</h3><p class="sub">Ask a provider for the line-by-line bill.</p></div>
+      <div class="box feat"><span class="soon">Soon</span><h3>Debt Validation Request</h3><p class="sub">Make a collector prove the debt first.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 FAQ -->
+  <section id="b11">
+    <div class="tag mono"><b>11</b> FAQ · no link</div>
+    <h2>Frequently asked questions</h2>
+    <div>
+      <details><summary><span class="mono">01</span>What is Unbill and how can it help me?</summary><p>Draft: An AI healthcare advocate that reviews your bills against your plan and EOB, explains what you owe and helps you dispute what you don't.</p></details>
+      <details><summary><span class="mono">02</span>How is Unbill different from medical bill negotiation services?</summary><p>Draft: Negotiators usually take 20 to 35% of what they save you. Unbill charges a flat membership, so you keep 100%.</p></details>
+      <details><summary><span class="mono">03</span>Can Unbill manage healthcare disputes for my whole family?</summary><p>Draft: Yes. One household membership, with a separate private profile and cases for each person.</p></details>
+      <details><summary><span class="mono">04</span>What kinds of documents can I upload?</summary><p>Draft: Bills, itemized bills, EOBs, plan documents, denial letters and collection notices.</p></details>
+      <details><summary><span class="mono">05</span>Why does Unbill cross-reference several records instead of just my bill?</summary><p>Draft: A bill alone doesn't show what insurance paid or should have paid. Errors show up when the bill, the EOB and your plan disagree.</p></details>
+      <details><summary><span class="mono">06</span>How is Unbill different from ChatGPT Health?</summary><p>Draft: Answer to confirm with Brian.</p></details>
+      <details><summary><span class="mono">07</span>What happens when an error or discrepancy is flagged?</summary><p>Draft: Unbill explains the issue, cites the evidence and prepares the next step: a request, a dispute or an appeal.</p></details>
+      <details><summary><span class="mono">08</span>What billing discrepancies does Unbill detect?</summary><p>Draft: Duplicate charges, upcoding, wrong codes, charges your plan should have covered and surprise out-of-network bills.</p></details>
+      <details><summary><span class="mono">09</span>How does Unbill protect my medical data?</summary><p>Draft: Health records go through a protected, HIPAA-eligible AI path covered by a Business Associate Agreement. Our SOC 2 Type II audit is in progress; see our <a class="ext" href="https://trust.unbill.ai" target="_blank" rel="noopener">Trust Center</a> for our security practices and audit status. [Encryption detail to confirm with Brian.]</p></details>
+      <details><summary><span class="mono">10</span>How much does Unbill cost?</summary><p>Draft: Households from $135 a year. Employers from $3 per employee per month. No success fee.</p></details>
+      <details><summary><span class="mono">11</span>I want to partner with Unbill or offer it to my members. How do I get in touch?</summary><p>Draft: Employers and brokers can request a quote or partner terms on <a href="add.html#employer">Add Unbill</a>. For anything else, use the <a href="contact.html">contact form</a>.</p></details>
+    </div>
+  </section>
+
+  <!-- 12 SECURITY -->
+  <section class="fade center" id="b12">
+    <div class="tag mono"><b>12</b> Security · Trust Center</div>
+    <h2>Built with security in mind</h2>
+    <div class="status" role="img" aria-label="SOC 2 Type II, audit in progress"><span>SOC 2 Type II</span><span>Audit in progress</span></div>
+    <p class="sub">Unbill’s SOC 2 Type II audit is in progress. Visit our Trust Center to learn more about our security practices and audit status.</p>
+    <a class="link solid ext" href="https://trust.unbill.ai" target="_blank" rel="noopener">Visit our Trust Center<small>→ trust.unbill.ai</small></a>
+    <p class="note">Copy as supplied by Vanta. The status label is a plain two-part label, not a SOC 2 seal, with "Audit in progress" at full size. Vanta's label uses a long dash between the two parts; here the two parts are split visually, so the wording reads complete. Update this block once the auditor issues the report (the observation period ends 19 Jan 2027; that is not a report date).</p>
+  </section>
+
+  <!-- 13 FOOTER -->
+  <footer id="b13">
+    <div class="tag mono"><b>13</b> Footer</div>
+    <div class="cols">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a class="logo" href="index.html" aria-label="Unbill home"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M17 6V56a33 33 0 0 0 66 0V50" fill="none" stroke="#FFFFFF" stroke-width="18"/><polygon points="74,6 92,6 92,26 74,44" fill="#0B3FD9"/></svg><span class="wm">Unbill</span></a>
+        <h3 style="font-weight:500;font-size:20px">One private place to connect the evidence and prepare your next move.</h3>
+        <p class="fine">Unbill helps households organize a healthcare case with software-speed evidence review and no percentage-of-savings fee.</p>
+      </div>
+      <div><span class="eyebrow">Company</span><a href="about.html#b2">Our story</a><a href="#b11">FAQ</a><a href="resources.html">Resources</a><a href="blog.html">Blog</a><a href="businesses.html">Partnerships</a><a href="contact.html">Contact</a><a class="ext" href="https://trust.unbill.ai" target="_blank" rel="noopener">Trust Center</a></div>
+      <div><span class="eyebrow">Legal</span><a href="#privacy">Privacy</a><a href="#terms">Terms</a></div>
+      <div><span class="eyebrow">Access</span><a href="#signin">Sign in</a><a href="membership.html">Membership</a><a href="add.html#b1">Add Unbill</a></div>
+    </div>
+    <p class="fine">Unbill provides billing audit assistance and administrative document preparation. Unbill is not a law firm or healthcare provider and does not provide legal or medical advice.</p>
+    <div class="row" style="justify-content:space-between"><span class="fine">© 2026 Unbill</span><span class="mono" style="color:#c9c9c4">PUBLIC RELEASE</span></div>
+  </footer>
+</div>
+<script>
+/* Page arrival: new visits open at the top (or the linked block); the browser Back button returns to where you were. */
+(function(){
+  try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+  var page=location.pathname.split('/').pop()||'index.html', key='unbill-scroll:'+page;
+  function save(){ try{ sessionStorage.setItem(key, String(window.pageYOffset)); }catch(e){} }
+  function isBack(){
+    try{ var n=performance.getEntriesByType('navigation')[0]; if(n) return n.type==='back_forward'; }catch(e){}
+    try{ return performance.navigation && performance.navigation.type===2; }catch(e){ return false; }
+  }
+  function land(){
+    if(isBack()){
+      var y=null; try{ y=sessionStorage.getItem(key); }catch(e){}
+      if(y!==null){ window.scrollTo(0, parseInt(y,10)||0); return; }
+    }
+    var id=(location.hash||'').slice(1), el=id && document.getElementById(id);
+    if(el){ var nav=document.querySelector('.nav'), off=nav?nav.offsetHeight+12:0;
+      window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - off); }
+    else window.scrollTo(0,0);
+  }
+  window.addEventListener('load', land);
+  // Pages restored from the browser's back-forward cache keep their position: nothing to do.
+  var t; window.addEventListener('scroll', function(){ clearTimeout(t); t=setTimeout(save,150); }, {passive:true});
+  window.addEventListener('pagehide', save);
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a[href]'); if(!a) return;
+    save();
+    var href=a.getAttribute('href');
+    if(href===page || a.getAttribute('aria-current')==='page'){
+      e.preventDefault(); window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
