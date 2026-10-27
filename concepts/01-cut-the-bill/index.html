@@ -28,7 +28,18 @@
       <a href="#">Businesses</a>
       <a href="#">Membership</a>
       <a href="#">About</a>
-      <a href="#">Resources <svg class="icon"><use href="#i-chevron"/></svg></a>
+      <div class="dropdown">
+        <button class="dropdown__toggle" type="button" aria-expanded="false" aria-controls="resources-menu">
+          Resources <svg class="icon"><use href="#i-chevron"/></svg>
+        </button>
+        <div class="dropdown__menu" id="resources-menu">
+          <ul>
+            <li><a href="#"><b>Blog</b><span>Stories, news and product updates</span></a></li>
+            <li><a href="#"><b>Learning hub</b><span>Plain-English guides to bills, EOBs and appeals</span></a></li>
+            <li><a href="#"><b>Trust center</b><span>How we protect your health data</span></a></li>
+          </ul>
+        </div>
+      </div>
       <a href="#">Partner with us</a>
     </nav>
     <div class="nav__pill nav__cta">
@@ -158,6 +169,24 @@
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
       }, { passive: true });
       update();
+    })();
+
+    // Resources dropdown: opens on hover (CSS), and on click or keyboard for touch and keyboard users.
+    (function () {
+      var dd = document.querySelector('.dropdown');
+      var toggle = dd.querySelector('.dropdown__toggle');
+      function set(open) {
+        dd.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+      toggle.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
+      dd.addEventListener('mouseenter', function () { toggle.setAttribute('aria-expanded', 'true'); });
+      dd.addEventListener('mouseleave', function () { set(false); });
+      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+      dd.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { set(false); toggle.focus(); }
+      });
+      dd.addEventListener('focusout', function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
     })();
   </script>
 </body>
