@@ -12,160 +12,136 @@
 </head>
 <body>
 
-  <!-- NAV: pill blocks with background blur -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.4 10.2l2.4 2.4 4.8-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- NAV: three blurred pills -->
   <header class="nav">
-    <a class="nav__block nav__logo" href="#" aria-label="Unbill home">
-      <img src="../../assets/logo-white.svg" alt="Unbill">
+    <a class="nav__pill nav__logo" href="#" aria-label="Unbill home">
+      <img src="../../assets/logo-dark.svg" alt="Unbill">
     </a>
-    <nav class="nav__block nav__links" aria-label="Main">
+    <nav class="nav__pill nav__links" aria-label="Main">
       <a href="#">Households</a>
       <a href="#">Businesses</a>
       <a href="#">Membership</a>
       <a href="#">About</a>
-      <a href="#">Resources</a>
-      <a href="#">Contact</a>
+      <a href="#">Resources <svg class="icon"><use href="#i-chevron"/></svg></a>
+      <a href="#">Partner with us</a>
     </nav>
-    <div class="nav__block nav__cta">
-      <a class="btn btn--primary" href="#">Add Unbill</a>
+    <div class="nav__pill nav__cta">
+      <a class="nav__login" href="#">Login</a>
+      <a class="btn btn--primary" href="#">Get started</a>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero-wrap" aria-label="Introduction">
-    <div class="hero">
+  <!-- HERO: beveled yellow plane, beveled photo plane, torn papers across the seam -->
+  <section class="hero" aria-label="Introduction">
 
-      <!-- revealed under the torn corner -->
-      <div class="hero__under" aria-hidden="true"></div>
-
-      <!-- white fibre of the tear -->
-      <div class="hero__fibre" aria-hidden="true"><i></i></div>
-
-      <!-- photo, torn at the corner -->
-      <div class="hero__photo">
-        <img src="../../assets/img/hero-family.jpg" alt="A father laughing with his two children on his shoulders">
-
-        <!-- a ghosted itemized bill, with the duplicate crossed out by hand -->
-        <div class="ghost-bill" aria-hidden="true">
-          <p class="ghost-bill__head"><span>CPT</span><span>CHARGES</span></p>
-          <p><span>99285</span><span>2,940.00</span></p>
-          <p><span>71046</span><span>486.00</span></p>
-          <p><span>80053</span><span>312.00</span></p>
-          <p class="is-struck"><span>80053</span><span>312.00</span>
-            <svg class="scribble scribble--strike" viewBox="0 0 200 24" preserveAspectRatio="none"><path pathLength="1" d="M3 15 C 50 9, 120 16, 197 8 M8 18 C 70 12, 140 17, 192 12"/></svg>
-            <span class="hand hand--note">duplicate!</span>
-          </p>
-          <p><span>96374</span><span>640.00</span></p>
-          <p><span>J2405</span><span>118.00</span></p>
-          <p class="ghost-bill__total"><span>BALANCE</span><span>10,214.00</span></p>
-        </div>
-      </div>
-
+    <div class="hero__plane">
       <div class="hero__content">
-        <a class="ticker" href="#">
-          <span class="ticker__tag">Example case</span>
-          <span class="ticker__text">Stacey kept $3,000 of a $10,000 ER bill</span>
-          <span class="ticker__arrow" aria-hidden="true">→</span>
-        </a>
-
-        <h1 class="hero__title">
-          <span class="sans">Your AI</span>
-          <span class="serif">healthcare advocate.</span>
-          <span class="hand hand--title">Always on.</span>
-        </h1>
-
+        <p class="eyebrow">AI healthcare advocate</p>
+        <h1>Your AI healthcare advocate. Always on.</h1>
         <p class="hero__lede">Unbill steps in when healthcare leaves you alone with the paperwork, the deadlines and the fear of what you actually owe.</p>
-
         <div class="hero__ctas">
           <a class="btn btn--primary btn--lg" href="#">Get started</a>
-          <a class="btn btn--glass btn--lg" href="#"><span class="play" aria-hidden="true"></span>Watch a demo</a>
+          <a class="btn btn--outline btn--lg" href="#">For employers &amp; brokers <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
+        <ul class="ticks">
+          <li><svg class="icon"><use href="#i-check"/></svg>No success fee</li>
+          <li><svg class="icon"><use href="#i-check"/></svg>Cancel anytime</li>
+        </ul>
       </div>
     </div>
 
-    <!-- trust strip, Amperos-style row under the hero -->
-    <ul class="trust" aria-label="Membership at a glance">
-      <li><b class="serif">$15</b><span>a month, one flat membership fee</span></li>
-      <li><b class="serif">0%</b><span>success fee on what we recover</span></li>
-      <li><b class="serif">24/7</b><span>monitoring of your bills, claims and deadlines</span></li>
-      <li><b class="serif">100%</b><span>of every recovered dollar stays with you</span></li>
+    <div class="hero__photo">
+      <img src="../../assets/img/family-floor.jpg" alt="A family playing together on the living-room floor in the sun">
+    </div>
+
+    <div class="hero__papers" aria-hidden="true">
+
+      <!-- torn EOB strip -->
+      <div class="paper paper--eob">
+        <p class="paper__kicker">Explanation of benefits</p>
+        <p class="paper__stamp-line">This is not a bill</p>
+        <div class="paper__grid">
+          <span>Billed</span><span>You owe</span>
+          <b>$10,214</b><b>$4,870</b>
+        </div>
+      </div>
+
+      <!-- torn itemized bill, error crossed out -->
+      <div class="paper paper--bill">
+        <p class="paper__kicker">St. Aldric Medical Center</p>
+        <p class="paper__title">Itemized statement</p>
+        <div class="paper__rows">
+          <p><span>99285</span><span>ER visit, level 5</span><span>2,940.00</span></p>
+          <p><span>80053</span><span>Metabolic panel</span><span>312.00</span></p>
+          <p class="is-struck"><span>80053</span><span>Metabolic panel</span><span>312.00</span>
+            <svg class="strike" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M2 12 C 60 7, 130 14, 198 8"/></svg>
+          </p>
+          <p><span>96374</span><span>IV push</span><span>640.00</span></p>
+          <p><span>74177</span><span>CT abdomen</span><span>4,312.00</span></p>
+        </div>
+      </div>
+      <span class="paper__note">duplicate</span>
+
+      <!-- torn appeal letter -->
+      <div class="paper paper--appeal">
+        <p class="paper__kicker">Claim 4471-829</p>
+        <p class="paper__title">Request for appeal</p>
+        <div class="paper__lines"><i></i><i></i><i style="width:74%"></i><i></i><i style="width:52%"></i></div>
+        <span class="stamp">Approved</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" aria-labelledby="pricing-title">
+    <p class="eyebrow eyebrow--muted">No success fee</p>
+    <h2 id="pricing-title">Get 100% of your billing errors back</h2>
+    <p class="pricing__lede">Unbill is AI native, so it watches your bills 24/7 at a fraction of the cost of a human negotiator with no bias for larger claims.</p>
+    <ul class="ticks ticks--lg">
+      <li><svg class="icon"><use href="#i-check"/></svg>One flat membership.</li>
+      <li><svg class="icon"><use href="#i-check"/></svg>No success fee.</li>
+      <li><svg class="icon"><use href="#i-check"/></svg>Always-on.</li>
     </ul>
-  </section>
 
-  <!-- WHO ARE WE HELPING -->
-  <section class="audiences" aria-labelledby="aud-title">
-    <div class="divider" aria-hidden="true"></div>
+    <div class="case">
+      <div class="case__plane" aria-hidden="true"></div>
 
-    <h2 id="aud-title" class="section-title">
-      <span class="sans">Who are we</span> <span class="serif serif--italic">helping today?</span>
-    </h2>
-
-    <div class="audiences__grid">
-      <a class="card card--households" href="#">
-        <img class="card__img" src="../../assets/img/households.jpg" alt="A family walking hand in hand through a field">
-        <span class="card__tag">For households</span>
-        <div class="card__slip">
-          <h3 class="serif">Households</h3>
-          <p>Your personal healthcare advocate. You get on with life, we handle the bills.</p>
-          <span class="btn btn--ink">Learn more</span>
-        </div>
-      </a>
-
-      <a class="card card--business" href="#">
-        <img class="card__img" src="../../assets/img/business.jpg" alt="Two colleagues high-fiving across a desk">
-        <span class="card__tag">For employers &amp; brokers</span>
-        <div class="card__slip">
-          <h3 class="serif">Businesses and benefits brokers</h3>
-          <p>For self-insured and fully insured employers, and the brokers who advise them. Billing support for your whole workforce.</p>
-          <span class="btn btn--ink">Learn more</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FLAT FEE -->
-  <section class="flat" aria-labelledby="flat-title">
-    <h2 id="flat-title" class="flat__title">
-      <span class="sans">Get</span>
-      <span class="circled">
-        <span class="serif">100%</span>
-        <svg class="scribble scribble--circle" viewBox="0 0 240 120" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M128 10 C 60 4, 8 28, 10 62 C 12 100, 90 114, 160 106 C 222 98, 236 60, 214 34 C 192 10, 120 4, 70 16"/></svg>
-      </span>
-      <span class="sans">of your</span>
-      <span class="serif serif--italic">billing errors back</span>
-    </h2>
-    <p class="flat__lede">One flat membership. No success fee. Every dollar we recover stays with you. Unbill is AI native, so it watches your bills 24/7 at a fraction of the cost of a human negotiator. That is why we can charge a flat fee.</p>
-
-    <div class="receipt-stage">
-      <div class="receipt-wrap">
-        <article class="receipt">
-          <p class="eyebrow">Example case</p>
-          <h3><span class="serif">Stacey's</span> $10,000 hospital bill</h3>
-          <p class="receipt__text">Unbill checked her bill against her plan and her EOB, found $3,000 billed in error and supported her appeal. Resolved in 3 months.</p>
-
-          <table class="receipt__table">
-            <thead>
-              <tr><th></th><th>Fee</th><th>Stacey keeps</th></tr>
-            </thead>
-            <tbody>
-              <tr class="is-unbill"><td>Unbill membership</td><td>$45</td><td><mark>$3,000</mark></td></tr>
-              <tr class="is-other"><td>Typical bill negotiator <em>(20% success fee)</em></td><td>$600</td>
-                <td><span class="struck">$2,400<svg class="scribble scribble--cross" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 22 C 30 14, 60 18, 96 6 M6 10 C 40 16, 70 12, 94 24"/></svg></span></td></tr>
-            </tbody>
-          </table>
-
-          <div class="receipt__foot">
-            <span class="barcode"></span>
-            <span>Thank you for not paying twice</span>
-          </div>
-
-          <span class="stamp">Resolved<small>in 3 months</small></span>
-        </article>
+      <div class="paper paper--side paper--denial" aria-hidden="true">
+        <p class="paper__kicker">Notice of claim denial</p>
+        <p class="paper__title">Your claim has been denied</p>
+        <div class="paper__lines"><i></i><i style="width:80%"></i><i></i><i style="width:60%"></i></div>
+        <svg class="strike strike--cross" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M8 12 C 40 40, 62 62, 92 90 M90 10 C 60 42, 38 64, 10 92"/></svg>
       </div>
 
-      <p class="hand hand--aside" aria-hidden="true">
-        $600 more stays<br>with Stacey
-        <svg class="scribble scribble--arrow" viewBox="0 0 120 90" aria-hidden="true"><path pathLength="1" d="M108 6 C 92 40, 60 66, 12 74 M28 60 L 10 75 L 30 86"/></svg>
-      </p>
+      <article class="receipt">
+        <p class="eyebrow">Example case</p>
+        <h3>Melinda's $10,000 hospital bill</h3>
+        <p class="receipt__text">Unbill checked her bill against her plan and her EOB, found $3,000 billed in error and supported her appeal.</p>
+
+        <div class="receipt__table" role="table" aria-label="Fees compared">
+          <div class="receipt__row receipt__row--head" role="row">
+            <span role="columnheader"></span>
+            <span role="columnheader">Fee</span>
+            <span role="columnheader">Melinda keeps</span>
+          </div>
+          <div class="receipt__row receipt__row--unbill" role="row">
+            <span role="cell">Unbill membership</span>
+            <span role="cell" class="num">$45</span>
+            <span role="cell" class="num"><mark>$3,000</mark></span>
+          </div>
+          <div class="receipt__row receipt__row--other" role="row">
+            <span role="cell">Typical bill negotiator (20% success fee)</span>
+            <span role="cell" class="num">$600</span>
+            <span role="cell" class="num num--muted">$2,400</span>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
