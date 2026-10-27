@@ -82,41 +82,45 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn--outline:hover .icon { transform: translateX(3px); }
 
 /* ---------- Nav ----------
-   At the top: three separate white pills. Once the page scrolls, a white
-   bridge grows out from the centre behind them and joins the three into one
-   pill, while the bar narrows and lifts. */
+   Over the hero: three separate white pills, no shadow. Once the bar reaches
+   the white section below the hero, a white bridge grows out from the centre
+   behind the pills and joins them into one pill; a soft shadow fades in only
+   after the join. Nothing else moves, so the pills never shift. */
 
 .nav {
   --ease: cubic-bezier(.65, 0, .25, 1);
+  --join: .6s;
   position: fixed;
   top: 20px;
-  left: 50%;
+  left: 40px;
+  right: 40px;
   z-index: 50;
-  width: calc(100% - 80px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  transform: translateX(-50%);
-  transition: top .5s var(--ease), width .6s var(--ease), padding .5s var(--ease);
 }
 .nav::before {                /* the bridge */
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
   z-index: -1;
   border-radius: 999px;
   background: var(--white);
-  box-shadow: 0 0 0 1px rgba(26, 0, 11, 0.06), 0 12px 32px -14px rgba(26, 0, 11, 0.35);
-  clip-path: inset(0 50% round 999px);
-  transition: clip-path .55s var(--ease);
+  opacity: 0;
+  box-shadow: 0 0 0 0 rgba(26, 0, 11, 0), 0 0 0 0 rgba(26, 0, 11, 0);
+  transition: left var(--join) var(--ease), right var(--join) var(--ease), opacity .2s ease .35s, box-shadow .15s ease;
 }
-.nav.is-stuck {
-  top: 12px;
-  width: min(1240px, calc(100% - 48px));
-  padding: 0 4px;
+.nav.is-joined::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(26, 0, 11, 0.06), 0 8px 24px -10px rgba(26, 0, 11, 0.22);
+  transition: left var(--join) var(--ease), right var(--join) var(--ease), opacity .25s ease, box-shadow .35s ease var(--join);
 }
-.nav.is-stuck::before { clip-path: inset(0 0 round 999px); }
 
 .nav__pill {
   display: flex;
@@ -124,16 +128,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   height: 52px;
   border-radius: 999px;
   background: var(--white);
-  box-shadow: 0 0 0 1px rgba(26, 0, 11, 0.05), 0 6px 20px -10px rgba(26, 0, 11, 0.25);
-  transition: background-color .25s ease .3s, box-shadow .25s ease .3s, height .5s var(--ease);
 }
-.nav.is-stuck .nav__pill {
-  height: 56px;
-  background-color: transparent;
-  box-shadow: none;
-}
-/* when un-sticking, the pills take their white back before the bridge retracts */
-.nav:not(.is-stuck) .nav__pill { transition-delay: 0s, 0s, 0s; }
 
 .nav__logo { padding: 0 24px; }
 .nav__logo img { height: 24px; width: auto; }
@@ -168,9 +163,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: background-color .2s ease;
 }
 .dropdown__toggle .icon { width: 16px; height: 16px; transition: transform .3s var(--ease); }
-.dropdown:hover .dropdown__toggle,
 .dropdown.is-open .dropdown__toggle { background: rgba(26, 0, 11, 0.06); }
-.dropdown:hover .dropdown__toggle .icon,
 .dropdown.is-open .dropdown__toggle .icon { transform: rotate(180deg); }
 
 .dropdown__menu {
@@ -184,7 +177,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   transform: translate(-50%, -6px);
   transition: opacity .2s ease, transform .3s var(--ease), visibility 0s linear .3s;
 }
-.dropdown:hover .dropdown__menu,
 .dropdown.is-open .dropdown__menu {
   opacity: 1;
   visibility: visible;
@@ -490,7 +482,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1180px) {
-  .nav { width: calc(100% - 32px); top: 16px; }
+  .nav { left: 16px; right: 16px; }
   .nav__links a { padding: 9px 9px; font-size: 14px; }
   .dropdown__toggle { padding: 9px 9px; font-size: 14px; }
   .paper--side { display: none; }
@@ -498,8 +490,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 @media (max-width: 960px) {
   .nav__links { display: none; }
-  .nav__pill, .nav.is-stuck .nav__pill { height: 48px; }
-  .nav.is-stuck { top: 10px; width: calc(100% - 20px); }
+  .nav { left: 12px; right: 12px; top: 12px; }
+  .nav::before { left: 0; right: 68%; }  /* grow from behind the logo pill toward the CTA */
+  .nav__pill { height: 48px; }
   .nav__logo { padding: 0 18px; }
   .nav__login { display: none; }
   .nav__cta { padding: 0 4px; }

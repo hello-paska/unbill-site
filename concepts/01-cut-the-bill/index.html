@@ -157,36 +157,54 @@
   </section>
 
   <script>
-    // Join the nav pills into one bar once the page has scrolled.
+    // Join the nav pills into one bar once the bar sits over the white section below the hero.
     (function () {
       var nav = document.querySelector('.nav');
+      var hero = document.querySelector('.hero');
       var ticking = false;
       function update() {
-        nav.classList.toggle('is-stuck', window.scrollY > 24);
+        var joined = hero.getBoundingClientRect().bottom <= nav.getBoundingClientRect().bottom;
+        nav.classList.toggle('is-joined', joined);
         ticking = false;
       }
-      window.addEventListener('scroll', function () {
+      function request() {
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
-      }, { passive: true });
+      }
+      window.addEventListener('scroll', request, { passive: true });
+      window.addEventListener('resize', request);
       update();
     })();
 
-    // Resources dropdown: opens on hover (CSS), and on click or keyboard for touch and keyboard users.
+    // Resources dropdown: the panel shows only while the pointer is over Resources or its panel.
+    // Keyboard users open it with Enter/Space/ArrowDown; touch users with a tap.
     (function () {
       var dd = document.querySelector('.dropdown');
       var toggle = dd.querySelector('.dropdown__toggle');
+      var closeTimer;
       function set(open) {
+        clearTimeout(closeTimer);
         dd.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', String(open));
       }
-      toggle.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
-      dd.addEventListener('mouseenter', function () { toggle.setAttribute('aria-expanded', 'true'); });
-      dd.addEventListener('mouseleave', function () { set(false); });
-      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+      dd.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') set(true); });
+      dd.addEventListener('pointerleave', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(function () { set(false); }, 120);
+      });
+      toggle.addEventListener('click', function (e) {
+        // Mouse users already get the panel on hover; a click shouldn't pin it open.
+        if (e.detail > 0 && matchMedia('(hover: hover)').matches) return;
+        set(!dd.classList.contains('is-open'));
+      });
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') { e.preventDefault(); set(true); dd.querySelector('.dropdown__menu a').focus(); }
+      });
       dd.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') { set(false); toggle.focus(); }
       });
       dd.addEventListener('focusout', function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
+      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
     })();
   </script>
 </body>
