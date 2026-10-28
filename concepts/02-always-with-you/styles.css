@@ -29,6 +29,10 @@
 
   --sans: "ES Rebond Grotesque", "Yetson Sans", "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(.25, .8, .25, 1);
+  --smooth: cubic-bezier(.32, .72, 0, 1);
+  --elastic: linear(0, .5737 7.6%, .8382 11.87%, .9463 14.19%, 1.0292 16.54%, 1.0886 18.97%, 1.1258 21.53%, 1.137 22.97%,
+             1.1424 24.48%, 1.1423 26.1%, 1.1366 27.86%, 1.1165 31.01%, 1.0507 38.62%, 1.0219 42.57%, .9995 46.99%,
+             .9872 51.63%, .9842 58.77%, 1.0011 81.26%, 1);
 
   color-scheme: light;
 }
@@ -50,30 +54,96 @@ ul { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; letter-spacing: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .icon { width: 18px; height: 18px; flex: none; }
+[hidden] { display: none !important; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* ---------- Buttons ---------- */
+/* ---------- Buttons ----------
+   Two interactions combined (after Tiny Mighty Buttons):
+   Flipflop - the pill flips over on its horizontal axis to its second colour,
+              with an elastic bounce, while the label rolls to its new colour.
+   Glide-Over - on buttons with an arrow, the arrow glides out to the right
+              while a new one glides in from the left and the label shifts over. */
 
 .btn {
+  --bg-front: transparent;
+  --bg-back: transparent;
+  --edge: transparent;
+  --fg: currentColor;
+  --fg-back: currentColor;
+  --shift: 28px;                       /* arrow width + gap */
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   height: 44px;
   padding: 0 22px;
   border-radius: 999px;
   font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
-  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .75s var(--elastic);
 }
+.btn:is(:hover, :focus-visible) { transform: scale(1.035); }
+.btn:active { transform: scale(.96); transition-duration: .25s; }
 .btn--lg { height: 58px; padding: 0 32px; font-size: 18px; }
-.btn--lime { background: var(--lime); color: var(--ink); }
-.btn--lime:hover { background: var(--lime-hover); }
-.btn--outline { border: 1.5px solid var(--lime); color: var(--lime); }
-.btn--outline:hover { background: var(--lime); color: var(--ink); }
-.btn--outline .icon { transition: transform .2s ease; }
-.btn--outline:hover .icon { transform: translateX(3px); }
+
+.btn__bg { position: absolute; inset: 0; z-index: -1; perspective: 300px; }
+.btn__bg i {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  backface-visibility: hidden;
+  transition: transform .7s var(--elastic);
+}
+.btn__bg i:first-child { background: var(--bg-front); box-shadow: inset 0 0 0 1.5px var(--edge); }
+.btn__bg i:last-child { background: var(--bg-back); transform: rotateX(-180deg); }
+.btn:is(:hover, :focus-visible) .btn__bg i:first-child { transform: rotateX(180deg); }
+.btn:is(:hover, :focus-visible) .btn__bg i:last-child { transform: rotateX(0deg); }
+
+.btn__track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;                    /* clips the gliding arrows */
+  padding-block: 4px;
+}
+.btn__label {
+  position: relative;
+  display: block;
+  overflow: hidden;                    /* clips the rolling label */
+  line-height: 1.25;
+  color: var(--fg);
+  transition: transform .6s var(--smooth);
+}
+.btn__label > span { display: block; transition: transform .55s var(--smooth); }
+.btn__label::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: var(--fg-back);
+  transform: translateY(110%);
+  transition: transform .55s var(--smooth);
+}
+.btn:is(:hover, :focus-visible) .btn__label > span { transform: translateY(-110%); }
+.btn:is(:hover, :focus-visible) .btn__label::after { transform: translateY(0); }
+
+.btn__arrow { color: var(--fg); transition: transform .6s var(--smooth), opacity .25s ease; }
+.btn__arrow--in {
+  position: absolute;
+  left: 0;
+  color: var(--fg-back);
+  opacity: 0;
+  transform: translateX(calc(var(--shift) * -1));
+}
+.btn--glide:is(:hover, :focus-visible) .btn__label { transform: translateX(var(--shift)); }
+.btn--glide:is(:hover, :focus-visible) .btn__arrow--out { opacity: 0; transform: translateX(var(--shift)); }
+.btn--glide:is(:hover, :focus-visible) .btn__arrow--in { opacity: 1; transform: translateX(0); transition-delay: .04s; }
+
+.btn--lime { --bg-front: var(--lime); --bg-back: var(--ink); --fg: var(--ink); --fg-back: var(--lime); }
+.btn--outline { --edge: var(--lime); --bg-back: var(--lime); --fg: var(--lime); --fg-back: var(--ink); }
 
 /* ---------- Announcement ---------- */
 
@@ -113,17 +183,14 @@ button { font: inherit; letter-spacing: inherit; color: inherit; }
 }
 .announce__close:hover { background: rgba(17, 17, 17, 0.08); }
 
-/* ---------- Nav ----------
-   In place it is a full-width white bar. Once the page scrolls it lifts into
-   a floating white pill with a soft shadow; the wrapper keeps its height so
-   the page never jumps. */
+/* ---------- Sticky header + nav ----------
+   The banner and the nav stick to the top together. In place the nav is a
+   full-width white bar; as soon as the page scrolls it lifts into a floating
+   white pill 20px below the banner. The wrapper keeps its height so the page
+   never jumps. */
 
-.nav-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  height: 80px;
-}
+.topbar { position: sticky; top: 0; z-index: 50; }
+.nav-wrap { position: relative; height: 80px; }
 .nav {
   display: flex;
   align-items: center;
@@ -141,9 +208,9 @@ button { font: inherit; letter-spacing: inherit; color: inherit; }
 }
 .nav-wrap.is-floating .nav {
   max-width: 1200px;
-  height: 64px;
-  margin-top: 12px;
-  padding: 0 8px 0 28px;
+  height: 60px;                         /* 20px margin + 60px = the wrapper's 80px */
+  margin-top: 20px;
+  padding: 0 6px 0 28px;
   border-radius: 999px;
   box-shadow: 0 1px 2px rgba(17, 17, 17, 0.06), 0 10px 30px -12px rgba(17, 17, 17, 0.25);
 }
@@ -230,12 +297,31 @@ button { font: inherit; letter-spacing: inherit; color: inherit; }
 }
 .hero h1 {
   font-size: clamp(44px, 6.3vw, 92px);
-  line-height: 1;
+  line-height: .9;
   letter-spacing: -0.045em;
 }
-.hero h1 span { display: block; }
+.hero h1 > span { display: block; }
 .hero__strong { font-weight: 600; }
-.hero__light { font-weight: 300; letter-spacing: -0.035em; margin-top: .06em; }
+.hero__light { font-weight: 300; letter-spacing: -0.035em; }
+
+/* typed line */
+.hero h1 .typer { display: grid; width: fit-content; margin: 0 auto; }
+.typer > * { grid-area: 1 / 1; }
+.typer__ghost { visibility: hidden; }
+.typer__line { justify-self: start; white-space: pre; }
+.typer__ghost, .typer__line { display: block; }
+.typer__cursor {
+  display: inline-block;
+  width: .055em;
+  height: .82em;
+  margin-left: .05em;
+  vertical-align: -.06em;
+  border-radius: 2px;
+  background: currentColor;
+  animation: caret 1.05s steps(1) infinite;
+}
+.typer.is-typing .typer__cursor { animation: none; }
+@keyframes caret { 50% { opacity: 0; } }
 .hero__lede {
   max-width: 640px;
   margin: 30px auto 0;
@@ -307,7 +393,7 @@ button { font: inherit; letter-spacing: inherit; color: inherit; }
   display: flex;
   flex-direction: column;
   min-width: 0;
-  height: 440px;
+  min-height: 440px;
   padding: 20px;
   border-radius: 20px;
   background: var(--white);
@@ -318,9 +404,12 @@ button { font: inherit; letter-spacing: inherit; color: inherit; }
   flex-direction: column;
   gap: 14px;
   min-height: 0;
+  max-height: 420px;
   overflow-y: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none;               /* scrolls only after extra questions, never shows a bar */
 }
+.chat__log::-webkit-scrollbar { display: none; }
+.is-thinking .chat__answer { animation: rise .45s var(--ease) both; }
 .chat__file {
   display: flex;
   align-items: center;
@@ -454,7 +543,7 @@ button { font: inherit; letter-spacing: inherit; color: inherit; }
   .announce p { justify-content: flex-start; }
   .nav-wrap, .nav { height: 64px; }
   .nav { padding: 0 16px; }
-  .nav-wrap.is-floating .nav { margin: 8px 10px 0; padding: 0 6px 0 18px; height: 56px; }
+  .nav-wrap.is-floating .nav { margin: 16px 10px 0; padding: 0 5px 0 18px; height: 48px; }
   .nav__links, .nav__login { display: none; }
   .nav__logo img { height: 26px; }
 
