@@ -4,7 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Unbill Always With You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="torn.css">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
@@ -61,7 +66,7 @@
     <div class="hero">
       <div class="hero__content">
         <h1 aria-label="Your AI healthcare advocate. Always with you.">
-          <span class="hero__strong" aria-hidden="true">Your AI healthcare advocate.</span>
+          <span class="hero__strong" aria-hidden="true"><span class="word" style="--i:0"><span>Your</span></span> <span class="word" style="--i:1"><span>AI</span></span> <span class="word" style="--i:2"><span>healthcare</span></span> <span class="word" style="--i:3"><span>advocate.</span></span></span>
           <!-- typed line: the hidden ghost holds the width of the longest phrase so nothing reflows -->
           <span class="hero__light typer" aria-hidden="true">
             <span class="typer__ghost">Always with you.</span>
@@ -79,22 +84,98 @@
           <li><svg class="icon"><use href="#i-check"/></svg>Always on</li>
         </ul>
       </div>
+      <!-- paper collage along the bottom of the card; each sheet drifts with the mouse at its own depth -->
+      <div class="papers" aria-hidden="true">
+
+        <div class="sheet sheet--eob" style="--depth:14; --r:-7deg; --d:.55s">
+          <i class="sheet__fibre"></i>
+          <div class="sheet__paper">
+            <div class="eob__band"><b>BLUERIDGE HEALTH PLAN</b><span>EXPLANATION OF BENEFITS</span></div>
+            <p class="eob__notice">THIS IS NOT A BILL</p>
+            <div class="eob__meta"><span>Member: ROWE, MELINDA</span><span>Claim: 4471-829-02</span><span>Processed: 09/18/2024</span></div>
+            <table class="eob__table">
+              <tr><th>Service</th><th>Billed</th><th>Allowed</th><th>Plan paid</th><th>You owe</th></tr>
+              <tr><td>ER visit</td><td>2,940.00</td><td>1,060.00</td><td>848.00</td><td>212.00</td></tr>
+              <tr><td>Lab</td><td>624.00</td><td>148.00</td><td>118.40</td><td>29.60</td></tr>
+              <tr><td>CT scan</td><td>4,312.00</td><td>1,640.00</td><td>0.00</td><td>1,640.00</td></tr>
+              <tr><td>Facility</td><td>1,094.00</td><td>808.00</td><td>0.00</td><td>808.00</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sheet sheet--claim" style="--depth:22; --r:-2.5deg; --d:.65s">
+          <i class="sheet__fibre"></i>
+          <div class="sheet__paper">
+            <div class="claim__head">
+              <div><b>ST. ALDRIC MEDICAL CENTER</b><span>1200 Harbor View Rd, Ashford OR 97520</span></div>
+              <div class="claim__box"><span>ACCOUNT NO.</span><b>00-4471-829</b></div>
+            </div>
+            <p class="claim__title">ITEMIZED STATEMENT OF CHARGES</p>
+            <table class="claim__table">
+              <tr><th>Date</th><th>Code</th><th>Description</th><th>Qty</th><th>Charges</th></tr>
+              <tr><td>08/21</td><td>99285</td><td>EMERGENCY DEPT VISIT LVL 5</td><td>1</td><td>2,940.00</td></tr>
+              <tr><td>08/21</td><td>80053</td><td>COMPREHEN METABOLIC PANEL</td><td>1</td><td>312.00</td></tr>
+              <tr class="is-dup"><td>08/21</td><td>80053</td><td>COMPREHEN METABOLIC PANEL</td><td>1</td><td>312.00</td></tr>
+              <tr><td>08/21</td><td>96374</td><td>IV PUSH SINGLE/INITIAL DRUG</td><td>1</td><td>640.00</td></tr>
+              <tr><td>08/21</td><td>74177</td><td>CT ABD &amp; PELVIS W/ CONTRAST</td><td>1</td><td>4,312.00</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sheet sheet--notice" style="--depth:9; --r:1.5deg; --d:.75s">
+          <i class="sheet__fibre"></i>
+          <div class="sheet__paper">
+            <p class="notice__head">PATIENT ACCOUNT SUMMARY &nbsp;·&nbsp; ADJUSTMENT SUMMARY</p>
+            <div class="notice__grid">
+              <span>Total charges</span><b>10,214.00</b>
+              <span>Insurance payments</span><b>(2,000.00)</b>
+              <span>Contractual adjustments</span><b>(3,344.00)</b>
+              <span>Amount due</span><b class="notice__due">4,870.00</b>
+            </div>
+            <span class="notice__stamp">PAST DUE</span>
+            <div class="notice__barcode"></div>
+          </div>
+        </div>
+
+        <div class="sheet sheet--appeal" style="--depth:18; --r:4deg; --d:.85s">
+          <i class="sheet__fibre sheet__fibre--2"></i>
+          <div class="sheet__paper sheet__paper--2">
+            <p class="appeal__date">September 30, 2024</p>
+            <p class="appeal__re"><b>Re:</b> Request for appeal, claim 4471-829-02</p>
+            <p class="appeal__body">I am writing to appeal the charges listed on the itemized statement dated 09/02/2024. The metabolic panel (80053) was billed twice, and the emergency visit was coded at level 5 without the documentation it requires.</p>
+            <p class="appeal__sign">Melinda Rowe</p>
+          </div>
+        </div>
+
+        <div class="sheet sheet--receipt" style="--depth:28; --r:-6deg; --d:.95s">
+          <i class="sheet__fibre sheet__fibre--2"></i>
+          <div class="sheet__paper sheet__paper--2">
+            <p class="receipt__store">CEDAR PHARMACY #212</p>
+            <p>RX 7781023 ONDANSETRON 4MG</p>
+            <p>QTY 12 &nbsp; DAYS 6</p>
+            <p class="receipt__row"><span>SUBTOTAL</span><span>64.20</span></p>
+            <p class="receipt__row"><span>INS ADJ</span><span>0.00</span></p>
+            <p class="receipt__row receipt__total"><span>PATIENT PAYS</span><span>64.20</span></p>
+          </div>
+        </div>
+      </div>
+
       <img class="hero__family" src="../../assets/img/family-cutout.webp" alt="A mother and father hugging their two children, one child raising a fist in the air" width="780" height="1016">
     </div>
   </section>
 
   <!-- PRICING -->
   <section class="pricing" aria-labelledby="pricing-title">
-    <p class="pricing__eyebrow">No success fee</p>
-    <h2 id="pricing-title">Get 100% of your billing <img class="scribble" src="../../assets/img/scribble.png" alt="" width="293" height="278"> errors back</h2>
-    <p class="pricing__lede">Unbill is AI native, so it watches your bills 24/7 at a fraction of the cost of a human negotiator with no bias for larger claims.</p>
+    <p class="pricing__eyebrow reveal">No success fee</p>
+    <h2 id="pricing-title" aria-label="Get 100% of your billing errors back"><span aria-hidden="true"><span class="word" style="--i:0"><span>Get</span></span> <span class="word" style="--i:1"><span>100%</span></span> <span class="word" style="--i:2"><span>of</span></span> <span class="word" style="--i:3"><span>your</span></span> <span class="word" style="--i:4"><span>billing</span></span> <span class="word word--scribble" style="--i:5"><img class="scribble" src="../../assets/img/scribble.png" alt="" width="293" height="278"></span> <span class="word" style="--i:6"><span>errors</span></span> <span class="word" style="--i:7"><span>back</span></span></span></h2>
+    <p class="pricing__lede reveal" style="--d:.35s">Unbill is AI native, so it watches your bills 24/7 at a fraction of the cost of a human negotiator with no bias for larger claims.</p>
     <ul class="ticks ticks--lg">
-      <li><svg class="icon"><use href="#i-check"/></svg>One flat membership.</li>
-      <li><svg class="icon"><use href="#i-check"/></svg>No success fee.</li>
-      <li><svg class="icon"><use href="#i-check"/></svg>Always-on.</li>
+      <li class="reveal" style="--d:.5s"><svg class="icon"><use href="#i-check"/></svg>One flat membership.</li>
+      <li class="reveal" style="--d:.6s"><svg class="icon"><use href="#i-check"/></svg>No success fee.</li>
+      <li class="reveal" style="--d:.7s"><svg class="icon"><use href="#i-check"/></svg>Always-on.</li>
     </ul>
 
-    <div class="case">
+    <div class="case reveal reveal--late">
       <!-- the chat, played once when it scrolls into view -->
       <div class="chat" id="chat" aria-label="Example conversation with Unbill">
         <div class="chat__log" aria-live="polite">
@@ -194,7 +275,7 @@
       }
       async function run() {
         el.textContent = '';
-        await wait(500);
+        await wait(1300);                                         // let the load animation land first
         for (;;) {
           await typeTo(phrases[i]);
           await wait(HOLD[i]);
@@ -202,6 +283,43 @@
         }
       }
       run();
+    })();
+
+    // Paper collage: each sheet drifts with the mouse at its own depth (eased, desktop only).
+    (function () {
+      var hero = document.querySelector('.hero');
+      var items = [].slice.call(hero.querySelectorAll('[style*="--depth"], .hero__family'));
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+      var tx = 0, ty = 0, x = 0, y = 0, raf = null;
+      function frame() {
+        x += (tx - x) * 0.08;
+        y += (ty - y) * 0.08;
+        items.forEach(function (el) {
+          var d = parseFloat(getComputedStyle(el).getPropertyValue('--depth')) || 6;
+          el.style.setProperty('--px', (x * d).toFixed(2) + 'px');
+          el.style.setProperty('--py', (y * d * 0.6).toFixed(2) + 'px');
+        });
+        raf = (Math.abs(tx - x) > 0.001 || Math.abs(ty - y) > 0.001) ? requestAnimationFrame(frame) : null;
+      }
+      function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;      // -1 … 1
+        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        kick();
+      });
+      hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; kick(); });
+    })();
+
+    // Scroll reveal for the pricing section.
+    (function () {
+      var targets = [].slice.call(document.querySelectorAll('.pricing h2, .reveal'));
+      function show(el) { el.classList.add('is-in'); }
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { targets.forEach(show); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+      targets.forEach(function (el) { io.observe(el); });
     })();
 
     // Resources dropdown: shows only while the pointer is over Resources or its panel.

@@ -63,6 +63,15 @@ def main():
     edge = horizontal_edge(rng, W, 20, 22, amp=0.8)
     out.append(f"  --tear-bottom: {svg(W, H, poly([(0, 0), (W, 0)] + edge[::-1]))};")
 
+    # Sheet tears: a paper edge plus a rougher white fibre edge just above it,
+    # sized for sheets a few hundred pixels wide. Two variants for variety.
+    W, H = 600, 40
+    for n in (1, 2):
+        edge = horizontal_edge(rng, W, 24, 22, amp=0.75, step=2)
+        fibre = [(x, y - 3.5 - abs(rng.gauss(0, 2.2))) for x, y in edge]
+        out.append(f"  --sheet-tear-{n}: {svg(W, H, poly(edge + [(W, H), (0, H)]))};")
+        out.append(f"  --sheet-fibre-{n}: {svg(W, H, poly(fibre + [(W, H), (0, H)]))};")
+
     out.append("}")
     print("\n".join(out))
 
