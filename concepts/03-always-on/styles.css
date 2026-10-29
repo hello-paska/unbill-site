@@ -159,21 +159,20 @@ b, strong { font-weight: 500; }
 .announce__close:hover { background: rgba(22, 11, 18, 0.08); }
 
 
-.announce__link { position: relative; display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; padding-bottom: 5px; color: var(--blue); font-weight: 500; }
-.announce__link .icon { width: 16px; height: 16px; transition: transform .35s var(--smooth); }
-.announce__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1.5px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--smooth);
+.announce__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: -6px 0 -6px 2px;             /* pill padding without changing the bar's line height */
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--blue);
+  font-weight: 500;
+  line-height: 1.2;
+  transition: background-color .2s ease, color .2s ease;
 }
-.announce__link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+.announce__link .icon { width: 16px; height: 16px; }
+.announce__link:is(:hover, :focus-visible) { background: var(--blue); color: var(--white); }
 
 /* ---------- Sticky header + nav ----------
    The banner and the nav stick to the top together. In place the nav is a
@@ -330,9 +329,15 @@ b, strong { font-weight: 500; }
 /* the torn paper runs the full length of the photo's top and bottom edges, covering the cut so the photo itself reads as torn */
 .piece--edges { left: -7.00%; top: -7.17%; width: 114.00%; }
    /* the torn paper lightens what sits under it, like real thin paper */
-.piece--purple-a { left: 79.57%; top: 4.58%; width: 29.58%; }
+.papers__clip {
+  inset: 0;
+  -webkit-mask: url("../../assets/img/band-photo.webp") 0 2.2222vw / 100% auto no-repeat;
+  mask: url("../../assets/img/band-photo.webp") 0 2.2222vw / 100% auto no-repeat;
+}
+.papers__clip > span { position: absolute; }
+.piece--purple-a { left: 79.57%; top: 10.5%; width: 29.58%; }
 .piece--purple-a img { transform: matrix(0.9807, -0.1953, 0.1953, 0.9807, 0, 0); }
-.piece--purple-b { left: 17.24%; top: 86.81%; width: 29.59%; }
+.piece--purple-b { left: 19%; top: 76%; width: 29.59%; }
 .piece--purple-b img { transform: matrix(-0.9544, -0.2986, 0.2986, -0.9544, 0, 0); }
 .piece--figures-a { left: 84.51%; top: 28.11%; width: 22.57%; }
 .piece--figures-a img { transform: matrix(1.0000, 0.0000, 0.0000, 1.0000, 0, 0); }
@@ -380,6 +385,7 @@ b, strong { font-weight: 500; }
 .pricing {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 12px;
   margin: 28px 60px 64px;
 }
 .pricing__pitch,
