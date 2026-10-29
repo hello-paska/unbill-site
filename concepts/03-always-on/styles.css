@@ -309,13 +309,45 @@ b, strong { font-weight: 500; }
    1440 x 960 band, and drift with the mouse at their own depth. */
 
 .band { position: relative; margin-top: 0; overflow-x: clip; }
-.band__photo { display: block; width: 100%; height: auto; margin-top: 2.22%; margin-bottom: 2.5%; }
+.band__photo { display: block; width: 100%; height: auto; margin-top: 2.22%; margin-bottom: 2.5%; translate: var(--px, 0px) var(--py, 0px); }
 .papers { position: absolute; inset: 0; pointer-events: none; }
 .piece {
   position: absolute;
   translate: var(--px, 0px) var(--py, 0px);
 }
 .piece img { display: block; width: 100%; height: auto; max-width: none; transform-origin: 0 0; }
+.piece--paper { mix-blend-mode: plus-lighter; }
+/* the two torn corner pieces only show where the photo is, as in the design */
+.papers__clip {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url("../../assets/img/band-photo.webp") 0 3.33% / 100% auto no-repeat;
+  mask: url("../../assets/img/band-photo.webp") 0 3.33% / 100% auto no-repeat;
+}   /* the torn paper lightens what sits under it, like real thin paper */
+.piece--strip-top { left: 17.04%; top: -7.41%; width: 68.82%; }
+.piece--strip-top img { transform: rotate(3.04deg); }
+.piece--strip-bot { left: 7.21%; top: 70.66%; width: 54.33%; }
+.piece--strip-bot img { transform: rotate(1.73deg); }
+.piece--strip-bot2 { left: 62.80%; top: 82.28%; width: 38.03%; }
+.piece--strip-bot2 img { transform: rotate(0.94deg); }
+.piece--purple-a { left: 79.57%; top: 4.58%; width: 29.58%; }
+.piece--purple-a img { transform: matrix(0.9807, -0.1953, 0.1953, 0.9807, 0, 0); }
+.piece--purple-b { left: 17.24%; top: 86.81%; width: 29.59%; }
+.piece--purple-b img { transform: matrix(-0.9544, -0.2986, 0.2986, -0.9544, 0, 0); }
+.piece--figures-a { left: 84.51%; top: 28.11%; width: 22.57%; }
+.piece--figures-a img { transform: matrix(1.0000, 0.0000, 0.0000, 1.0000, 0, 0); }
+.piece--figures-b { left: -1.88%; top: 55.94%; width: 20.49%; }
+.piece--figures-b img { transform: matrix(1.0000, 0.0000, 0.0000, 1.0000, 0, 0); }
+.piece--letter { left: -6.75%; top: 39.38%; width: 30.57%; }
+.piece--letter img { transform: matrix(0.9871, 0.1599, -0.1599, 0.9871, 0, 0); }
+.piece--policy { left: 85.83%; top: 38.67%; width: 17.75%; }
+.piece--policy img { transform: matrix(0.9985, -0.0556, 0.0556, 0.9985, 0, 0); }
+.piece--stamp { left: -6.74%; top: 23.12%; width: 16.20%; }
+.piece--stamp img { transform: matrix(1.0000, 0.0000, 0.0000, 1.0000, 0, 0); }
+.piece--tape-a { left: 97.06%; top: 28.96%; width: 7.18%; }
+.piece--tape-a img { transform: matrix(0.9108, 0.4129, -0.4129, 0.9108, 0, 0); }
+.piece--tape-b { left: 12.33%; top: 35.21%; width: 7.48%; }
+.piece--tape-b img { transform: matrix(0.7117, 0.7025, -0.7026, 0.7115, 0, 0); }
 .piece--signature { left: 79.01%; top: 40.54%; width: 26.30%; }
 .piece--signature img { transform: matrix(0.9855, -0.1698, 0.1697, 0.9855, 0, 0); }
 
