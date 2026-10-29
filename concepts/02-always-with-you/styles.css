@@ -377,7 +377,7 @@ b, strong { font-weight: 500; }
 @keyframes caret { 50% { opacity: 0; } }
 .hero__lede {
   max-width: 572px;
-  margin-top: 12px;                    /* ~24px visible gap from the headline's baseline to the lede */
+  margin-top: 26px;
   font-size: 18px;
   line-height: 23px;
   letter-spacing: -0.02em;
