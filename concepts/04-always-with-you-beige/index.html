@@ -94,7 +94,7 @@
   <!-- STATEMENT: the sentence fills in as you scroll -->
   <section class="statement-wrap" aria-labelledby="statement-title">
     <p class="eyebrow reveal">No success fee</p>
-    <h2 id="statement-title" class="statement reveal" style="--d:.1s"><span class="statement__sans">Get 100% of your billing errors back.</span> <span class="statement__serif"><span class="fill">Unbill</span> <span class="fill">is</span> <span class="fill">AI</span> <span class="fill">native,</span> <span class="fill">so</span> <span class="fill">it</span> <span class="fill">watches</span> <span class="fill">your</span> <span class="fill">bills</span> <span class="fill">24/7</span> <span class="fill">at</span> <span class="fill">a</span> <span class="fill">fraction</span> <span class="fill">of</span> <span class="fill">the</span> <span class="fill">cost</span> <span class="fill">of</span> <span class="fill">a</span> <span class="fill">human</span> <span class="fill">negotiator</span> <span class="fill">with</span> <span class="fill">no</span> <span class="fill">bias</span> <span class="fill">for</span> <span class="fill">larger</span> <span class="fill">claims.</span></span></h2>
+    <h2 id="statement-title" class="statement"><span class="statement__sans"><span class="fill" style="--i:0">Get</span> <span class="fill" style="--i:1">100%</span> <span class="fill" style="--i:2">of</span> <span class="fill" style="--i:3">your</span> <span class="fill" style="--i:4">billing</span> <span class="fill" style="--i:5">errors</span> <span class="fill" style="--i:6">back.</span></span> <span class="statement__serif"><span class="fill" style="--i:7">Unbill</span> <span class="fill" style="--i:8">is</span> <span class="fill" style="--i:9">AI</span> <span class="fill" style="--i:10">native,</span> <span class="fill" style="--i:11">so</span> <span class="fill" style="--i:12">it</span> <span class="fill" style="--i:13">watches</span> <span class="fill" style="--i:14">your</span> <span class="fill" style="--i:15">bills</span> <span class="fill" style="--i:16">24/7</span> <span class="fill" style="--i:17">at</span> <span class="fill" style="--i:18">a</span> <span class="fill" style="--i:19">fraction</span> <span class="fill" style="--i:20">of</span> <span class="fill" style="--i:21">the</span> <span class="fill" style="--i:22">cost</span> <span class="fill" style="--i:23">of</span> <span class="fill" style="--i:24">a</span> <span class="fill" style="--i:25">human</span> <span class="fill" style="--i:26">negotiator</span> <span class="fill" style="--i:27">with</span> <span class="fill" style="--i:28">no</span> <span class="fill" style="--i:29">bias</span> <span class="fill" style="--i:30">for</span> <span class="fill" style="--i:31">larger</span> <span class="fill" style="--i:32">claims.</span></span></h2>
     <ol class="steps">
       <li class="reveal" style="--d:.2s"><span>1</span>One flat membership</li>
       <li class="reveal" style="--d:.28s"><span>2</span>No success fee</li>
@@ -242,34 +242,13 @@
 
     // Scroll reveal for the pricing section.
     (function () {
-      var targets = [].slice.call(document.querySelectorAll('.pricing h2, .reveal'));
+      var targets = [].slice.call(document.querySelectorAll('.statement, .reveal'));
       function show(el) { el.classList.add('is-in'); }
       if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { targets.forEach(show); return; }
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
       }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
       targets.forEach(function (el) { io.observe(el); });
-    })();
-
-    // Statement: words fill from grey to ink as the section scrolls through the viewport.
-    (function () {
-      var words = [].slice.call(document.querySelectorAll('.statement .fill'));
-      var box = document.querySelector('.statement');
-      if (!words.length) return;
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { words.forEach(function (w) { w.classList.add('is-lit'); }); return; }
-      var ticking = false;
-      function update() {
-        var r = box.getBoundingClientRect(), vh = innerHeight;
-        // 0 when the block's top reaches 85% of the viewport, 1 when its bottom reaches 45%
-        var p = (vh * 0.85 - r.top) / (r.height + vh * 0.4);
-        p = Math.max(0, Math.min(1, p));
-        var n = Math.round(p * words.length);
-        words.forEach(function (w, i) { w.classList.toggle('is-lit', i < n); });
-        ticking = false;
-      }
-      addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-      addEventListener('resize', update);
-      update();
     })();
 
     // Resources dropdown: shows only while the pointer is over Resources or its panel.
