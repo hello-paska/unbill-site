@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unbill Always With You Beige</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.4 10.2l2.4 2.4 4.8-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-ne" viewBox="0 0 20 20"><path d="M6 14L14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-file" viewBox="0 0 20 20"><path d="M5 2.5h6.5L16 7v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1z" fill="currentColor"/><path d="M7 11.5h6M7 14h4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 20 20"><path d="M8.5 11.5l3-3M7 9.5l-1.8 1.8a2.8 2.8 0 0 0 4 4L11 13.5M13 10.5l1.8-1.8a2.8 2.8 0 0 0-4-4L9 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-send" viewBox="0 0 20 20"><path d="M17 3L8.5 11.5M17 3l-5 14-3.5-5.5L3 8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-u" viewBox="0 0 124 124"><path d="M123.98 0V23.22L94.41 52.79V10.47C94.41 4.69 99.1 0 104.88 0H123.98Z" fill="currentColor"/><path d="M123.98 45.83V64.51C122.69 96.77 96.77 122.69 64.51 123.98H59.47C27.21 122.69 1.29 96.77 0 64.51V0H19.1C24.88 0 29.57 4.69 29.57 10.47V61.44C29.57 79.35 43.86 94.29 61.77 94.41C70.53 94.47 78.49 91.05 84.36 85.46L84.44 85.38C84.76 85.07 123.98 45.83 123.98 45.83Z" fill="currentColor"/></symbol>
+  </svg>
+
+  <!-- STICKY HEADER: announcement + nav travel together -->
+  <div class="topbar">
+  <aside class="announce" id="announce" aria-label="Founding member offer">
+    <p><span class="announce__pills"><span class="announce__tag">Founding offer</span><span class="announce__pill">87 spots left</span></span> <span>Plus at the Core price for founding members, protected while your membership stays active.</span> <a class="announce__link" href="#"><span>See plans</span><svg class="icon"><use href="#i-arrow"/></svg></a></p>
+    <button class="announce__close" type="button" aria-label="Dismiss announcement"><svg class="icon"><use href="#i-close"/></svg></button>
+  </aside>
+
+  <div class="nav-wrap">
+    <header class="nav">
+      <a class="nav__logo" href="#" aria-label="Unbill home"><img src="../../assets/logo-dark.svg" alt="Unbill"></a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="#">For Businesses</a>
+        <a href="#">Membership</a>
+        <a href="#">About</a>
+        <div class="dropdown">
+          <button class="dropdown__toggle" type="button" aria-expanded="false" aria-controls="resources-menu">
+            Resources <svg class="icon"><use href="#i-chevron"/></svg>
+          </button>
+          <div class="dropdown__menu" id="resources-menu">
+            <ul>
+              <li><a href="#"><b>Blog</b><span>Stories, news and product updates</span></a></li>
+              <li><a href="#"><b>Learning hub</b><span>Plain-English guides to bills, EOBs and appeals</span></a></li>
+              <li><a href="#"><b>Trust center</b><span>How we protect your health data</span></a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="#">Partner with us</a>
+      </nav>
+      <div class="nav__cta">
+        <a class="nav__login" href="#">Login</a>
+        <a class="btn btn--blue btn--sm" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started</span></span></a>
+      </div>
+    </header>
+  </div>
+  </div>
+
+  <!-- HERO: beige card, copy on the left, photo collage on the right -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero__copy">
+      <h1 class="hero__title" aria-label="Your AI healthcare advocate. Always with you.">
+        <span class="hero__strong" aria-hidden="true"><span class="word" style="--i:0"><span>Your</span></span> <span class="word" style="--i:1"><span>AI</span></span> <span class="word" style="--i:2"><span>healthcare</span></span> <span class="word" style="--i:3"><span>advocate.</span></span></span>
+        <span class="hero__serif typer" aria-hidden="true">
+          <span class="typer__ghost">Always with you.</span>
+          <span class="typer__line"><span class="typer__text">Always with you.</span><span class="typer__cursor"></span></span>
+        </span>
+      </h1>
+      <p class="hero__lede">Unbill steps in when healthcare leaves you alone with the paperwork, the deadlines and the fear of what you actually owe.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--blue" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started</span></span></a>
+        <a class="btn btn--outline" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">For Businesses</span></span></a>
+      </div>
+      <ul class="ticks ticks--hero">
+        <li><svg class="icon"><use href="#i-check"/></svg>No success fee</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Cancel anytime</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Always on</li>
+      </ul>
+    </div>
+    <div class="hero__art">
+        <span class="piece piece--figures" style="--depth:6; --d:.5s"><img src="../../assets/img/collage-figures.webp" alt=""></span>
+        <span class="piece piece--policy" style="--depth:10; --d:.55s"><img src="../../assets/img/collage-policy.webp" alt=""></span>
+        <span class="piece piece--tape-a" style="--depth:14; --d:.75s"><img src="../../assets/img/collage-tape.webp" alt=""></span>
+        <span class="piece piece--leaf" style="--depth:5; --d:.45s"><img src="../../assets/img/collage-leaf.webp" alt=""></span>
+        <span class="piece piece--film" style="--depth:3; --d:.4s"><img src="../../assets/img/collage-film-edge.webp" alt=""></span>
+        <span class="piece piece--letter" style="--depth:9; --d:.6s"><img src="../../assets/img/collage-letter.webp" alt=""></span>
+        <span class="piece piece--photo" style="--depth:4; --d:.35s"><img src="../../assets/img/hero-mom-son.webp" alt="A mother laughing as her son hugs her from behind"></span>
+        <span class="piece piece--signature" style="--depth:16; --d:.85s"><img src="../../assets/img/collage-signature.webp" alt=""></span>
+        <span class="piece piece--tape-b" style="--depth:14; --d:.8s"><img src="../../assets/img/collage-tape.webp" alt=""></span>
+    </div>
+  </section>
+
+  <!-- STATEMENT: the sentence fills in as you scroll -->
+  <section class="statement-wrap" aria-labelledby="statement-title">
+    <p class="eyebrow reveal">No success fee</p>
+    <h2 id="statement-title" class="statement reveal" style="--d:.1s"><span class="statement__sans">Get 100% of your billing errors back.</span> <span class="statement__serif"><span class="fill">Unbill</span> <span class="fill">is</span> <span class="fill">AI</span> <span class="fill">native,</span> <span class="fill">so</span> <span class="fill">it</span> <span class="fill">watches</span> <span class="fill">your</span> <span class="fill">bills</span> <span class="fill">24/7</span> <span class="fill">at</span> <span class="fill">a</span> <span class="fill">fraction</span> <span class="fill">of</span> <span class="fill">the</span> <span class="fill">cost</span> <span class="fill">of</span> <span class="fill">a</span> <span class="fill">human</span> <span class="fill">negotiator</span> <span class="fill">with</span> <span class="fill">no</span> <span class="fill">bias</span> <span class="fill">for</span> <span class="fill">larger</span> <span class="fill">claims.</span></span></h2>
+    <ol class="steps">
+      <li class="reveal" style="--d:.2s"><span>1</span>One flat membership</li>
+      <li class="reveal" style="--d:.28s"><span>2</span>No success fee</li>
+      <li class="reveal" style="--d:.36s"><span>3</span>Always-on</li>
+    </ol>
+  </section>
+
+  <!-- MELINDA'S CASE: story, chat, fees -->
+  <section class="cards" aria-label="Example case">
+    <div class="card card--story reveal">
+      <h3>Melinda's $10,000 hospital bill</h3>
+      <p>Unbill checked her bill against her plan and her EOB, found $3,000 billed in error and supported her appeal.</p>
+    </div>
+    <div class="card card--chat reveal" style="--d:.1s">
+      <!-- the chat, played once when it scrolls into view -->
+      <div class="chat" id="chat" aria-label="Example conversation with Unbill">
+        <div class="chat__log" aria-live="polite">
+          <div class="chat__file">
+            <svg class="icon"><use href="#i-file"/></svg>
+            <div><b>Medical Bill. Melinda</b><span>PDF</span></div>
+          </div>
+          <div class="chat__row chat__row--user">
+            <p class="chat__bubble">Can you please check my bill?</p>
+            <img class="chat__avatar" src="../../assets/img/avatar-melinda.jpg" alt="Melinda" width="40" height="40">
+          </div>
+          <div class="chat__row chat__row--bot chat__answer" hidden>
+            <span class="chat__bot" aria-hidden="true"><svg><use href="#i-u"/></svg></span>
+            <p class="chat__thinking">Thinking<span class="dots"><i>.</i><i>.</i><i>.</i></span></p>
+            <div class="chat__reply" hidden>
+              <p>I checked your bill against your plan and your EOB. <b>$3,000 was billed in error:</b></p>
+              <ul>
+                <li><span>Duplicate lab panel</span><b>$312</b></li>
+                <li><span>ER visit coded too high</span><b>$1,880</b></li>
+                <li><span>Facility fee your plan covers</span><b>$808</b></li>
+              </ul>
+              <p class="chat__chip"><svg class="icon"><use href="#i-file"/></svg>Appeal letter drafted</p>
+            </div>
+          </div>
+        </div>
+        <form class="chat__input" id="chat-form">
+          <svg class="icon"><use href="#i-link"/></svg>
+          <label class="visually-hidden" for="chat-q">Ask Unbill</label>
+          <input id="chat-q" type="text" placeholder="Ask Unbill" autocomplete="off">
+          <button class="chat__send" type="submit" aria-label="Send"><svg class="icon chat__send-out"><use href="#i-send"/></svg><svg class="icon chat__send-in" aria-hidden="true"><use href="#i-send"/></svg></button>
+        </form>
+      </div>
+
+    </div>
+    <div class="card card--fees reveal" style="--d:.2s">
+      <p class="fee__who">Unbill membership</p>
+      <div class="fee fee--unbill">
+        <div><span>Fee</span><b>$45</b></div>
+        <div><span>Melinda keeps</span><b>$3,000</b></div>
+      </div>
+      <p class="fee__who">Typical bill negotiator (20% success fee)</p>
+      <div class="fee">
+        <div><span>Fee</span><b>$600</b></div>
+        <div><span>Melinda keeps</span><b class="fee__muted">$2,400</b></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Announcement bar: dismiss.
+    document.querySelector('.announce__close').addEventListener('click', function () {
+      document.getElementById('announce').hidden = true;
+    });
+
+    // Nav: as soon as the page scrolls, the bar lifts into a floating white pill under the banner.
+    (function () {
+      var wrap = document.querySelector('.nav-wrap');
+      var ticking = false;
+      function update() {
+        wrap.classList.toggle('is-floating', window.scrollY > 4);
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
+    })();
+
+    // Headline: types "Always on.", deletes back to "Always ", types "with you.", and loops.
+    (function () {
+      var el = document.querySelector('.typer__text');
+      var typer = document.querySelector('.typer');
+      var phrases = ['Always on.', 'Always with you.'];
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;   // keep the final phrase
+
+      var TYPE = 70, ERASE = 38, HOLD = [1700, 3800];
+      var i = 0;
+      function commonPrefix(a, b) { var n = 0; while (n < a.length && a[n] === b[n]) n++; return n; }
+      function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+      async function typeTo(target) {
+        typer.classList.add('is-typing');
+        var cur = el.textContent;
+        var keep = commonPrefix(cur, target);
+        while (el.textContent.length > keep) {                     // erase back to the shared start
+          el.textContent = el.textContent.slice(0, -1);
+          await wait(ERASE);
+        }
+        for (var k = keep; k < target.length; k++) {              // type the rest, a little unevenly
+          el.textContent = target.slice(0, k + 1);
+          await wait(TYPE + Math.random() * 45 - 15);
+        }
+        typer.classList.remove('is-typing');
+      }
+      async function run() {
+        el.textContent = '';
+        await wait(1300);                                         // let the load animation land first
+        for (;;) {
+          await typeTo(phrases[i]);
+          await wait(HOLD[i]);
+          i = (i + 1) % phrases.length;
+        }
+      }
+      run();
+    })();
+
+    // Paper collage: each sheet drifts with the mouse at its own depth (eased, desktop only).
+    (function () {
+      var hero = document.querySelector('.hero');
+      var items = [].slice.call(hero.querySelectorAll('[style*="--depth"]'));
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+      var tx = 0, ty = 0, x = 0, y = 0, raf = null;
+      function frame() {
+        x += (tx - x) * 0.08;
+        y += (ty - y) * 0.08;
+        items.forEach(function (el) {
+          var d = parseFloat(getComputedStyle(el).getPropertyValue('--depth')) || 6;
+          el.style.setProperty('--px', (x * d).toFixed(2) + 'px');
+          el.style.setProperty('--py', (y * d * 0.6).toFixed(2) + 'px');
+        });
+        raf = (Math.abs(tx - x) > 0.001 || Math.abs(ty - y) > 0.001) ? requestAnimationFrame(frame) : null;
+      }
+      function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;      // -1 … 1
+        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        kick();
+      });
+      hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; kick(); });
+    })();
+
+    // Scroll reveal for the pricing section.
+    (function () {
+      var targets = [].slice.call(document.querySelectorAll('.pricing h2, .reveal'));
+      function show(el) { el.classList.add('is-in'); }
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { targets.forEach(show); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+      targets.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Statement: words fill from grey to ink as the section scrolls through the viewport.
+    (function () {
+      var words = [].slice.call(document.querySelectorAll('.statement .fill'));
+      var box = document.querySelector('.statement');
+      if (!words.length) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { words.forEach(function (w) { w.classList.add('is-lit'); }); return; }
+      var ticking = false;
+      function update() {
+        var r = box.getBoundingClientRect(), vh = innerHeight;
+        // 0 when the block's top reaches 85% of the viewport, 1 when its bottom reaches 45%
+        var p = (vh * 0.85 - r.top) / (r.height + vh * 0.4);
+        p = Math.max(0, Math.min(1, p));
+        var n = Math.round(p * words.length);
+        words.forEach(function (w, i) { w.classList.toggle('is-lit', i < n); });
+        ticking = false;
+      }
+      addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      addEventListener('resize', update);
+      update();
+    })();
+
+    // Resources dropdown: shows only while the pointer is over Resources or its panel.
+    // Keyboard users open it with Enter/Space/ArrowDown; touch users with a tap.
+    (function () {
+      var dd = document.querySelector('.dropdown');
+      var toggle = dd.querySelector('.dropdown__toggle');
+      var closeTimer;
+      function set(open) {
+        clearTimeout(closeTimer);
+        dd.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+      dd.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') set(true); });
+      dd.addEventListener('pointerleave', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(function () { set(false); }, 120);
+      });
+      toggle.addEventListener('click', function (e) {
+        if (e.detail > 0 && matchMedia('(hover: hover)').matches) return;
+        set(!dd.classList.contains('is-open'));
+      });
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') { e.preventDefault(); set(true); dd.querySelector('.dropdown__menu a').focus(); }
+      });
+      dd.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { set(false); toggle.focus(); }
+      });
+      dd.addEventListener('focusout', function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
+      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+    })();
+
+    // Chat: once the card is well into view, Unbill shows "Thinking..." and then its findings.
+    (function () {
+      var chat = document.getElementById('chat');
+      var answer = chat.querySelector('.chat__answer');
+      var thinking = chat.querySelector('.chat__thinking');
+      var reply = chat.querySelector('.chat__reply');
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function think() {
+        answer.hidden = false;
+        chat.classList.add('is-thinking');
+      }
+      function respond() {
+        thinking.hidden = true;
+        reply.hidden = false;
+        chat.classList.remove('is-thinking');
+        chat.classList.add('is-answered');
+      }
+      if (reduce || !('IntersectionObserver' in window)) { think(); respond(); }
+      else {
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          io.disconnect();
+          setTimeout(think, 400);
+          setTimeout(respond, 400 + 2400);
+        }, { threshold: 0.55 });
+        io.observe(chat);
+      }
+
+      // The input is a demo: a question gets a short canned answer.
+      var form = document.getElementById('chat-form');
+      var input = document.getElementById('chat-q');
+      var log = chat.querySelector('.chat__log');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var q = input.value.trim();
+        if (!q) return;
+        var mine = document.createElement('div');
+        mine.className = 'chat__row chat__row--user';
+        var bubble = document.createElement('p');
+        bubble.className = 'chat__bubble';
+        bubble.textContent = q;
+        mine.appendChild(bubble);
+        var theirs = document.createElement('div');
+        theirs.className = 'chat__row chat__row--bot';
+        theirs.innerHTML = '<span class="chat__bot" aria-hidden="true"><svg><use href="#i-u"/></svg></span>' +
+          '<div class="chat__reply"><p>This is a preview. Create your account and Unbill will answer with your own bills and plan.</p></div>';
+        log.appendChild(mine);
+        log.appendChild(theirs);
+        log.scrollTop = log.scrollHeight;
+        input.value = '';
+      });
+    })();
+  </script>
+</body>
+</html>
