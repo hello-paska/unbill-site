@@ -50,8 +50,8 @@
         <a href="#">Partner with us</a>
       </nav>
       <div class="nav__cta">
-        <a class="btn btn--outline btn--sm" href="#"><span class="btn__bg" aria-hidden="true"><i></i><i></i></span><span class="btn__track"><span class="btn__label" data-text="Login"><span>Login</span></span></span></a>
-        <a class="btn btn--blue btn--sm" href="#"><span class="btn__bg" aria-hidden="true"><i></i><i></i></span><span class="btn__track"><span class="btn__label" data-text="Get started"><span>Get started</span></span></span></a>
+        <a class="btn btn--outline btn--sm" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Login</span></span></a>
+        <a class="btn btn--blue btn--sm" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started</span></span></a>
       </div>
     </header>
   </div>
@@ -69,8 +69,8 @@
       </p>
       <p class="hero__lede">Unbill steps in when healthcare leaves you alone with the paperwork, the deadlines and the fear of what you actually owe.</p>
       <div class="hero__ctas">
-        <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"><i></i><i></i></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label" data-text="Get started"><span>Get started</span></span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
-        <a class="btn btn--outline btn--glide" href="#"><span class="btn__bg" aria-hidden="true"><i></i><i></i></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label" data-text="For employers &amp; brokers"><span>For employers &amp; brokers</span></span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="btn btn--outline btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">For employers &amp; brokers</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
       <ul class="ticks ticks--hero">
         <li><svg class="icon"><use href="#i-check"/></svg>No success fee</li>
@@ -82,17 +82,8 @@
 
   <!-- PHOTO BAND: torn top and bottom, paper collage pinned along both sides -->
   <div class="band">
-    <img class="band__photo" src="../../assets/img/band-family.webp" alt="A mother and father sitting on the grass with their two young children" width="2880" height="1920">
+    <img class="band__photo" src="../../assets/img/band-family-hd.webp" alt="A mother and father sitting on the grass with their two young children" width="2000" height="1239">
     <div class="papers" aria-hidden="true">
-      <span class="piece piece--purple-a" style="--depth:9; --d:.7s"><img src="../../assets/img/collage-torn-purple.webp" alt=""></span>
-      <span class="piece piece--purple-b" style="--depth:11; --d:.75s"><img src="../../assets/img/collage-torn-purple.webp" alt=""></span>
-      <span class="piece piece--figures-a" style="--depth:7; --d:.6s"><img src="../../assets/img/collage-figures.webp" alt=""></span>
-      <span class="piece piece--figures-b" style="--depth:7; --d:.62s"><img src="../../assets/img/collage-figures.webp" alt=""></span>
-      <span class="piece piece--policy" style="--depth:13; --d:.66s"><img src="../../assets/img/collage-policy.webp" alt=""></span>
-      <span class="piece piece--stamp" style="--depth:18; --d:.8s"><img src="../../assets/img/collage-stamp.webp" alt=""></span>
-      <span class="piece piece--letter" style="--depth:14; --d:.7s"><img src="../../assets/img/collage-letter.webp" alt=""></span>
-      <span class="piece piece--tape-a" style="--depth:16; --d:.95s"><img src="../../assets/img/collage-tape.webp" alt=""></span>
-      <span class="piece piece--tape-b" style="--depth:16; --d:.95s"><img src="../../assets/img/collage-tape.webp" alt=""></span>
       <span class="piece piece--signature" style="--depth:20; --d:1s"><img src="../../assets/img/collage-signature.webp" alt=""></span>
     </div>
   </div>
@@ -142,7 +133,7 @@
           <svg class="icon"><use href="#i-link"/></svg>
           <label class="visually-hidden" for="chat-q">Ask Unbill</label>
           <input id="chat-q" type="text" placeholder="Ask Unbill" autocomplete="off">
-          <button type="submit" aria-label="Send"><svg class="icon"><use href="#i-send"/></svg></button>
+          <button class="chat__send" type="submit" aria-label="Send"><svg class="icon chat__send-out"><use href="#i-send"/></svg><svg class="icon chat__send-in" aria-hidden="true"><use href="#i-send"/></svg></button>
         </form>
       </div>
 

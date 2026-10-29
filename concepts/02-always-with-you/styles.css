@@ -241,7 +241,7 @@ b, strong { font-weight: 500; }
    never jumps. */
 
 .topbar { position: sticky; top: 0; z-index: 50; }
-.nav-wrap { position: relative; height: 72px; }
+.nav-wrap { position: relative; display: flow-root; height: 72px; }   /* flow-root keeps the nav's 20px margin inside, even with the banner closed */
 .nav {
   display: flex;
   align-items: center;
