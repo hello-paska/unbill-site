@@ -159,11 +159,21 @@ b, strong { font-weight: 500; }
 .announce__close:hover { background: rgba(22, 11, 18, 0.08); }
 
 
-.announce__link { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; color: var(--blue); font-weight: 500; }
+.announce__link { position: relative; display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; padding-bottom: 5px; color: var(--blue); font-weight: 500; }
 .announce__link .icon { width: 16px; height: 16px; transition: transform .35s var(--smooth); }
-.announce__link span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; transition: background-size .4s var(--smooth); }
-.announce__link:is(:hover, :focus-visible) span { background-size: 100% 1.5px; }
-.announce__link:is(:hover, :focus-visible) .icon { transform: translateX(3px); }
+.announce__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--smooth);
+}
+.announce__link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
 
 /* ---------- Sticky header + nav ----------
    The banner and the nav stick to the top together. In place the nav is a
@@ -324,10 +334,10 @@ b, strong { font-weight: 500; }
   -webkit-mask: url("../../assets/img/band-photo.webp") 0 3.33% / 100% auto no-repeat;
   mask: url("../../assets/img/band-photo.webp") 0 3.33% / 100% auto no-repeat;
 }   /* the torn paper lightens what sits under it, like real thin paper */
-.piece--strip-top { left: 17.04%; top: -7.41%; width: 68.82%; }
-.piece--strip-top img { transform: rotate(3.04deg); }
-.piece--strip-bot { left: 7.21%; top: 70.66%; width: 54.33%; }
-.piece--strip-bot img { transform: rotate(1.73deg); }
+.piece--strip-top { left: 9%; top: -7.41%; width: 68.82%; }
+.piece--strip-top img { transform: rotate(3.04deg) scaleX(1.3); }
+.piece--strip-bot { left: 1%; top: 70.66%; width: 54.33%; }
+.piece--strip-bot img { transform: rotate(1.73deg) scaleX(1.3); }
 .piece--strip-bot2 { left: 62.80%; top: 82.28%; width: 38.03%; }
 .piece--strip-bot2 img { transform: rotate(0.94deg); }
 .piece--purple-a { left: 79.57%; top: 4.58%; width: 29.58%; }
@@ -384,7 +394,7 @@ b, strong { font-weight: 500; }
 }
 .pricing__pitch,
 .case { border-radius: 56px; padding: 40px; }
-.pricing__pitch { position: relative; z-index: 1; background: var(--yellow); }
+.pricing__pitch { position: relative; z-index: 1; background: var(--stone); }
 .case { background: var(--stone); text-align: left; }
 
 .pill {
