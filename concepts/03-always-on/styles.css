@@ -318,7 +318,7 @@ b, strong { font-weight: 500; }
    Collage pieces use the design's exact transforms, as fractions of the
    1440 x 960 band, and drift with the mouse at their own depth. */
 
-.band { position: relative; margin-top: 0; overflow-x: clip; }
+.band { position: relative; display: flow-root; margin-top: 0; overflow-x: clip; }   /* flow-root keeps the photo's margins inside the band */
 .band__photo { display: block; width: 100%; height: auto; margin-top: 2.22%; margin-bottom: 2.5%; translate: var(--px, 0px) var(--py, 0px); }
 .papers { position: absolute; inset: 0; pointer-events: none; }
 .piece {
@@ -326,20 +326,10 @@ b, strong { font-weight: 500; }
   translate: var(--px, 0px) var(--py, 0px);
 }
 .piece img { display: block; width: 100%; height: auto; max-width: none; transform-origin: 0 0; }
-.piece--paper { mix-blend-mode: plus-lighter; }
-/* the two torn corner pieces only show where the photo is, as in the design */
-.papers__clip {
-  position: absolute;
-  inset: 0;
-  -webkit-mask: url("../../assets/img/band-photo.webp") 0 3.33% / 100% auto no-repeat;
-  mask: url("../../assets/img/band-photo.webp") 0 3.33% / 100% auto no-repeat;
-}   /* the torn paper lightens what sits under it, like real thin paper */
-.piece--strip-top { left: 9%; top: -7.41%; width: 68.82%; }
-.piece--strip-top img { transform: rotate(3.04deg) scaleX(1.3); }
-.piece--strip-bot { left: 1%; top: 70.66%; width: 54.33%; }
-.piece--strip-bot img { transform: rotate(1.73deg) scaleX(1.3); }
-.piece--strip-bot2 { left: 62.80%; top: 82.28%; width: 38.03%; }
-.piece--strip-bot2 img { transform: rotate(0.94deg); }
+.piece--paper { mix-blend-mode: plus-lighter; }   /* the torn paper lightens what sits under it, like real thin paper */
+/* the torn paper runs the full length of the photo's top and bottom edges, covering the cut so the photo itself reads as torn */
+.piece--edges { left: -7.00%; top: -7.17%; width: 114.00%; }
+   /* the torn paper lightens what sits under it, like real thin paper */
 .piece--purple-a { left: 79.57%; top: 4.58%; width: 29.58%; }
 .piece--purple-a img { transform: matrix(0.9807, -0.1953, 0.1953, 0.9807, 0, 0); }
 .piece--purple-b { left: 17.24%; top: 86.81%; width: 29.59%; }
