@@ -53,8 +53,22 @@
       <div class="nav__cta">
         <a class="nav__login" href="#">Login</a>
         <a class="btn btn--lime" href="#"><span class="btn__bg" aria-hidden="true"><i></i><i></i></span><span class="btn__track"><span class="btn__label" data-text="Get started"><span>Get started</span></span></span></a>
+        <button class="nav__burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><i></i><i></i></button>
       </div>
     </header>
+    <nav class="mnav" id="mobile-menu" aria-label="Main" hidden>
+      <a href="#">For Businesses</a>
+      <a href="#">Membership</a>
+      <a href="#">About</a>
+      <details class="mnav__group">
+        <summary>Resources <svg class="icon"><use href="#i-chevron"/></svg></summary>
+        <a href="#">Blog</a>
+        <a href="#">Learning hub</a>
+        <a href="#">Trust center</a>
+      </details>
+      <a href="#">Partner with us</a>
+      <a class="mnav__login" href="#">Login</a>
+    </nav>
   </div>
   </div>
 
@@ -251,6 +265,22 @@
         entries.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
       }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
       targets.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Mobile menu: the burger opens a full-width panel under the bar.
+    (function () {
+      var btn = document.querySelector('.nav__burger');
+      var panel = document.getElementById('mobile-menu');
+      function set(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        panel.hidden = !open;
+        document.documentElement.classList.toggle('menu-open', open);
+      }
+      btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+      panel.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { set(false); btn.focus(); } });
+      matchMedia('(min-width: 901px)').addEventListener('change', function (m) { if (m.matches) set(false); });
     })();
 
     // Resources dropdown: shows only while the pointer is over Resources or its panel.
