@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unbill Households</title>
+  <link rel="stylesheet" href="torn.css">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.4 10.2l2.4 2.4 4.8-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-ne" viewBox="0 0 20 20"><path d="M6 14L14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-file" viewBox="0 0 20 20"><path d="M5 2.5h6.5L16 7v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1z" fill="currentColor"/><path d="M7 11.5h6M7 14h4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 20 20"><path d="M8.5 11.5l3-3M7 9.5l-1.8 1.8a2.8 2.8 0 0 0 4 4L11 13.5M13 10.5l1.8-1.8a2.8 2.8 0 0 0-4-4L9 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-send" viewBox="0 0 20 20"><path d="M17 3L8.5 11.5M17 3l-5 14-3.5-5.5L3 8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-u" viewBox="0 0 124 124"><path d="M123.98 0V23.22L94.41 52.79V10.47C94.41 4.69 99.1 0 104.88 0H123.98Z" fill="currentColor"/><path d="M123.98 45.83V64.51C122.69 96.77 96.77 122.69 64.51 123.98H59.47C27.21 122.69 1.29 96.77 0 64.51V0H19.1C24.88 0 29.57 4.69 29.57 10.47V61.44C29.57 79.35 43.86 94.29 61.77 94.41C70.53 94.47 78.49 91.05 84.36 85.46L84.44 85.38C84.76 85.07 123.98 45.83 123.98 45.83Z" fill="currentColor"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 20 20"><rect x="3" y="5" width="14" height="10.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 6l6.5 5 6.5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 20 20"><circle cx="9" cy="9" r="5.25" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <!-- STICKY HEADER: announcement + nav travel together -->
+  <div class="topbar">
+  <aside class="announce" id="announce" aria-label="Founding member offer">
+    <p><span class="announce__pills"><span class="announce__tag">Founding offer</span><span class="announce__pill">60 seats remaining</span></span> <span>Plus at the Core price for founding members, protected while your membership stays active.</span> <a class="announce__link" href="#"><span>See plans</span><svg class="icon"><use href="#i-arrow"/></svg></a></p>
+    <button class="announce__close" type="button" aria-label="Dismiss announcement"><svg class="icon"><use href="#i-close"/></svg></button>
+  </aside>
+
+  <div class="nav-wrap">
+    <header class="nav">
+      <a class="nav__logo" href="#" aria-label="Unbill home"><img src="../../assets/logo-dark.svg" alt="Unbill"></a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="#" aria-current="page">Households</a>
+        <a href="#">Businesses</a>
+        <a href="#membership">Membership</a>
+        <a href="#">About</a>
+        <a href="#">Partner with us</a>
+      </nav>
+      <div class="nav__cta">
+        <a class="nav__hub" href="#"><svg class="icon"><use href="#i-search"/></svg>Learning Hub</a>
+        <a class="btn btn--outline btn--sm" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Login</span></span></a>
+        <a class="btn btn--blue btn--sm" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started</span></span></a>
+        <button class="nav__burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><i></i><i></i></button>
+      </div>
+    </header>
+    <nav class="mnav" id="mobile-menu" aria-label="Main" hidden>
+      <a href="#" aria-current="page">Households</a>
+      <a href="#">Businesses</a>
+      <a href="#membership">Membership</a>
+      <a href="#">About</a>
+      <a href="#">Partner with us</a>
+      <a href="#"><span class="mnav__hub"><svg class="icon"><use href="#i-search"/></svg>Learning Hub</span></a>
+      <a class="mnav__login" href="#">Login</a>
+    </nav>
+  </div>
+  </div>
+
+  <!-- HERO: bold claim on the left, light promise and actions on the right -->
+  <section class="hero" aria-label="Introduction">
+    <h1 class="hero__title" aria-label="Your AI healthcare advocate. Always on. Always with you.">
+      <span class="hero__eyebrow" aria-hidden="true">AI healthcare advocate</span>
+      <span class="hero__strong" aria-hidden="true"><span class="word" style="--i:0"><span>Your</span></span> <span class="word" style="--i:1"><span>AI</span></span> <span class="word" style="--i:2"><span>healthcare</span></span> <span class="word" style="--i:3"><span>advocate.</span></span></span>
+    </h1>
+    <div class="hero__side">
+      <p class="hero__light typer" aria-hidden="true">
+        <span class="typer__ghost">Always with you.</span>
+        <span class="typer__line"><span class="typer__text">Always on.</span><span class="typer__cursor"></span></span>
+      </p>
+      <p class="hero__lede">Unbill steps in when healthcare leaves you alone with the paperwork, the deadlines and the fear of what you actually owe.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="btn btn--outline btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">For employers &amp; brokers</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+      <ul class="ticks ticks--hero">
+        <li><svg class="icon"><use href="#i-check"/></svg>No success fee</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Goes with you</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Cancel anytime</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PHOTO BAND: torn top and bottom, paper collage pinned along both sides -->
+  <!-- PHOTO BAND: photo, torn paper strips and collage are separate layers, each drifting with the mouse at its own depth -->
+  <div class="band">
+    <img class="band__photo" src="../../assets/img/band-photo.webp" alt="A mother and father sitting on the grass with their two young children" width="2000" height="1239" style="--depth:4">
+    <div class="papers" aria-hidden="true">
+      <!-- blue torn scraps are part of the picture: clipped to the photo, moving with it, and torn by the same paper edge -->
+      <span class="piece papers__clip" style="--depth:4; --d:.3s">
+        <span class="piece--purple-a"><img src="../../assets/img/collage-torn-blue.webp" alt=""></span>
+        <span class="piece--purple-b"><img src="../../assets/img/collage-torn-blue.webp" alt=""></span>
+      </span>
+      <span class="piece piece--paper piece--edges" style="--depth:5; --d:.45s"><img src="../../assets/img/paper-edges.webp" alt=""></span>
+      <span class="piece piece--figures-a" style="--depth:6; --d:.6s"><img src="../../assets/img/collage-figures.webp" alt=""></span>
+      <span class="piece piece--figures-b" style="--depth:6; --d:.62s"><img src="../../assets/img/collage-figures.webp" alt=""></span>
+      <span class="piece piece--letter" style="--depth:14; --d:.66s"><img src="../../assets/img/collage-letter.webp" alt=""></span>
+      <span class="piece piece--policy" style="--depth:13; --d:.68s"><img src="../../assets/img/collage-policy.webp" alt=""></span>
+      <span class="piece piece--stamp" style="--depth:18; --d:.74s"><img src="../../assets/img/collage-stamp-hd.webp" alt=""></span>
+      <span class="piece piece--tape-a" style="--depth:16; --d:.8s"><img src="../../assets/img/collage-tape.webp" alt=""></span>
+      <span class="piece piece--tape-b" style="--depth:16; --d:.82s"><img src="../../assets/img/collage-tape.webp" alt=""></span>
+      <span class="piece piece--signature" style="--depth:20; --d:.9s"><img src="../../assets/img/collage-signature.webp" alt=""></span>
+    </div>
+  </div>
+
+  <main class="page">
+
+  <!-- SUBSCRIPTION THESIS: four promises; the panel on the right plays the one in focus -->
+  <section class="block block--blue thesis" aria-labelledby="thesis-title">
+    <h2 id="thesis-title" class="h2 reveal"><b>A single subscription</b> for lifelong peace of mind, not a one-off emergency fee.</h2>
+    <div class="thesis__body">
+      <div class="thesis__tabs" role="tablist" aria-label="What the membership means">
+        <button class="thesis__tab is-active" role="tab" aria-selected="true" aria-controls="tp-fee" id="tt-fee"><b>Not a fee</b><span>One flat membership. No success fee, no cut of what you recover.</span><i class="thesis__bar"></i></button>
+        <button class="thesis__tab" role="tab" aria-selected="false" aria-controls="tp-on" id="tt-on" tabindex="-1"><b>Always on</b><span>Unbill watches your bills and deadlines 24/7, not only when something goes wrong.</span><i class="thesis__bar"></i></button>
+        <button class="thesis__tab" role="tab" aria-selected="false" aria-controls="tp-auto" id="tt-auto" tabindex="-1"><b>Automated</b><span>AI reads every bill, EOB and denial, so nothing is skipped for being too small.</span><i class="thesis__bar"></i></button>
+        <button class="thesis__tab" role="tab" aria-selected="false" aria-controls="tp-life" id="tt-life" tabindex="-1"><b>Follows you lifelong</b><span>Your records and cases stay yours across jobs, plans and insurers.</span><i class="thesis__bar"></i></button>
+      </div>
+      <div class="thesis__stage">
+        <!-- Not a fee: the receipt -->
+        <div class="thesis__panel is-active" role="tabpanel" id="tp-fee" aria-labelledby="tt-fee">
+          <div class="slip">
+            <p class="slip__kicker">On a $3,000 recovery</p>
+            <div class="slip__row"><span>Typical negotiator, 20% cut</span><s>$600</s></div>
+            <div class="slip__row slip__row--us"><span>Unbill membership</span><b>$15<small>/month</small></b></div>
+            <div class="slip__total"><span>You keep</span><b>$3,000</b></div>
+            <p class="slip__note">No success fee. Ever.</p>
+          </div>
+        </div>
+        <!-- Always on: a week of quiet watching, one alert -->
+        <div class="thesis__panel" role="tabpanel" id="tp-on" aria-labelledby="tt-on" hidden>
+          <div class="watch">
+            <div class="watch__pulse" aria-hidden="true"><i></i><i></i><i></i><span>24/7</span></div>
+            <ul class="watch__feed">
+              <li><time>Mon 02:14</time>New EOB from BlueRidge checked. All correct.</li>
+              <li><time>Wed 09:40</time>Lab invoice matched to Melinda's ER case.</li>
+              <li class="is-alert"><time>Thu 17:05</time>Appeal deadline in 9 days. Letter is ready to sign.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Automated: every line read -->
+        <div class="thesis__panel" role="tabpanel" id="tp-auto" aria-labelledby="tt-auto" hidden>
+          <div class="scan">
+            <p class="scan__title">Itemized statement · 6 lines</p>
+            <ul>
+              <li><span>99285 ER visit</span><span>$2,940</span><em class="flag">Coded too high</em></li>
+              <li><span>80053 Metabolic panel</span><span>$312</span><em class="ok">Checked</em></li>
+              <li><span>80053 Metabolic panel</span><span>$312</span><em class="flag">Duplicate</em></li>
+              <li><span>J2405 Ondansetron</span><span>$18</span><em class="ok">Checked</em></li>
+              <li><span>36415 Venipuncture</span><span>$12</span><em class="ok">Checked</em></li>
+              <li><span>0450 Facility fee</span><span>$808</span><em class="flag">Plan covers</em></li>
+            </ul>
+            <i class="scan__beam" aria-hidden="true"></i>
+          </div>
+        </div>
+        <!-- Follows you lifelong: one record across changes -->
+        <div class="thesis__panel" role="tabpanel" id="tp-life" aria-labelledby="tt-life" hidden>
+          <ol class="life">
+            <li><b>2026</b><span>Job at Acme · BlueRidge PPO</span></li>
+            <li><b>2028</b><span>New job · Cascade HMO</span></li>
+            <li><b>2031</b><span>Moved state · Marketplace plan</span></li>
+            <li class="life__you"><b>Always</b><span>Your cases, documents and history, in one place</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM 1: what families face, where it ends up -->
+  <section class="block block--stone face" aria-labelledby="face-title">
+    <div class="face__col reveal">
+      <p class="pill">What families face</p>
+      <h2 id="face-title" class="visually-hidden">What families face, and where it ends up</h2>
+      <ul class="face__list">
+        <li>Answers scattered across Reddit and forums</li>
+        <li>Expert jargon and billing codes</li>
+        <li>Deadlines nobody explains</li>
+      </ul>
+    </div>
+    <div class="face__tear" aria-hidden="true"><img src="../../assets/img/collage-figures.webp" alt=""></div>
+    <div class="face__col reveal" style="--d:.15s">
+      <p class="pill">Where it ends up</p>
+      <div class="face__stats">
+        <div><span>Americans carry medical debt</span><b>~100M</b></div>
+        <div><span>for a total of</span><b>$220B</b></div>
+      </div>
+      <p class="source">KFF, 2022; via KHN/NPR</p>
+    </div>
+  </section>
+
+  <!-- PROBLEM 2: three things nobody helps you with -->
+  <section class="block three" aria-labelledby="three-title">
+    <h2 id="three-title" class="h2 reveal"><b>Three things</b> nobody helps you with.</h2>
+    <p class="lede reveal" style="--d:.1s">We tested each one with real households in Phase 1 and Phase 2. Here is what we confirmed, and what Unbill does about it.</p>
+    <div class="three__grid">
+      <article class="stat reveal" style="--d:.15s">
+        <p class="stat__k">1 · You can't see what your plan covers</p>
+        <b class="stat__n">36%</b>
+        <p>of insured adults find it somewhat difficult to understand what their insurance will and won't cover.</p>
+        <p class="source">KFF, 2023 survey</p>
+      </article>
+      <article class="stat reveal" style="--d:.25s">
+        <p class="stat__k">2 · You can't tell if the bill has mistakes</p>
+        <b class="stat__n">45%</b>
+        <p>of insured working-age adults were billed for care they thought was free or covered.</p>
+        <p class="source">Commonwealth Fund, 2024</p>
+      </article>
+      <article class="stat stat--dark reveal" style="--d:.35s">
+        <p class="stat__k">3 · You don't push back</p>
+        <b class="stat__n">&lt;1%</b>
+        <p>of denied in-network HealthCare.gov claims were appealed internally by consumers.</p>
+        <p class="source">KFF analysis of ACA Marketplace claims</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FEATURES: a bento of what Unbill does, each with a product visual -->
+  <section class="block block--stone features" aria-labelledby="features-title">
+    <h2 id="features-title" class="h2 reveal"><b>Every step of your journey,</b> made simple and taken care of.</h2>
+    <div class="bento">
+
+      <article class="feat reveal">
+        <p class="feat__tag">Cases &amp; Documents</p>
+        <h3>Everything in one place.</h3>
+        <p>Bills, EOBs, denial letters and plan documents, matched into one case per person. Unbill lines them up so you can see the money, the evidence, the deadlines and your next step at a glance.</p>
+        <div class="viz viz--case" aria-hidden="true">
+          <div class="case-ui">
+            <div class="case-ui__head"><img src="../../assets/img/avatar-melinda.jpg" alt=""><div><b>Melinda · ER visit</b><span>St. Aldric Medical Center · Aug 21</span></div><em>In appeal</em></div>
+            <div class="case-ui__docs"><span>Itemized bill</span><span>EOB</span><span>Denial letter</span><span>Plan summary</span></div>
+            <div class="case-ui__grid">
+              <div><span>Billed</span><b>$10,214</b></div>
+              <div><span>Billed in error</span><b class="blue">$3,000</b></div>
+              <div><span>Deadline</span><b>Nov 14</b></div>
+            </div>
+            <div class="case-ui__next">Next step: sign your appeal letter</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="feat reveal" style="--d:.1s">
+        <p class="feat__tag">Bill &amp; Denial Review</p>
+        <h3>Review bills and denials.</h3>
+        <p>Upload your EOB or denial letter. Unbill checks it against your bill and your plan, and tells you plainly if you were billed wrong or if your claim was wrongly denied.</p>
+        <div class="viz viz--review" aria-hidden="true">
+          <div class="review-ui">
+            <div class="review-ui__row"><span>ER visit, level 5</span><b>$2,940</b><em>Coded too high</em></div>
+            <div class="review-ui__row"><span>Metabolic panel</span><b>$312</b><em>Duplicate</em></div>
+            <div class="review-ui__row"><span>Facility fee</span><b>$808</b><em>Your plan covers this</em></div>
+            <div class="review-ui__sum"><span>Billed in error</span><b>$3,000</b></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="feat feat--wide reveal">
+        <div class="feat__text">
+          <p class="feat__tag">Ask Unbill</p>
+          <h3>Don't understand something? Just Ask Unbill.</h3>
+          <p>Ask about your case or any healthcare term in plain English. Every answer about your case points to the document it comes from.</p>
+        </div>
+        <div class="viz viz--chat">
+          <!-- the chat, played once when it scrolls into view -->
+          <div class="chat" id="chat" aria-label="Example conversation with Unbill">
+            <div class="chat__log" aria-live="polite">
+              <div class="chat__file">
+                <svg class="icon"><use href="#i-file"/></svg>
+                <div><b>Medical Bill. Melinda</b><span>PDF</span></div>
+              </div>
+              <div class="chat__row chat__row--user">
+                <p class="chat__bubble">Can you please check my bill?</p>
+                <img class="chat__avatar" src="../../assets/img/avatar-melinda.jpg" alt="Melinda" width="40" height="40">
+              </div>
+              <div class="chat__row chat__row--bot chat__answer" hidden>
+                <span class="chat__bot" aria-hidden="true"><svg><use href="#i-u"/></svg></span>
+                <p class="chat__thinking">Thinking<span class="dots"><i>.</i><i>.</i><i>.</i></span></p>
+                <div class="chat__reply" hidden>
+                  <p>I checked your bill against your plan and your EOB. <b>$3,000 was billed in error:</b></p>
+                  <ul>
+                    <li><span>Duplicate lab panel</span><b>$312</b></li>
+                    <li><span>ER visit coded too high</span><b>$1,880</b></li>
+                    <li><span>Facility fee your plan covers</span><b>$808</b></li>
+                  </ul>
+                  <p class="chat__chip"><svg class="icon"><use href="#i-file"/></svg>Source: EOB, page 2</p>
+                </div>
+              </div>
+            </div>
+            <form class="chat__input" id="chat-form">
+              <svg class="icon"><use href="#i-link"/></svg>
+              <label class="visually-hidden" for="chat-q">Ask Unbill</label>
+              <input id="chat-q" type="text" placeholder="Ask Unbill" autocomplete="off">
+              <button class="chat__send" type="submit" aria-label="Send"><svg class="icon chat__send-out"><use href="#i-send"/></svg><svg class="icon chat__send-in" aria-hidden="true"><use href="#i-send"/></svg></button>
+            </form>
+          </div>
+        </div>
+      </article>
+
+      <article class="feat reveal">
+        <p class="feat__tag">Appeals</p>
+        <h3>We help you appeal.</h3>
+        <p>Unbill maps your appeal path and drafts a letter grounded in your own records, built to answer exactly what the denial says.</p>
+        <div class="viz viz--appeal" aria-hidden="true">
+          <ol class="path"><li class="is-done">Denial received</li><li class="is-done">Evidence matched</li><li class="is-now">Internal appeal</li><li>External review</li></ol>
+          <div class="letter"><p class="letter__re">Re: Request for appeal, claim 4471-829-02</p><i></i><i></i><i style="width:72%"></i><i></i><i style="width:48%"></i><p class="letter__sign">Melinda Rowe</p></div>
+        </div>
+      </article>
+
+      <article class="feat reveal" style="--d:.1s">
+        <p class="feat__tag">Plan Coverage</p>
+        <h3>Know your rights and your coverage.</h3>
+        <p>See what your insurance actually covers, check a situation before it happens, and use it all to build stronger appeals.</p>
+        <div class="viz viz--cover" aria-hidden="true">
+          <div class="cover-ui">
+            <p class="cover-ui__q">"Is an MRI covered in-network?"</p>
+            <p class="cover-ui__a"><span class="dot dot--ok"></span>Covered after your deductible</p>
+            <div class="meter"><span>Deductible met</span><b>$1,200 of $2,000</b><i style="--p:60%"></i></div>
+            <div class="meter"><span>Out-of-pocket max</span><b>$2,350 of $6,500</b><i style="--p:36%"></i></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="feat reveal">
+        <p class="feat__tag">Unbill Watch <span class="soon">Coming soon</span></p>
+        <h3>You don't need to be online 24/7.</h3>
+        <p>Watch is always on. It tells you when something needs your attention, so you never have to log in to check a status.</p>
+        <div class="viz viz--watch" aria-hidden="true">
+          <div class="note-ui"><span class="note-ui__app"><svg><use href="#i-u"/></svg></span><div><b>New EOB checked</b><span>BlueRidge · all lines correct</span></div><time>now</time></div>
+          <div class="note-ui note-ui--alert"><span class="note-ui__app"><svg><use href="#i-u"/></svg></span><div><b>Appeal deadline in 9 days</b><span>Your letter is ready to sign</span></div><time>2h</time></div>
+          <div class="note-ui"><span class="note-ui__app"><svg><use href="#i-u"/></svg></span><div><b>Payment matched</b><span>Lab invoice closed</span></div><time>1d</time></div>
+        </div>
+      </article>
+
+      <article class="feat reveal" style="--d:.1s">
+        <p class="feat__tag">Plan Care <span class="soon">Partly coming soon</span></p>
+        <h3>Know before you go.</h3>
+        <p>Public information from health providers, combined with Unbill community data so everyone learns from each other's experience.</p>
+        <ul class="avail"><li><span class="dot dot--ok"></span>Available now: provider information</li><li><span class="dot"></span>Coming soon: community data</li></ul>
+        <div class="viz viz--care" aria-hidden="true">
+          <div class="prov"><div><b>Cedar Imaging</b><span>In-network · 1.2 mi</span></div><em>Est. $180</em></div>
+          <div class="prov"><div><b>St. Aldric Radiology</b><span>In-network · 3.4 mi</span></div><em>Est. $420</em></div>
+          <div class="prov prov--off"><div><b>Northfield MRI</b><span>Out-of-network</span></div><em>Est. $1,150</em></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (placeholders until real stories are in) -->
+  <section class="block testimonials" aria-labelledby="t-title">
+    <h2 id="t-title" class="h2 reveal"><b>Real people.</b> Real results.</h2>
+    <div class="t-grid">
+      <figure class="quote reveal"><figcaption>Name, State <span class="stars" aria-label="5 stars">★★★★★</span></figcaption><blockquote>Short quote</blockquote></figure>
+      <div class="video reveal" style="--d:.1s"><button class="video__play" type="button" aria-label="Play video testimonial"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5l8 5-8 5z" fill="currentColor"/></svg></button><span>Video testimonial</span></div>
+      <figure class="quote reveal" style="--d:.2s"><figcaption>Name, State <span class="stars" aria-label="5 stars">★★★★★</span></figcaption><blockquote>Short quote</blockquote></figure>
+      <div class="video video--tall reveal"><button class="video__play" type="button" aria-label="Play video testimonial"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5l8 5-8 5z" fill="currentColor"/></svg></button><span>Video testimonial</span></div>
+      <figure class="quote reveal" style="--d:.1s"><figcaption>Name, State <span class="stars" aria-label="5 stars">★★★★★</span></figcaption><blockquote>Short quote</blockquote></figure>
+      <div class="video video--tall reveal" style="--d:.2s"><button class="video__play" type="button" aria-label="Play video testimonial"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5l8 5-8 5z" fill="currentColor"/></svg></button><span>Video testimonial</span></div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="block block--stone privacy" aria-labelledby="privacy-title">
+    <div class="privacy__intro reveal">
+      <p class="pill">Privacy built in</p>
+      <h2 id="privacy-title" class="h2"><b>Your data</b> is your data.</h2>
+      <p class="lede">Health records go through a protected AI path on Amazon Bedrock, a HIPAA-eligible AWS service covered by Unbill's Business Associate Agreement with AWS. We are also SOC 2 Type II compliant.</p>
+      <a class="btn btn--outline btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Visit our Trust Center</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+    </div>
+    <div class="privacy__cards">
+      <article class="pcard reveal" style="--d:.1s"><span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" transform="rotate(45 12 12)"/></svg></span><h3>Never used for training</h3><p>Your records and AI answers are not used to train AI models or shared with model providers.</p></article>
+      <article class="pcard reveal" style="--d:.2s"><span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 19c1.4-3.2 4-4.6 7-4.6s5.6 1.4 7 4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><h3>Private to your account</h3><p>Only you can access your cases. No other member's answers draw on your records.</p></article>
+      <article class="pcard reveal" style="--d:.3s"><span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span><h3>Encrypted and in your control</h3><p>Records are encrypted at rest. Connections are read-only, and you can disconnect them anytime.</p></article>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="block membership" id="membership" aria-labelledby="m-title">
+    <h2 id="m-title" class="h2 reveal"><b>Add Unbill</b> to your healthcare journey.</h2>
+    <p class="lede reveal" style="--d:.1s">One membership per household, with a private profile and cases for each person. <b>No success fee:</b> you keep 100% of what you recover.</p>
+    <div class="billing reveal" style="--d:.15s" role="radiogroup" aria-label="Billing period">
+      <button class="billing__opt is-active" type="button" role="radio" aria-checked="true" data-period="monthly">Monthly</button>
+      <button class="billing__opt" type="button" role="radio" aria-checked="false" data-period="annual">Annual <span>Save 25%</span></button>
+    </div>
+    <p class="family reveal" style="--d:.2s"><b>One membership for your family</b> One household charge, with a separate private profile and cases for each person.</p>
+    <div class="plans">
+      <article class="plan reveal" style="--d:.2s">
+        <p class="plan__name">Core</p>
+        <p class="plan__line">Make sense of the bills in front of you.</p>
+        <p class="plan__price"><b data-monthly="$15" data-annual="$11.25">$15</b><span>/month</span></p>
+        <p class="plan__billed" data-monthly="Billed monthly" data-annual="Billed $135 yearly">Billed monthly</p>
+        <ul class="plan__list">
+          <li><svg class="icon"><use href="#i-check"/></svg>Personalised help with your bills and insurance documents</li>
+          <li><svg class="icon"><use href="#i-check"/></svg>Evidence-backed Ask Unbill answers</li>
+          <li><svg class="icon"><use href="#i-check"/></svg>Organised records and case history</li>
+        </ul>
+        <div class="plan__ctas">
+          <a class="btn btn--blue" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started with Core</span></span></a>
+          <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+        <p class="plan__fine">One flat membership · Cancel anytime · No success fee</p>
+      </article>
+      <article class="plan plan--plus reveal" style="--d:.3s">
+        <p class="plan__name">Plus <span class="seats">60 seats remaining</span></p>
+        <p class="plan__line">Plan ahead. Put an advocate on your side.</p>
+        <p class="plan__price"><s data-monthly="$30" data-annual="$22.50">$30</s><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg><b data-monthly="$15" data-annual="$11.25">$15</b><span>/month</span></p>
+        <p class="plan__billed"><span class="founding">Founding offer</span> <span data-monthly="Billed monthly" data-annual="Billed $135 yearly">Billed monthly</span></p>
+        <p class="plan__plus">Everything in Core, plus:</p>
+        <ul class="plan__list">
+          <li><svg class="icon"><use href="#i-check"/></svg>Appeal preparation, digital signing and AI calls</li>
+          <li><svg class="icon"><use href="#i-check"/></svg>Representative authorisation, delivery and follow-up tracking</li>
+          <li><svg class="icon"><use href="#i-check"/></svg>Connect your plan and facility insights</li>
+          <li><svg class="icon"><use href="#i-check"/></svg>Plan Care and Unbill Watch (coming soon)</li>
+        </ul>
+        <div class="plan__ctas">
+          <a class="btn btn--ink" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started with Plus</span></span></a>
+          <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+        <p class="plan__fine">One flat membership · Cancel anytime · No success fee</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- EMPLOYER BRIDGE -->
+  <section class="block block--blue employer" aria-labelledby="e-title">
+    <div class="employer__intro reveal">
+      <h2 id="e-title" class="h2"><b>Employer?</b> See what Unbill does for your business.</h2>
+      <p class="employer__stat"><b>67%</b> of covered US workers are in self-funded plans, where every billing error is paid from the employer's own funds.</p>
+      <p class="source">KFF, 2025</p>
+    </div>
+    <div class="employer__card reveal" style="--d:.15s">
+      <p class="pill pill--ink">What Unbill adds to your business</p>
+      <ul class="adds">
+        <li><svg class="icon"><use href="#i-check"/></svg>Savings from wrongful billing</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>HR made easier</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Fiduciary accuracy</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>A stronger employee benefits package</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Higher productivity</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Stop-loss efficiency</li>
+      </ul>
+      <div class="calc">
+        <div><b>Savings calculator</b><span>Run the numbers on your own plan in two minutes.</span></div>
+        <a class="tlink" href="#">Run the calculator <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="employer__ctas">
+        <a class="btn btn--blue" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get a quote</span></span></a>
+        <a class="btn btn--outline btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">See Unbill for businesses</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI THESIS -->
+  <section class="block ai" aria-labelledby="ai-title">
+    <h2 id="ai-title" class="h2 reveal"><b>Why AI,</b> and why it follows you?</h2>
+    <ol class="ai__list">
+      <li class="reveal"><span class="ai__n">1</span><h3>Every claim, not just the big ones.</h3><p>Software reads every bill, EOB and denial, so nothing is skipped because it is too small to be worth a human's time.</p></li>
+      <li class="reveal"><span class="ai__n">2</span><h3>Any time, anywhere.</h3><p>Ask a question at midnight or upload a letter from your phone; Unbill is on whenever the paperwork lands.</p></li>
+      <li class="reveal"><span class="ai__n">3</span><h3>For as long as you need it.</h3><p>Your cases, documents and history stay yours. Change job, change plan, change state: Unbill keeps watching. <b>We offer a 60-day free plan</b> after you leave your job if your employer paid for Unbill, to give you time to transition.</p></li>
+    </ol>
+    <a class="btn btn--outline btn--glide reveal" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">The AI thesis</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+  </section>
+
+  <!-- VETERANS -->
+  <section class="block block--yellow vets" aria-labelledby="v-title">
+    <img class="vets__tape vets__tape--l" src="../../assets/img/collage-tape.webp" alt="" aria-hidden="true">
+    <img class="vets__tape vets__tape--r" src="../../assets/img/collage-tape.webp" alt="" aria-hidden="true">
+    <h2 id="v-title" class="h2 reveal"><b>Are you</b> a veteran?</h2>
+    <p class="lede reveal" style="--d:.1s">Your interest counts in our partnership process with the VA. Unbill is a veteran-founded business, and we want to hear from you.</p>
+    <a class="btn btn--ink reveal" style="--d:.2s" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Contact us</span></span></a>
+  </section>
+
+  <!-- LEARNING HUB -->
+  <section class="block block--stone hub" aria-labelledby="hub-title">
+    <h2 id="hub-title" class="h2 reveal"><b>A living library</b> and toolbox for your health journey.</h2>
+    <p class="lede reveal" style="--d:.1s">Practical guides and tools, with new resources added regularly. Start with the free Charity Care Screener; the rest of the toolbox comes with your membership.</p>
+    <div class="hub__head reveal">
+      <h3>Fresh from the library</h3>
+      <div class="hub__nav">
+        <button class="round" type="button" data-dir="-1" aria-label="Previous articles"><svg class="icon" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button>
+        <button class="round" type="button" data-dir="1" aria-label="Next articles"><svg class="icon"><use href="#i-arrow"/></svg></button>
+        <a class="tlink" href="#">See all articles <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+    <div class="articles reveal" tabindex="0" aria-label="Latest articles">
+      <a class="article" href="#"><span class="article__thumb t1"><img src="../../assets/img/collage-figures.webp" alt=""></span><span class="article__meta">Guide · 10/28/2026</span><b>Charity care &amp; financial assistance</b></a>
+      <a class="article" href="#"><span class="article__thumb t2"><img src="../../assets/img/collage-policy.webp" alt=""></span><span class="article__meta">Guide · 10/28/2026</span><b>When a bill exceeds your estimate</b></a>
+      <a class="article" href="#"><span class="article__thumb t3"><img src="../../assets/img/collage-letter.webp" alt=""></span><span class="article__meta">Guide · 10/28/2026</span><b>Surprise medical bills</b></a>
+      <a class="article" href="#"><span class="article__thumb t4"><img src="../../assets/img/collage-figures.webp" alt=""></span><span class="article__meta">Guide · 10/28/2026</span><b>Make sense of an itemized bill</b></a>
+      <a class="article" href="#"><span class="article__thumb t5"><img src="../../assets/img/collage-stamp-hd.webp" alt=""></span><span class="article__meta">Guide · 10/28/2026</span><b>Plan for out-of-network or self-pay care</b></a>
+      <a class="article" href="#"><span class="article__thumb t6"><img src="../../assets/img/collage-policy.webp" alt=""></span><span class="article__meta">Guide · 10/28/2026</span><b>Air &amp; ground ambulance bills</b></a>
+    </div>
+    <div class="hub__tools">
+      <article class="screener reveal">
+        <p class="screener__guide"><span class="pill pill--sm">Guide</span>Charity care &amp; financial assistance</p>
+        <p class="screener__free">Free to try</p>
+        <h3>Charity Care Screener</h3>
+        <p>Check in a few questions whether hospital financial assistance could cut your bill. When you get your result, Unbill can take it from there.</p>
+        <div class="screener__ui" aria-hidden="true">
+          <p class="screener__q">Question 2 of 4</p>
+          <p class="screener__ask">What is your household's yearly income?</p>
+          <div class="screener__opts"><span>Under $40k</span><span class="is-on">$40k – $80k</span><span>Over $80k</span></div>
+          <div class="screener__bar"><i></i></div>
+        </div>
+        <div class="screener__ctas">
+          <a class="btn btn--blue" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Check your eligibility</span></span></a>
+          <a class="tlink" href="#">Read the guide <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="toolbox reveal" style="--d:.15s">
+        <p class="pill pill--white">Included with membership</p>
+        <h3>More tools, for every guide</h3>
+        <ul class="toolbox__list">
+          <li class="is-on"><button type="button">Plan the Cost of Care</button></li>
+          <li><button type="button">Prepare an Appeal</button></li>
+          <li><button type="button">Audit a Medical Bill</button></li>
+          <li><button type="button">Challenge a Surprise Bill</button></li>
+          <li><button type="button">Itemized Bill Request</button></li>
+          <li><button type="button">Debt Validation Request</button></li>
+          <li><button type="button">Get VA Representation Help</button></li>
+        </ul>
+        <div class="screener__ctas">
+          <a class="btn btn--white" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><span class="btn__label">Get started with Unbill</span></span></a>
+          <a class="tlink tlink--white" href="#">Browse the library <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="block faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="h2 reveal"><b>Frequently</b> asked questions</h2>
+    <div class="faq__list reveal" style="--d:.1s">
+      <details><summary><span>01</span>What is Unbill and how can it help my household?<i></i></summary><p>Unbill is an AI healthcare advocate. It checks your bills against your plan and your EOB, explains what you actually owe in plain English, and helps you appeal what's wrong, for one flat membership.</p></details>
+      <details><summary><span>02</span>Can one membership cover my whole family?<i></i></summary><p>Yes. One membership covers your household, with a separate private profile and cases for each person.</p></details>
+      <details><summary><span>03</span>I just got a big bill. Should I pay it?<i></i></summary><p class="todo">Answer to be supplied by Unbill.</p></details>
+      <details><summary><span>04</span>What documents can I upload?<i></i></summary><p>Bills, EOBs, denial letters and plan documents. Unbill matches them into one case per person.</p></details>
+      <details><summary><span>05</span>My claim was denied. Can Unbill help me appeal?<i></i></summary><p>Yes. Unbill maps your appeal path and drafts a letter grounded in your own records, built to answer exactly what the denial says. Appeal preparation, digital signing and AI calls are part of Plus.</p></details>
+      <details><summary><span>06</span>What billing errors does Unbill detect?<i></i></summary><p class="todo">Answer to be supplied by Unbill.</p></details>
+      <details><summary><span>07</span>How is Unbill different from bill negotiation services?<i></i></summary><p>Negotiators usually take a percentage of what they save you. Unbill is one flat membership with no success fee, so you keep 100% of what you recover, and it watches every bill, not only the big ones.</p></details>
+      <details><summary><span>08</span>How is Unbill different from ChatGPT Health?<i></i></summary><p class="todo">Answer to be supplied by Unbill.</p></details>
+      <details><summary><span>09</span>Do I need health insurance to use Unbill?<i></i></summary><p class="todo">Answer to be supplied by Unbill.</p></details>
+      <details><summary><span>10</span>How is my medical data protected?<i></i></summary><p>Health records go through a protected AI path on Amazon Bedrock, a HIPAA-eligible AWS service covered by Unbill's Business Associate Agreement with AWS. Records are encrypted at rest, never used to train AI models, and only you can access your cases.</p></details>
+      <details><summary><span>11</span>How much does it cost, and can I cancel?<i></i></summary><p>Core is $15 a month. Plus is $30 a month, or $15 a month at the founding offer. There's no success fee and you can cancel anytime.</p></details>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="block block--ink closing" aria-labelledby="c-title">
+    <h2 id="c-title" class="h2 reveal"><b>Stop facing</b> medical bills alone.</h2>
+    <p class="lede reveal" style="--d:.1s">Unbill checks it, explains it and appeals what's wrong. You keep 100% of what we recover.</p>
+    <div class="closing__ctas reveal" style="--d:.2s">
+      <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a class="tlink tlink--white" href="#membership">Explore memberships <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ul class="ticks ticks--closing reveal" style="--d:.25s">
+      <li><svg class="icon"><use href="#i-check"/></svg>No success fee</li>
+      <li><svg class="icon"><use href="#i-check"/></svg>Cancel anytime</li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="block block--ink footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="../../assets/logo-white.svg" alt="Unbill" class="footer__logo">
+        <p>Your AI healthcare advocate.<br>Always on.</p>
+        <div class="badges"><span>HIPAA<br>aligned</span><span>SOC 2<br>Type II</span></div>
+        <p class="footer__small">HIPAA aligned · SOC 2 Type II compliant</p>
+      </div>
+      <nav aria-label="Company"><p>Company</p><a href="#">Households</a><a href="#">Businesses</a><a href="#">Membership</a><a href="#">About</a><a href="#">Partner with us</a><a href="#">Contact &amp; Help</a></nav>
+      <nav aria-label="Learning Hub"><p>Learning Hub</p><a href="#">Live Library &amp; Tools</a><a href="#">Trust Center</a></nav>
+      <nav aria-label="Social media"><p>Social media</p><a href="#">LinkedIn</a><a href="#">Facebook</a><a class="footer__news" href="#"><svg class="icon"><use href="#i-mail"/></svg>Subscribe to our newsletter</a></nav>
+    </div>
+    <div class="footer__bottom">
+      <p>Unbill provides billing audit assistance and administrative document preparation. Unbill is not a law firm or healthcare provider and does not provide legal or medical advice.</p>
+      <div class="footer__legal"><span>© 2026 Unbill</span><a href="#">Privacy policy</a><a href="#">Terms</a></div>
+    </div>
+  </footer>
+
+  </main>
+
+  <script>
+    // Announcement bar: dismiss.
+    document.querySelector('.announce__close').addEventListener('click', function () {
+      document.getElementById('announce').hidden = true;
+    });
+
+    // Nav: as soon as the page scrolls, the bar lifts into a floating white pill under the banner.
+    (function () {
+      var wrap = document.querySelector('.nav-wrap');
+      var ticking = false;
+      function update() {
+        wrap.classList.toggle('is-floating', window.scrollY > 4);
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
+    })();
+
+    // Headline: types "Always on.", deletes back to "Always ", types "with you.", and loops.
+    (function () {
+      var el = document.querySelector('.typer__text');
+      var typer = document.querySelector('.typer');
+      var phrases = ['Always with you.', 'Always on.'];
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;   // keep the final phrase
+
+      var TYPE = 70, ERASE = 38, HOLD = [1700, 3800];
+      var i = 0;
+      function commonPrefix(a, b) { var n = 0; while (n < a.length && a[n] === b[n]) n++; return n; }
+      function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+      async function typeTo(target) {
+        typer.classList.add('is-typing');
+        var cur = el.textContent;
+        var keep = commonPrefix(cur, target);
+        while (el.textContent.length > keep) {                     // erase back to the shared start
+          el.textContent = el.textContent.slice(0, -1);
+          await wait(ERASE);
+        }
+        for (var k = keep; k < target.length; k++) {              // type the rest, a little unevenly
+          el.textContent = target.slice(0, k + 1);
+          await wait(TYPE + Math.random() * 45 - 15);
+        }
+        typer.classList.remove('is-typing');
+      }
+      async function run() {
+        el.textContent = '';
+        await wait(1300);                                         // let the load animation land first
+        for (;;) {
+          await typeTo(phrases[i]);
+          await wait(HOLD[i]);
+          i = (i + 1) % phrases.length;
+        }
+      }
+      run();
+    })();
+
+    // Paper collage: each sheet drifts with the mouse at its own depth (eased, desktop only).
+    (function () {
+      var hero = document.querySelector('.band');
+      var items = [].slice.call(hero.querySelectorAll('[style*="--depth"]'));
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+      var tx = 0, ty = 0, x = 0, y = 0, raf = null;
+      function frame() {
+        x += (tx - x) * 0.08;
+        y += (ty - y) * 0.08;
+        items.forEach(function (el) {
+          var d = parseFloat(getComputedStyle(el).getPropertyValue('--depth')) || 6;
+          el.style.setProperty('--px', (x * d).toFixed(2) + 'px');
+          el.style.setProperty('--py', (y * d * 0.6).toFixed(2) + 'px');
+        });
+        raf = (Math.abs(tx - x) > 0.001 || Math.abs(ty - y) > 0.001) ? requestAnimationFrame(frame) : null;
+      }
+      function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;      // -1 … 1
+        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        kick();
+      });
+      hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; kick(); });
+    })();
+
+    // Scroll reveal for the pricing section.
+    (function () {
+      var targets = [].slice.call(document.querySelectorAll('.reveal'));
+      function show(el) { el.classList.add('is-in'); }
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { targets.forEach(show); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+      targets.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Mobile menu: the burger opens a full-width panel under the bar.
+    (function () {
+      var btn = document.querySelector('.nav__burger');
+      var panel = document.getElementById('mobile-menu');
+      function set(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        panel.hidden = !open;
+        document.documentElement.classList.toggle('menu-open', open);
+      }
+      btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+      panel.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { set(false); btn.focus(); } });
+      matchMedia('(min-width: 901px)').addEventListener('change', function (m) { if (m.matches) set(false); });
+    })();
+
+    // Subscription thesis: four tabs; the stage plays each in turn until the visitor picks one.
+    (function () {
+      var tabs = [].slice.call(document.querySelectorAll('.thesis__tab'));
+      var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+      var root = document.querySelector('.thesis');
+      var i = 0, timer = null, HOLD = 4200;
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function show(n, focus) {
+        i = n;
+        tabs.forEach(function (t, k) {
+          var on = k === n;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+          t.tabIndex = on ? 0 : -1;
+          panels[k].hidden = !on;
+          panels[k].classList.toggle('is-active', on);
+        });
+        if (focus) tabs[n].focus();
+        root.style.setProperty('--hold', HOLD + 'ms');
+        tabs[n].querySelector('.thesis__bar').style.animation = 'none';
+        void tabs[n].offsetWidth;
+        tabs[n].querySelector('.thesis__bar').style.animation = '';
+      }
+      function play() { stop(); if (!reduce) timer = setInterval(function () { show((i + 1) % tabs.length); }, HOLD); root.classList.toggle('is-playing', !reduce); }
+      function stop() { clearInterval(timer); timer = null; root.classList.remove('is-playing'); }
+      tabs.forEach(function (t, k) {
+        t.addEventListener('click', function () { show(k); stop(); });
+        t.addEventListener('keydown', function (e) {
+          var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+          if (d) { e.preventDefault(); show((k + d + tabs.length) % tabs.length, true); stop(); }
+        });
+      });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { es[0].isIntersecting ? (timer || root.dataset.picked ? 0 : play()) : stop(); }, { threshold: .4 }).observe(root);
+      }
+      tabs.forEach(function (t) { t.addEventListener('click', function () { root.dataset.picked = '1'; }); });
+    })();
+
+    // Membership: monthly / annual prices.
+    (function () {
+      var opts = [].slice.call(document.querySelectorAll('.billing__opt'));
+      var nodes = [].slice.call(document.querySelectorAll('[data-monthly]'));
+      opts.forEach(function (o) {
+        o.addEventListener('click', function () {
+          var period = o.dataset.period;
+          opts.forEach(function (x) { var on = x === o; x.classList.toggle('is-active', on); x.setAttribute('aria-checked', String(on)); });
+          nodes.forEach(function (n) { n.textContent = n.dataset[period]; });
+        });
+      });
+    })();
+
+    // Learning hub: arrows scroll the article row; the toolbox list highlights the tool you point at.
+    (function () {
+      var row = document.querySelector('.articles');
+      [].slice.call(document.querySelectorAll('.hub__nav .round')).forEach(function (b) {
+        b.addEventListener('click', function () { row.scrollBy({ left: +b.dataset.dir * row.clientWidth * .8, behavior: 'smooth' }); });
+      });
+      var items = [].slice.call(document.querySelectorAll('.toolbox__list li'));
+      items.forEach(function (li) {
+        function pick() { items.forEach(function (x) { x.classList.toggle('is-on', x === li); }); }
+        li.addEventListener('pointerenter', pick);
+        li.querySelector('button').addEventListener('focus', pick);
+      });
+    })();
+
+    // Resources dropdown: shows only while the pointer is over Resources or its panel.
+    // Keyboard users open it with Enter/Space/ArrowDown; touch users with a tap.
+    (function () {
+      var dd = document.querySelector('.dropdown');
+      if (!dd) return;
+      var toggle = dd.querySelector('.dropdown__toggle');
+      var closeTimer;
+      function set(open) {
+        clearTimeout(closeTimer);
+        dd.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+      dd.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') set(true); });
+      dd.addEventListener('pointerleave', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(function () { set(false); }, 120);
+      });
+      toggle.addEventListener('click', function (e) {
+        if (e.detail > 0 && matchMedia('(hover: hover)').matches) return;
+        set(!dd.classList.contains('is-open'));
+      });
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') { e.preventDefault(); set(true); dd.querySelector('.dropdown__menu a').focus(); }
+      });
+      dd.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { set(false); toggle.focus(); }
+      });
+      dd.addEventListener('focusout', function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
+      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+    })();
+
+    // Chat: once the card is well into view, Unbill shows "Thinking..." and then its findings.
+    (function () {
+      var chat = document.getElementById('chat');
+      var answer = chat.querySelector('.chat__answer');
+      var thinking = chat.querySelector('.chat__thinking');
+      var reply = chat.querySelector('.chat__reply');
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function think() {
+        answer.hidden = false;
+        chat.classList.add('is-thinking');
+      }
+      function respond() {
+        thinking.hidden = true;
+        reply.hidden = false;
+        chat.classList.remove('is-thinking');
+        chat.classList.add('is-answered');
+      }
+      if (reduce || !('IntersectionObserver' in window)) { think(); respond(); }
+      else {
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          io.disconnect();
+          setTimeout(think, 400);
+          setTimeout(respond, 400 + 2400);
+        }, { threshold: 0.55 });
+        io.observe(chat);
+      }
+
+      // The input is a demo: a question gets a short canned answer.
+      var form = document.getElementById('chat-form');
+      var input = document.getElementById('chat-q');
+      var log = chat.querySelector('.chat__log');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var q = input.value.trim();
+        if (!q) return;
+        var mine = document.createElement('div');
+        mine.className = 'chat__row chat__row--user';
+        var bubble = document.createElement('p');
+        bubble.className = 'chat__bubble';
+        bubble.textContent = q;
+        mine.appendChild(bubble);
+        var theirs = document.createElement('div');
+        theirs.className = 'chat__row chat__row--bot';
+        theirs.innerHTML = '<span class="chat__bot" aria-hidden="true"><svg><use href="#i-u"/></svg></span>' +
+          '<div class="chat__reply"><p>This is a preview. Create your account and Unbill will answer with your own bills and plan.</p></div>';
+        log.appendChild(mine);
+        log.appendChild(theirs);
+        log.scrollTop = log.scrollHeight;
+        input.value = '';
+      });
+    })();
+  </script>
+</body>
+</html>
