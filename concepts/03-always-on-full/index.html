@@ -216,16 +216,23 @@
     </div>
   </section>
 
-  <!-- FEATURES: a bento of what Unbill does, each with a product visual -->
-  <section class="block block--stone features" aria-labelledby="features-title">
+  <!-- FEATURES: stacked cards. Each sticks under the nav while the next one slides up over it -->
+  <section class="features" aria-labelledby="features-title">
     <h2 id="features-title" class="h2 reveal"><b>Every step of your journey,</b> made simple and taken care of.</h2>
-    <div class="bento">
-
-      <article class="feat reveal">
-        <p class="feat__tag">Cases &amp; Documents</p>
-        <h3>Everything in one place.</h3>
-        <p>Bills, EOBs, denial letters and plan documents, matched into one case per person. Unbill lines them up so you can see the money, the evidence, the deadlines and your next step at a glance.</p>
-        <div class="viz viz--case" aria-hidden="true">
+    <div class="stack">
+      <article class="scard tint-blue" style="--k:0">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Cases &amp; Documents</span><i></i><i></i><i></i></p>
+          <h3><span>Everything</span> <em>in one place.</em></h3>
+          <p class="scard__lede">Bills, EOBs, denial letters and plan documents, matched into one case per person. Unbill lines them up so you can see the money, the evidence, the deadlines and your next step at a glance.</p>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">01 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--case" aria-hidden="true">
           <div class="case-ui">
             <div class="case-ui__head"><img src="../../assets/img/avatar-melinda.jpg" alt=""><div><b>Melinda · ER visit</b><span>St. Aldric Medical Center · Aug 21</span></div><em>In appeal</em></div>
             <div class="case-ui__docs"><span>Itemized bill</span><span>EOB</span><span>Denial letter</span><span>Plan summary</span></div>
@@ -237,13 +244,21 @@
             <div class="case-ui__next">Next step: sign your appeal letter</div>
           </div>
         </div>
+        </div>
       </article>
-
-      <article class="feat reveal" style="--d:.1s">
-        <p class="feat__tag">Bill &amp; Denial Review</p>
-        <h3>Review bills and denials.</h3>
-        <p>Upload your EOB or denial letter. Unbill checks it against your bill and your plan, and tells you plainly if you were billed wrong or if your claim was wrongly denied.</p>
-        <div class="viz viz--review" aria-hidden="true">
+      <article class="scard tint-stone" style="--k:1">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Bill &amp; Denial Review</span><i></i><i></i><i></i></p>
+          <h3><span>Review bills</span> <em>and denials.</em></h3>
+          <p class="scard__lede">Upload your EOB or denial letter. Unbill checks it against your bill and your plan, and tells you plainly if you were billed wrong or if your claim was wrongly denied.</p>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">02 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--review" aria-hidden="true">
           <div class="review-ui">
             <div class="review-ui__row"><span>ER visit, level 5</span><b>$2,940</b><em>Coded too high</em></div>
             <div class="review-ui__row"><span>Metabolic panel</span><b>$312</b><em>Duplicate</em></div>
@@ -251,15 +266,21 @@
             <div class="review-ui__sum"><span>Billed in error</span><b>$3,000</b></div>
           </div>
         </div>
-      </article>
-
-      <article class="feat feat--wide reveal">
-        <div class="feat__text">
-          <p class="feat__tag">Ask Unbill</p>
-          <h3>Don't understand something? Just Ask Unbill.</h3>
-          <p>Ask about your case or any healthcare term in plain English. Every answer about your case points to the document it comes from.</p>
         </div>
-        <div class="viz viz--chat">
+      </article>
+      <article class="scard tint-yellow" style="--k:2">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Ask Unbill</span><i></i><i></i><i></i></p>
+          <h3><span>Don't understand something?</span> <em>Just Ask Unbill.</em></h3>
+          <p class="scard__lede">Ask about your case or any healthcare term in plain English. Every answer about your case points to the document it comes from.</p>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">03 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--chat">
           <!-- the chat, played once when it scrolls into view -->
           <div class="chat" id="chat" aria-label="Example conversation with Unbill">
             <div class="chat__log" aria-live="polite">
@@ -293,23 +314,39 @@
             </form>
           </div>
         </div>
+        </div>
       </article>
-
-      <article class="feat reveal">
-        <p class="feat__tag">Appeals</p>
-        <h3>We help you appeal.</h3>
-        <p>Unbill maps your appeal path and drafts a letter grounded in your own records, built to answer exactly what the denial says.</p>
-        <div class="viz viz--appeal" aria-hidden="true">
+      <article class="scard tint-blue" style="--k:3">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Appeals</span><i></i><i></i><i></i></p>
+          <h3><span>We help</span> <em>you appeal.</em></h3>
+          <p class="scard__lede">Unbill maps your appeal path and drafts a letter grounded in your own records, built to answer exactly what the denial says.</p>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">04 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--appeal" aria-hidden="true">
           <ol class="path"><li class="is-done">Denial received</li><li class="is-done">Evidence matched</li><li class="is-now">Internal appeal</li><li>External review</li></ol>
           <div class="letter"><p class="letter__re">Re: Request for appeal, claim 4471-829-02</p><i></i><i></i><i style="width:72%"></i><i></i><i style="width:48%"></i><p class="letter__sign">Melinda Rowe</p></div>
         </div>
+        </div>
       </article>
-
-      <article class="feat reveal" style="--d:.1s">
-        <p class="feat__tag">Plan Coverage</p>
-        <h3>Know your rights and your coverage.</h3>
-        <p>See what your insurance actually covers, check a situation before it happens, and use it all to build stronger appeals.</p>
-        <div class="viz viz--cover" aria-hidden="true">
+      <article class="scard tint-stone" style="--k:4">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Plan Coverage</span><i></i><i></i><i></i></p>
+          <h3><span>Know your rights</span> <em>and your coverage.</em></h3>
+          <p class="scard__lede">See what your insurance actually covers, check a situation before it happens, and use it all to build stronger appeals.</p>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">05 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--cover" aria-hidden="true">
           <div class="cover-ui">
             <p class="cover-ui__q">"Is an MRI covered in-network?"</p>
             <p class="cover-ui__a"><span class="dot dot--ok"></span>Covered after your deductible</p>
@@ -317,28 +354,47 @@
             <div class="meter"><span>Out-of-pocket max</span><b>$2,350 of $6,500</b><i style="--p:36%"></i></div>
           </div>
         </div>
+        </div>
       </article>
-
-      <article class="feat reveal">
-        <p class="feat__tag">Unbill Watch <span class="soon">Coming soon</span></p>
-        <h3>You don't need to be online 24/7.</h3>
-        <p>Watch is always on. It tells you when something needs your attention, so you never have to log in to check a status.</p>
-        <div class="viz viz--watch" aria-hidden="true">
+      <article class="scard tint-yellow" style="--k:5">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Unbill Watch</span><i></i><i></i><i></i></p>
+          <span class="soon">Coming soon</span>
+          <h3><span>You don't need</span> <em>to be online 24/7.</em></h3>
+          <p class="scard__lede">Watch is always on. It tells you when something needs your attention, so you never have to log in to check a status.</p>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">06 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--watch" aria-hidden="true">
           <div class="note-ui"><span class="note-ui__app"><svg><use href="#i-u"/></svg></span><div><b>New EOB checked</b><span>BlueRidge · all lines correct</span></div><time>now</time></div>
           <div class="note-ui note-ui--alert"><span class="note-ui__app"><svg><use href="#i-u"/></svg></span><div><b>Appeal deadline in 9 days</b><span>Your letter is ready to sign</span></div><time>2h</time></div>
           <div class="note-ui"><span class="note-ui__app"><svg><use href="#i-u"/></svg></span><div><b>Payment matched</b><span>Lab invoice closed</span></div><time>1d</time></div>
         </div>
+        </div>
       </article>
-
-      <article class="feat reveal" style="--d:.1s">
-        <p class="feat__tag">Plan Care <span class="soon">Partly coming soon</span></p>
-        <h3>Know before you go.</h3>
-        <p>Public information from health providers, combined with Unbill community data so everyone learns from each other's experience.</p>
-        <ul class="avail"><li><span class="dot dot--ok"></span>Available now: provider information</li><li><span class="dot"></span>Coming soon: community data</li></ul>
-        <div class="viz viz--care" aria-hidden="true">
+      <article class="scard tint-blue" style="--k:6">
+        <div class="scard__text">
+          <p class="scard__tag"><span>Plan Care</span><i></i><i></i><i></i></p>
+          <span class="soon">Partly coming soon</span>
+          <h3><span>Know</span> <em>before you go.</em></h3>
+          <p class="scard__lede">Public information from health providers, combined with Unbill community data so everyone learns from each other's experience.</p>
+          <ul class="avail"><li><span class="dot dot--ok"></span>Available now: provider information</li><li><span class="dot"></span>Coming soon: community data</li></ul>
+          <div class="scard__ctas">
+            <a class="btn btn--blue btn--glide" href="#"><span class="btn__bg" aria-hidden="true"></span><span class="btn__track"><svg class="icon btn__arrow btn__arrow--in" aria-hidden="true"><use href="#i-arrow"/></svg><span class="btn__label">Get started</span><svg class="icon btn__arrow btn__arrow--out" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a class="tlink" href="#">Learn more <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="scard__count">07 / 07</p>
+        </div>
+        <div class="scard__visual">
+        <div class="viz scard__viz viz--care" aria-hidden="true">
           <div class="prov"><div><b>Cedar Imaging</b><span>In-network · 1.2 mi</span></div><em>Est. $180</em></div>
           <div class="prov"><div><b>St. Aldric Radiology</b><span>In-network · 3.4 mi</span></div><em>Est. $420</em></div>
           <div class="prov prov--off"><div><b>Northfield MRI</b><span>Out-of-network</span></div><em>Est. $1,150</em></div>
+        </div>
         </div>
       </article>
     </div>
@@ -750,6 +806,28 @@
         li.addEventListener('pointerenter', pick);
         li.querySelector('button').addEventListener('focus', pick);
       });
+    })();
+
+    // Feature stack: a card that is being covered by the next one eases back and dims.
+    (function () {
+      var cards = [].slice.call(document.querySelectorAll('.scard'));
+      if (!cards.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var ticking = false;
+      function update() {
+        cards.forEach(function (c, i) {
+          var next = cards[i + 1];
+          var p = 0;
+          if (next) {
+            var a = c.getBoundingClientRect(), b = next.getBoundingClientRect();
+            p = Math.max(0, Math.min(1, (a.bottom - b.top) / a.height));
+          }
+          c.style.setProperty('--p', p.toFixed(3));
+        });
+        ticking = false;
+      }
+      addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      addEventListener('resize', update);
+      update();
     })();
 
     // Resources dropdown: shows only while the pointer is over Resources or its panel.

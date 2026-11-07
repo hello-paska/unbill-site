@@ -1109,3 +1109,74 @@ b, strong { font-weight: 500; }
   .closing { border-radius: 0 0 32px 32px; }
   .footer__legal { justify-content: flex-start; flex-wrap: wrap; }
 }
+
+/* ---- Features: stacked sticky cards (after clay.com) ----
+   Every card sticks under the floating nav; the next one slides up over it
+   while the covered card eases back (scale + dim) via --p from script. */
+.features { padding: 60px 0 0; }
+.features > .h2 { margin-bottom: 40px; }
+.stack { display: grid; gap: 28px; padding-bottom: 40px; }
+.scard {
+  --p: 0;
+  position: sticky;
+  top: calc(140px + var(--k) * 10px);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 32px;
+  min-height: min(620px, calc(100vh - 180px));
+  padding: 32px;
+  border-radius: 48px;
+  transform-origin: 50% 0;
+  transform: scale(calc(1 - var(--p) * .05));
+  filter: brightness(calc(1 - var(--p) * .08));
+  box-shadow: 0 -18px 40px -30px rgba(11,13,20,.35);
+}
+.tint-blue { background: #EAF1FF; }
+.tint-stone { background: var(--stone); }
+.tint-yellow { background: #FBFFD2; }
+.scard__text { display: flex; flex-direction: column; align-items: flex-start; padding: 28px 8px 8px 28px; }
+.scard__tag { display: inline-flex; align-items: center; }
+.scard__tag span { position: relative; z-index: 4; padding: 8px 18px; border-radius: 999px; background: var(--blue); color: var(--white); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.scard__tag i { width: 30px; height: 34px; margin-left: -18px; border-radius: 999px; background: rgba(3,114,255,.18); box-shadow: inset 0 0 0 1.5px rgba(3,114,255,.25); }
+.scard__tag i:nth-of-type(1) { z-index: 3; } .scard__tag i:nth-of-type(2) { z-index: 2; opacity: .7; } .scard__tag i:nth-of-type(3) { z-index: 1; opacity: .4; }
+.scard .soon { margin-top: 12px; }
+.scard h3 { margin-top: 26px; font-size: clamp(36px, 3.9vw, 56px); font-weight: 700; line-height: .98; letter-spacing: -0.04em; text-wrap: balance; }
+.scard h3 span { display: block; }
+.scard h3 em { display: block; font-style: normal; font-weight: 300; color: var(--blue); }
+.scard__lede { max-width: 470px; margin-top: 22px; font-size: 18px; line-height: 1.4; color: var(--ink-soft); }
+.scard .avail { margin-top: 16px; }
+.scard__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: auto; padding-top: 32px; }
+.scard__count { margin-top: 22px; font-size: 12px; letter-spacing: .1em; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.scard__visual { position: relative; display: grid; border-radius: 36px; overflow: hidden; background: var(--white); }
+.scard__visual::before { content: ""; position: absolute; inset: 0; background: url("../../assets/img/collage-figures.webp") left 24px bottom 20px / 52% auto no-repeat; opacity: .35; filter: brightness(0); mix-blend-mode: multiply; }
+.scard__viz { margin: 0 !important; padding: 40px !important; min-height: 0; background: transparent !important; -webkit-mask: none !important; mask: none !important; }
+.scard__viz.viz--chat { background: var(--blue) !important; }
+.scard__viz .case-ui, .scard__viz .review-ui, .scard__viz .cover-ui, .scard__viz .note-ui, .scard__viz .prov { box-shadow: 0 30px 60px -30px rgba(11,13,20,.4); }
+.scard__viz.viz--appeal { grid-template-columns: 170px 1fr; }
+
+@media (max-width: 1100px) {
+  .scard { grid-template-columns: 1fr; min-height: 0; top: calc(120px + var(--k) * 8px); }
+  .scard__text { padding: 12px 8px 0; }
+  .scard__ctas { margin-top: 0; }
+  .scard__visual { min-height: 360px; }
+}
+@media (max-width: 900px) {
+  .features { padding-top: 40px; }
+  .features > .h2 { margin: 0 12px 28px; }
+  .stack { gap: 16px; }
+  .scard { top: calc(84px + var(--k) * 6px); gap: 20px; padding: 14px; border-radius: 30px; }
+  .scard__text { padding: 14px 10px 0; }
+  .scard h3 { margin-top: 18px; font-size: 32px; }
+  .scard__lede { margin-top: 14px; font-size: 16px; }
+  .scard__ctas { padding-top: 22px; }
+  .scard__count { display: none; }
+  .scard__visual { min-height: 0; border-radius: 22px; }
+  .scard__viz { padding: 22px 14px !important; }
+  .scard__viz.viz--appeal { grid-template-columns: 1fr; }
+  .scard .viz--chat .chat { max-width: none; }
+}
+/* A sticky card must fit on screen or its lower part could never be seen:
+   on phones, narrow windows and short screens the cards simply follow each other. */
+@media (max-width: 1100px), (max-height: 820px) {
+  .scard { position: relative; top: auto; transform: none; filter: none; }
+}
