@@ -147,7 +147,7 @@ async function runType() {
 // (Avantt/Serrif can't load there). Swap each placeholder for its text style.
 const COMPONENTS_SECTION = '40000851:7678';
 const PLACEHOLDER_MAP = {
-  'Semi Bold/16': 'Label/M/SemiBold',
+  'SemiBold/16': 'Label/M/SemiBold',
   'Regular/16': 'Text/M/Light',
   'Regular/12': 'Label/S/Light',
   'Regular/20': 'Text/L/Light',
@@ -166,7 +166,7 @@ async function runComponents() {
   const texts = section.findAll(n => n.type === 'TEXT' && typeof n.fontName === 'object' && n.fontName.family === 'Inter' && inComponent(n));
   let done = 0; const skipped = [];
   for (const t of texts) {
-    const key = t.fontName.style + '/' + t.fontSize;
+    const key = t.fontName.style.replace(/\s+/g, '') + '/' + t.fontSize;
     const style = byName[PLACEHOLDER_MAP[key]];
     if (!style) { skipped.push(key); continue; }
     const deco = t.textDecoration;
