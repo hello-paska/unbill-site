@@ -177,7 +177,138 @@ async function runComponents() {
   return `Applied text styles to ${done} component texts` + (skipped.length ? ` (skipped: ${[...new Set(skipped)].join(', ')})` : '') + '.';
 }
 
-const commands = { type: runType, components: runComponents };
+
+// Command 3: finish the systematized homepage copy. Swaps elements whose
+// instances carry Avantt/Serrif text (the cloud can't load those fonts) and
+// applies the text styles to every remaining text layer.
+const SYS_PAGE_ID = '40000909:38';
+const NEW = {
+  button: '40000898:1371', navbar: '40000900:1355', billingSwitch: '40000901:1363',
+  tabs: '40000901:1383', badge: '40000901:1413', input: '40000902:1402', faq: '40000903:1530',
+};
+const propKey = (set, prefix) => Object.keys(set.componentPropertyDefinitions).find(k => k.startsWith(prefix));
+const variant = (set, name) => set.children.find(c => c.name === name);
+function swapNode(old, inst) {
+  const p = old.parent, i = p.children.indexOf(old);
+  const abs = 'layoutPositioning' in old && old.layoutPositioning === 'ABSOLUTE';
+  const x = old.x, y = old.y, grow = old.layoutGrow, align = old.layoutAlign;
+  p.insertChild(i, inst);
+  if (abs || !p.layoutMode || p.layoutMode === 'NONE') { if (abs) inst.layoutPositioning = 'ABSOLUTE'; inst.x = x; inst.y = y; }
+  else { inst.layoutGrow = grow; if (align === 'STRETCH') inst.layoutAlign = 'STRETCH'; }
+  old.remove();
+  return inst;
+}
+const insideInstance = n => { for (let p = n.parent; p; p = p.parent) if (p.type === 'INSTANCE') return true; return false; };
+const texts = n => n.findAll(k => k.type === 'TEXT');
+function lum(node) {
+  const p = (Array.isArray(node.fills) ? node.fills : []).find(f => f.type === 'SOLID' && f.visible !== false);
+  if (!p) return 1;
+  let c = p.color;
+  return 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
+}
+const HEADING = { 90: '3XL', 88: '3XL', 72: '2XL', 64: '2XL', 48: 'XL', 36: 'L', 32: 'L', 28: 'M', 24: 'S' };
+function styleNameFor(t) {
+  const f = t.fontName === figma.mixed ? t.getRangeFontName(0, 1) : t.fontName;
+  const sz = t.fontSize === figma.mixed ? t.getRangeFontSize(0, 1) : t.fontSize;
+  const display = /Avantt|Kreol/i.test(f.family);
+  if (display && sz >= 24) return 'Heading/' + (HEADING[sz] || (sz >= 80 ? '3XL' : sz >= 60 ? '2XL' : sz >= 44 ? 'XL' : sz >= 32 ? 'L' : sz >= 26 ? 'M' : 'S')) + '/SemiBold';
+  if (display || /Bd|Bold|SemiBold/i.test(f.style)) return 'Label/M/SemiBold';
+  if (sz >= 24) return 'Text/XL/Light';
+  if (sz >= 20) return 'Text/L/Light';
+  if (sz >= 14) return 'Text/M/Light';
+  return 'Label/S/Light';
+}
+
+async function runPage() {
+  await loadAll();
+  const page = await figma.getNodeByIdAsync(SYS_PAGE_ID);
+  if (!page) throw new Error('Systematized page not found');
+  await figma.setCurrentPageAsync(page);
+  const root = page.children.find(n => n.name === 'homepage (systematized)');
+  if (!root) throw new Error('Section "homepage (systematized)" not found');
+  const C = {};
+  for (const [k, id] of Object.entries(NEW)) { C[k] = await figma.getNodeByIdAsync(id); if (!C[k]) throw new Error('Component missing: ' + k); }
+  const log = {};
+  const bump = k => { log[k] = (log[k] || 0) + 1; };
+
+  // Navbar
+  const home = root.children.find(n => n.name === 'Homepage');
+  const navSec = home && home.children.find(n => n.name === 'Navbar');
+  if (navSec && !navSec.findOne(n => n.type === 'INSTANCE' && n.name === 'navbar')) {
+    for (const c of [...navSec.children]) c.remove();
+    navSec.layoutMode = 'VERTICAL';
+    for (const f of ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'itemSpacing']) { navSec.setBoundVariable(f, null); navSec[f] = 0; }
+    navSec.fills = [];
+    navSec.appendChild(C.navbar.createInstance()); bump('navbar');
+  }
+  // Billing switch, tabs, input
+  for (const n of root.findAll(n => n.type === 'FRAME' && n.name === 'Payment Mode')) { swapNode(n, variant(C.billingSwitch, 'Value=Monthly').createInstance()); bump('billing-switch'); }
+  for (const n of root.findAll(n => n.type === 'FRAME' && n.name.startsWith('Row – Household'))) {
+    const inst = swapNode(n, C.tabs.createInstance());
+    inst.paddingTop = inst.paddingBottom = inst.paddingLeft = inst.paddingRight = 0; inst.fills = []; bump('tabs');
+  }
+  for (const n of root.findAll(n => n.type === 'FRAME' && n.name.startsWith('Stack – Email'))) {
+    const w = n.width; const inst = swapNode(n, variant(C.input, 'State=Active').createInstance()); inst.resize(w, inst.height); bump('input');
+  }
+  // Old buttons and FAQ items
+  const bLabel = propKey(C.button, 'Label'), bArrow = propKey(C.button, 'Show arrow');
+  const qKey = propKey(C.faq, 'Question'), aKey = propKey(C.faq, 'Answer');
+  for (const old of root.findAll(n => n.type === 'INSTANCE' && !insideInstance(n))) {
+    const main = await old.getMainComponentAsync();
+    const setName = main && main.parent && main.parent.type === 'COMPONENT_SET' ? main.parent.name : '';
+    if (setName === 'button' && /^type=/.test(main.name)) {
+      const type = main.name === 'type=primary' ? 'Primary' : 'Secondary';
+      const label = (texts(old)[0] || {}).characters || 'Button';
+      const arrow = old.children.some(c => c.type !== 'TEXT' && c.visible);
+      const inst = variant(C.button, `Type=${type}, Size=M, State=Default`).createInstance();
+      inst.setProperties({ [bLabel]: label, [bArrow]: arrow });
+      swapNode(old, inst); bump('button');
+    } else if (setName === 'faq-accordion') {
+      const open = /opened/.test(main.name);
+      const t = texts(old);
+      const w = old.width;
+      const inst = variant(C.faq, `Open=${open}, State=Default`).createInstance();
+      const props = { [qKey]: (t[0] && t[0].characters) || '' };
+      if (t[1]) props[aKey] = t[1].characters;
+      inst.setProperties(props);
+      swapNode(old, inst); inst.resize(w, inst.height); bump('faq-item');
+    }
+  }
+  // Badges
+  const vKey = propKey(C.badge, 'Label');
+  for (const n of root.findAll(n => n.type === 'FRAME' && /^Badge – /.test(n.name) && !insideInstance(n))) {
+    const t = texts(n); if (t.length !== 1) continue;
+    const L = lum(n);
+    const v = L < 0.25 ? 'Dark' : L > 0.97 ? 'Light' : 'Muted';
+    const size = n.height <= 32 ? 'S' : 'M';
+    const inst = variant(C.badge, `Variant=${v}, Size=${size}`).createInstance();
+    inst.setProperties({ [vKey]: t[0].characters });
+    swapNode(n, inst); bump('badge');
+  }
+  // Text styles on everything else
+  const styles = await figma.getLocalTextStylesAsync();
+  const byName = Object.fromEntries(styles.map(s => [s.name, s]));
+  const failed = {};
+  for (const t of root.findAll(n => n.type === 'TEXT' && !insideInstance(n))) {
+    const name = styleNameFor(t); const st = byName[name];
+    if (!st) { failed['no style ' + name] = (failed['no style ' + name] || 0) + 1; continue; }
+    if (t.textStyleId === st.id) continue;
+    try {
+      const deco = t.textDecoration;
+      await t.setTextStyleIdAsync(st.id);
+      if (deco !== figma.mixed && deco !== 'NONE') t.textDecoration = deco;
+      bump('text styled');
+    } catch (e) {
+      const f = t.fontName === figma.mixed ? 'mixed' : t.fontName.family;
+      failed[f] = (failed[f] || 0) + 1;
+    }
+  }
+  const parts = Object.entries(log).map(([k, v]) => `${v} ${k}`);
+  const fails = Object.entries(failed).map(([k, v]) => `${v} ${k}`);
+  return 'Page done: ' + parts.join(', ') + (fails.length ? ' | not styled: ' + fails.join(', ') : '') + '.';
+}
+
+const commands = { type: runType, components: runComponents, page: runPage };
 (commands[figma.command] || runType)()
   .then(msg => figma.closePlugin(msg))
   .catch(err => figma.closePlugin('Unbill DS helper: ' + err.message));

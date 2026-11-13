@@ -7,6 +7,7 @@
   "documentAccess": "dynamic-page",
   "menu": [
     { "name": "1. Text styles + Typography frame", "command": "type" },
-    { "name": "2. Apply text styles to components", "command": "components" }
+    { "name": "2. Apply text styles to components", "command": "components" },
+    { "name": "3. Systematized page: swap components + text styles", "command": "page" }
   ]
 }
