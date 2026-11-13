@@ -1,0 +1,11 @@
+{
+  "name": "Unbill DS helper",
+  "id": "unbill-ds-helper-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "menu": [
+    { "name": "1. Text styles + Typography frame", "command": "type" }
+  ]
+}

@@ -1,0 +1,154 @@
+// Unbill design-system helper.
+// Runs on your own computer, so it can use the Avantt and Serrif fonts installed there,
+// which Figma's servers can't load. Each menu command is safe to run more than once.
+
+const PAGE_ID = '1:8336';
+const IDS = {
+  typographyFrame: '40000851:3541',
+  typographyBody: '40000851:3543',
+  spacingFrame: '40000886:1270',
+  radiusFrame: '40000886:1383',
+};
+const FONTS = {
+  Heading: { family: 'Avantt-TRIAL', style: 'SemiBold' },
+  Text: { family: 'Serrif-TRIAL', style: 'Light' },
+  'Label/M': { family: 'Avantt-TRIAL', style: 'SemiBold' },
+  'Label/S': { family: 'Serrif-TRIAL', style: 'Light' },
+};
+const SCALE = [
+  ['Heading', '3XL'], ['Heading', '2XL'], ['Heading', 'XL'], ['Heading', 'L'], ['Heading', 'M'], ['Heading', 'S'],
+  ['Text', 'XL'], ['Text', 'L'], ['Text', 'M'],
+  ['Label', 'M'], ['Label', 'S'],
+];
+const SAMPLE = {
+  Heading: 'Your AI healthcare advocate.',
+  Text: 'Unbill steps in when healthcare leaves you alone with the paperwork.',
+  Label: 'No success fee · Cancel anytime',
+};
+
+function fontFor(group, size) {
+  return FONTS[`${group}/${size}`] || FONTS[group];
+}
+
+async function loadAll() {
+  const missing = [];
+  for (const f of [FONTS.Heading, FONTS.Text]) {
+    try { await figma.loadFontAsync(f); } catch (e) { missing.push(`${f.family} ${f.style}`); }
+  }
+  for (const s of ['Regular', 'Medium', 'Bold']) await figma.loadFontAsync({ family: 'Inter', style: s });
+  if (missing.length) throw new Error(`Install these fonts on this computer first: ${missing.join(', ')}`);
+}
+
+async function setHeaderTitle(frameId, title) {
+  const frame = await figma.getNodeByIdAsync(frameId);
+  if (!frame) return;
+  const t = frame.findOne(n => n.type === 'TEXT' && n.name === 'Title');
+  if (!t) return;
+  await Promise.all(t.getRangeAllFontNames(0, t.characters.length).map(f => figma.loadFontAsync(f)));
+  t.characters = title;
+}
+
+async function textStyles() {
+  const vars = await figma.variables.getLocalVariablesAsync();
+  const v = name => vars.find(x => x.name === name);
+  const existing = await figma.getLocalTextStylesAsync();
+  const out = [];
+  for (const [group, size] of SCALE) {
+    const font = fontFor(group, size);
+    const weight = font.style === 'SemiBold' ? 'SemiBold' : 'Light';
+    const name = `${group}/${size}/${weight}`;
+    let st = existing.find(s => s.name === name);
+    if (!st) st = figma.createTextStyle();
+    st.name = name;
+    st.fontName = font;
+    const base = `${group}/${size}`;
+    const fs = v(`${base}/Font Size`), lh = v(`${base}/Line Height`), ls = v(`${base}/Letter Spacing`);
+    const fam = v(font.family.startsWith('Avantt') ? 'Family/Heading' : 'Family/Text');
+    const wt = v(`Weight/${weight}`);
+    st.fontSize = fs.valuesByMode[Object.keys(fs.valuesByMode)[0]];
+    st.setBoundVariable('fontSize', fs);
+    st.setBoundVariable('lineHeight', lh);
+    st.setBoundVariable('letterSpacing', ls);
+    st.setBoundVariable('fontFamily', fam);
+    st.setBoundVariable('fontStyle', wt);
+    out.push(st);
+  }
+  return out;
+}
+
+async function typographyFrame(styles) {
+  const body = await figma.getNodeByIdAsync(IDS.typographyBody);
+  for (const c of body.children.slice()) c.remove();
+  body.layoutMode = 'VERTICAL';
+  body.itemSpacing = 40;
+  body.paddingTop = body.paddingBottom = 56;
+  body.paddingLeft = body.paddingRight = 56;
+  const ink = { r: 0.153, g: 0.149, b: 0.149 };
+  const grey = { r: 0.5, g: 0.5, b: 0.5 };
+  const inter = (s, style, size, color) => {
+    const t = figma.createText();
+    t.fontName = { family: 'Inter', style };
+    t.fontSize = size;
+    t.characters = s;
+    t.fills = [{ type: 'SOLID', color }];
+    return t;
+  };
+  const vars = await figma.variables.getLocalVariablesAsync();
+  const val = name => { const x = vars.find(y => y.name === name); return x.valuesByMode[Object.keys(x.valuesByMode)[0]]; };
+  let group = null;
+  for (const st of styles) {
+    const [g, size] = st.name.split('/');
+    if (g !== group) {
+      group = g;
+      body.appendChild(inter(g, 'Bold', 20, ink));
+    }
+    const row = figma.createFrame();
+    row.name = st.name;
+    row.layoutMode = 'HORIZONTAL';
+    row.itemSpacing = 40;
+    row.counterAxisAlignItems = 'CENTER';
+    row.fills = [];
+    body.appendChild(row);
+    row.layoutSizingHorizontal = 'FILL';
+    row.layoutSizingVertical = 'HUG';
+
+    const meta = figma.createFrame();
+    meta.name = 'meta';
+    meta.layoutMode = 'VERTICAL';
+    meta.itemSpacing = 4;
+    meta.fills = [];
+    row.appendChild(meta);
+    meta.resize(260, meta.height);
+    meta.layoutSizingVertical = 'HUG';
+    const base = `${g}/${size}`;
+    meta.appendChild(inter(st.name, 'Bold', 16, ink));
+    meta.appendChild(inter(
+      `${st.fontName.family.replace('-TRIAL', '')} ${st.fontName.style} · ${val(base + '/Font Size')}/${val(base + '/Line Height')} · ${val(base + '/Letter Spacing')}px`,
+      'Regular', 13, grey));
+
+    const sample = figma.createText();
+    sample.name = 'sample';
+    await sample.setTextStyleIdAsync(st.id);
+    sample.characters = SAMPLE[g];
+    sample.fills = [{ type: 'SOLID', color: ink }];
+    row.appendChild(sample);
+    sample.layoutSizingHorizontal = 'FILL';
+    sample.textAutoResize = 'HEIGHT';
+  }
+}
+
+async function runType() {
+  await loadAll();
+  const page = await figma.getNodeByIdAsync(PAGE_ID);
+  await figma.setCurrentPageAsync(page);
+  const styles = await textStyles();
+  await typographyFrame(styles);
+  await setHeaderTitle(IDS.spacingFrame, 'spacing');
+  await setHeaderTitle(IDS.radiusFrame, 'border radius');
+  return `Created or updated ${styles.length} text styles and the Typography frame.`;
+}
+
+const commands = { type: runType };
+(commands[figma.command] || runType)()
+  .then(msg => figma.closePlugin(msg))
+  .catch(err => figma.closePlugin('Unbill DS helper: ' + err.message));
