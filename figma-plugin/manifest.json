@@ -6,6 +6,7 @@
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
   "menu": [
-    { "name": "1. Text styles + Typography frame", "command": "type" }
+    { "name": "1. Text styles + Typography frame", "command": "type" },
+    { "name": "2. Apply text styles to components", "command": "components" }
   ]
 }

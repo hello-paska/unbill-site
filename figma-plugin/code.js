@@ -143,7 +143,41 @@ async function runType() {
   return `Created or updated ${styles.length} text styles and the Typography frame.`;
 }
 
-const commands = { type: runType };
+// Command 2: components were built in the cloud with Inter placeholders
+// (Avantt/Serrif can't load there). Swap each placeholder for its text style.
+const COMPONENTS_SECTION = '40000851:7678';
+const PLACEHOLDER_MAP = {
+  'Semi Bold/16': 'Label/M/SemiBold',
+  'Regular/16': 'Text/M/Light',
+  'Regular/12': 'Label/S/Light',
+  'Regular/20': 'Text/L/Light',
+  'Regular/24': 'Text/XL/Light',
+};
+
+async function runComponents() {
+  await loadAll();
+  const page = await figma.getNodeByIdAsync(PAGE_ID);
+  await figma.setCurrentPageAsync(page);
+  const styles = await figma.getLocalTextStylesAsync();
+  const byName = Object.fromEntries(styles.map(s => [s.name, s]));
+  const section = await figma.getNodeByIdAsync(COMPONENTS_SECTION);
+  if (!section) throw new Error('Components section not found');
+  const inComponent = n => { for (let p = n.parent; p; p = p.parent) { if (p.type === 'INSTANCE') return false; if (p.type === 'COMPONENT') return true; } return false; };
+  const texts = section.findAll(n => n.type === 'TEXT' && typeof n.fontName === 'object' && n.fontName.family === 'Inter' && inComponent(n));
+  let done = 0; const skipped = [];
+  for (const t of texts) {
+    const key = t.fontName.style + '/' + t.fontSize;
+    const style = byName[PLACEHOLDER_MAP[key]];
+    if (!style) { skipped.push(key); continue; }
+    const deco = t.textDecoration;
+    await t.setTextStyleIdAsync(style.id);
+    if (deco !== 'NONE') t.textDecoration = deco;
+    done++;
+  }
+  return `Applied text styles to ${done} component texts` + (skipped.length ? ` (skipped: ${[...new Set(skipped)].join(', ')})` : '') + '.';
+}
+
+const commands = { type: runType, components: runComponents };
 (commands[figma.command] || runType)()
   .then(msg => figma.closePlugin(msg))
   .catch(err => figma.closePlugin('Unbill DS helper: ' + err.message));
