@@ -6,8 +6,6 @@ const PAGE_ID = '1:8336';
 const IDS = {
   typographyFrame: '40000851:3541',
   typographyBody: '40000851:3543',
-  spacingFrame: '40000886:1270',
-  radiusFrame: '40000886:1383',
 };
 const FONTS = {
   Heading: { family: 'Avantt-TRIAL', style: 'SemiBold' },
@@ -39,15 +37,6 @@ async function loadAll() {
   if (missing.length) throw new Error(`Install these fonts on this computer first: ${missing.join(', ')}`);
 }
 
-async function setHeaderTitle(frameId, title) {
-  const frame = await figma.getNodeByIdAsync(frameId);
-  if (!frame) return;
-  const t = frame.findOne(n => n.type === 'TEXT' && n.name === 'Title');
-  if (!t) return;
-  await Promise.all(t.getRangeAllFontNames(0, t.characters.length).map(f => figma.loadFontAsync(f)));
-  t.characters = title;
-}
-
 async function textStyles() {
   const vars = await figma.variables.getLocalVariablesAsync();
   const v = name => vars.find(x => x.name === name);
@@ -77,9 +66,17 @@ async function textStyles() {
 }
 
 async function typographyFrame(styles) {
+  const frame = await figma.getNodeByIdAsync(IDS.typographyFrame);
   const body = await figma.getNodeByIdAsync(IDS.typographyBody);
   for (const c of body.children.slice()) c.remove();
+  // Fix the widths first, so every sample wraps at its final width.
+  frame.layoutMode = 'VERTICAL';
+  frame.counterAxisSizingMode = 'FIXED';
+  frame.primaryAxisSizingMode = 'AUTO';
+  frame.resize(1338, frame.height);
   body.layoutMode = 'VERTICAL';
+  body.layoutSizingHorizontal = 'FILL';
+  body.layoutSizingVertical = 'HUG';
   body.itemSpacing = 40;
   body.paddingTop = body.paddingBottom = 56;
   body.paddingLeft = body.paddingRight = 56;
@@ -143,8 +140,6 @@ async function runType() {
   await figma.setCurrentPageAsync(page);
   const styles = await textStyles();
   await typographyFrame(styles);
-  await setHeaderTitle(IDS.spacingFrame, 'spacing');
-  await setHeaderTitle(IDS.radiusFrame, 'border radius');
   return `Created or updated ${styles.length} text styles and the Typography frame.`;
 }
 
