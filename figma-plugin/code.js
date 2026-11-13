@@ -243,17 +243,20 @@ async function runPage() {
   }
   // Billing switch, tabs, input
   for (const n of root.findAll(n => n.type === 'FRAME' && n.name === 'Payment Mode')) { swapNode(n, variant(C.billingSwitch, 'Value=Monthly').createInstance()); bump('billing-switch'); }
-  for (const n of root.findAll(n => n.type === 'FRAME' && n.name.startsWith('Row – Household'))) {
+  for (const n of root.findAll(n => n.type === 'FRAME' && n.name.startsWith('Row – Household') && n.children.length >= 2)) {
+    if (n.removed) continue;
     const inst = swapNode(n, C.tabs.createInstance());
     inst.paddingTop = inst.paddingBottom = inst.paddingLeft = inst.paddingRight = 0; inst.fills = []; bump('tabs');
   }
   for (const n of root.findAll(n => n.type === 'FRAME' && n.name.startsWith('Stack – Email'))) {
+    if (n.removed) continue;
     const w = n.width; const inst = swapNode(n, variant(C.input, 'State=Active').createInstance()); inst.resize(w, inst.height); bump('input');
   }
   // Old buttons and FAQ items
   const bLabel = propKey(C.button, 'Label'), bArrow = propKey(C.button, 'Show arrow');
   const qKey = propKey(C.faq, 'Question'), aKey = propKey(C.faq, 'Answer');
   for (const old of root.findAll(n => n.type === 'INSTANCE' && !insideInstance(n))) {
+    if (old.removed) continue;
     const main = await old.getMainComponentAsync();
     const setName = main && main.parent && main.parent.type === 'COMPONENT_SET' ? main.parent.name : '';
     if (setName === 'button' && /^type=/.test(main.name)) {
@@ -274,22 +277,31 @@ async function runPage() {
       swapNode(old, inst); inst.resize(w, inst.height); bump('faq-item');
     }
   }
-  // Badges
+  // Badges: pill-shaped frames holding a single label
   const vKey = propKey(C.badge, 'Label');
-  for (const n of root.findAll(n => n.type === 'FRAME' && /^Badge – /.test(n.name) && !insideInstance(n))) {
-    const t = texts(n); if (t.length !== 1) continue;
+  const isPill = n => n.type === 'FRAME' && !insideInstance(n) && n.children.length === 1 && n.children[0].type === 'TEXT'
+    && n.height >= 28 && n.height <= 48 && typeof n.topLeftRadius === 'number' && n.topLeftRadius >= 100
+    && n.name !== 'Tab Trigger' && Array.isArray(n.fills) && n.fills.some(f => f.type === 'SOLID' && f.visible !== false);
+  for (const n of root.findAll(isPill)) {
+    if (n.removed) continue;
+    const p = n.fills.find(f => f.type === 'SOLID' && f.visible !== false); const c = p.color;
     const L = lum(n);
-    const v = L < 0.25 ? 'Dark' : L > 0.97 ? 'Light' : 'Muted';
+    const v = (c.g > 0.85 && c.b < 0.3) ? 'Green' : (c.b > 0.8 && c.r < 0.3) ? 'Blue' : L < 0.25 ? 'Dark' : L > 0.97 ? 'Light' : 'Muted';
     const size = n.height <= 32 ? 'S' : 'M';
+    const t = n.children[0];
+    const deco = t.textDecoration;
     const inst = variant(C.badge, `Variant=${v}, Size=${size}`).createInstance();
-    inst.setProperties({ [vKey]: t[0].characters });
-    swapNode(n, inst); bump('badge');
+    inst.setProperties({ [vKey]: t.characters });
+    swapNode(n, inst);
+    if (deco === 'STRIKETHROUGH') { const it = inst.findOne(k => k.type === 'TEXT'); if (it) it.textDecoration = 'STRIKETHROUGH'; }
+    bump('badge');
   }
   // Text styles on everything else
   const styles = await figma.getLocalTextStylesAsync();
   const byName = Object.fromEntries(styles.map(s => [s.name, s]));
   const failed = {};
   for (const t of root.findAll(n => n.type === 'TEXT' && !insideInstance(n))) {
+    if (t.removed) continue;
     const name = styleNameFor(t); const st = byName[name];
     if (!st) { failed['no style ' + name] = (failed['no style ' + name] || 0) + 1; continue; }
     if (t.textStyleId === st.id) continue;
